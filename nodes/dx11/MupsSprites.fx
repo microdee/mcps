@@ -11,7 +11,7 @@ float4 c <bool color=true;> = 1;
 StructuredBuffer<float> mupsData;
 float TailLength=.5;
 float radius = 0.05f;
-float innerradius = 0.05f;
+float innerradius = 0;
  
 float3 g_positions[4]:IMMUTABLE ={float3( -1, 1, 0 ),float3( 1, 1, 0 ),float3( -1, -1, 0 ),float3( 1, -1, 0 ),};
 float2 g_texcoords[4]:IMMUTABLE ={float2(0,1), float2(1,1),float2(0,0),float2(1,0),};
