@@ -6,7 +6,6 @@ float4 Operation = 0;
 float3 InvVolumeSize : INVTARGETSIZE;
 float Multiplier = 1; 
 
-
 SamplerState s0
 {
 	Filter=MIN_MAG_MIP_LINEAR;
@@ -20,18 +19,7 @@ struct csin
 	uint3 GTID : SV_GroupThreadID;
 	uint3 GID : SV_GroupID;
 };
-float blend(float a, float b, float s, float mass)
-{
-	float res = b;
-	if(floor(s)==1) res = U(a,b);
-	if(floor(s)==2) res = S(a,b);
-	if(floor(s)==3) res = I(a,b);
-	if(floor(s)==4) res = sU(a,b,mass);
-	if(floor(s)==5) res = sS(a,b,mass/4);
-	if(floor(s)==6) res = sI(a,b,mass/4);
-	if(floor(s)==7) res = a;
-	return res;
-}
+
 [numthreads(8, 8, 8)]
 void CS_c1(csin input)
 {

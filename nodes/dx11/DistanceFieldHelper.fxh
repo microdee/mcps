@@ -24,6 +24,19 @@ float sI( float a, float b, float k )
     return log( exp(a/k) + exp(b/k) ) * k;
 }
 
+float blend(float a, float b, float s, float mass)
+{
+	float res = b;
+	if(floor(s)==1) res = U(a,b);
+	if(floor(s)==2) res = S(a,b);
+	if(floor(s)==3) res = I(a,b);
+	if(floor(s)==4) res = sU(a,b,mass);
+	if(floor(s)==5) res = sS(a,b,mass/4);
+	if(floor(s)==6) res = sI(a,b,mass/4);
+	if(floor(s)==7) res = a;
+	return res;
+}
+
 // primitives
 float sphere(float3 p, float r) {return length(p)-r;}
 float sphere(float3 p, float r, float n) {return lengthn(p,n)-r;}
