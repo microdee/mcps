@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="D:\vvvv\KIBU.EB\PostProc\PostProcess\SSAO\SSAO.v4p" systemname="SSAO" filename="D:\projects\techf\current\PostProcess\SSAO.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
+   <PATCH nodename="E:\vvvv\mups\mups\girlpower\SSAO\SSAO.v4p" systemname="SSAO" filename="D:\projects\techf\current\PostProcess\SSAO.v4p">
    <NODE id="0" nodename="IOBox (Node)" componentmode="InABox" systemname="IOBox (Node)">
    <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
@@ -97,7 +97,7 @@
    </PIN>
    </NODE>
    <NODE id="5" nodename="IOBox (Value Advanced)" componentmode="InABox" systemname="IOBox (Value Advanced)">
-   <PIN pinname="Y Input Value" slicecount="1" values="1.51">
+   <PIN pinname="Y Input Value" slicecount="1" values="0.04">
    </PIN>
    <BOUNDS type="Node" left="4095" top="3045" width="0" height="0">
    </BOUNDS>
@@ -111,7 +111,7 @@
    </PIN>
    </NODE>
    <NODE id="6" nodename="IOBox (Value Advanced)" componentmode="InABox" systemname="IOBox (Value Advanced)">
-   <PIN pinname="Y Input Value" slicecount="1" values="4">
+   <PIN pinname="Y Input Value" slicecount="1" values="2">
    </PIN>
    <BOUNDS type="Node" left="4365" top="3585" width="0" height="0">
    </BOUNDS>
@@ -281,7 +281,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6720" top="4455" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0.27">
+   <PIN pinname="Y Input Value" slicecount="1" values="2">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -570,4 +570,8 @@
    </LINK>
    <LINK srcnodeid="43" srcpinname="Output Node" dstnodeid="25" dstpinname="Sample Control">
    </LINK>
+   <PACK Name="ImagePack" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
    </PATCH>
