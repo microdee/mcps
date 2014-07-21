@@ -1,10 +1,9 @@
 RWStructuredBuffer<float> Outbuf : BACKBUFFER;
 #include "mups.fxh"
-StructuredBuffer<float4> ColorFrom;
-StructuredBuffer<float4> ColorTo;
-StructuredBuffer<float2> SizeFromTo;
+StructuredBuffer<float2> SourceFromTo;
 StructuredBuffer<float2> AgeFromTo;
-float FadePower = 1;
+StructuredBuffer<uint> Destination;
+float FaderPow = 1;
 
 struct csin
 {
@@ -15,23 +14,18 @@ struct csin
 
 void main(csin input)
 {
-	uint ColFC, ColTC, SizFC, AgeFC, Str;
-	ColorFrom.GetDimensions(ColFC, Str);
-	ColorTo.GetDimensions(ColTC, Str);
-	SizeFromTo.GetDimensions(SizFC, Str);
+	uint sftC, dstC, AgeFC, Str;
+	SourceFromTo.GetDimensions(sftC, Str);
+	Destination.GetDimensions(dstC, Str);
 	AgeFromTo.GetDimensions(AgeFC, Str);
 	
 	uint ii=input.DTID.x;
+	uint id=input.DTID.y;
 	uint2 ai = mups_age(ii);
-	float fader = saturate((Outbuf[ai.y]-AgeFromTo[ii%AgeFC].x)/(AgeFromTo[ii%AgeFC].y-AgeFromTo[ii%AgeFC].x));
-	if((ColFC>0) && (ColTC>0))
-	{
-		uint4 ci = mups_color(ii);
-		for(uint i=0; i<4; i++)
-			Outbuf[ci[i]] = smoothstep(ColorFrom[ii%ColFC][i],ColorTo[ii%ColTC][i],pow(fader,FadePower));
-	}
-	if(SizFC>0)
-		Outbuf[mups_size(ii)] = smoothstep(SizeFromTo[ii%SizFC].x,SizeFromTo[ii%SizFC].y,pow(fader,FadePower));
+	float fader = saturate((Outbuf[ai.y]-AgeFromTo[id%AgeFC].x)/(AgeFromTo[id%AgeFC].y-AgeFromTo[id%AgeFC].x));
+	
+	Outbuf[ii*pelsize + Destination[id%dstC]] = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
+	
 }
 
 [numthreads(1, 1, 1)]
