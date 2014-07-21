@@ -10,6 +10,8 @@ StructuredBuffer<uint> Destination;
 
 float NormalToVelocity = 0;
 int NormalOffset = 12;
+float VelocityFromPrevPos = 0;
+int PrevPosOffset = 64;
 
 Texture2D ColorTex;
 Texture2D CtrlTex;
@@ -34,6 +36,7 @@ struct csin
 struct vertex
 {
 	float3 pos;
+	float3 ppos;
 	float3 norm;
 	float2 txcd;
 };
@@ -63,20 +66,25 @@ void main(csin input, uint ThreadCount)
 		vert[i].pos = asfloat(GeometryBuf.Load3((trii+i)*Strides));
 		vert[i].norm = asfloat(GeometryBuf.Load3((trii+i)*Strides+NormalOffset));
 		vert[i].txcd = asfloat(GeometryBuf.Load2((trii+i)*Strides+TexCdOffset));
+		vert[i].ppos = asfloat(GeometryBuf.Load3((trii+i)*Strides+PrevPosOffset));
 	}
 	float3 vweight = VertexWeight[pii];
 	float vweightSum = vweight.x + vweight.y + vweight.z;
 	float3 tpos = 0;
+	float3 tppos = 0;
 	float3 tnorm = 0;
 	float2 ttxcd = 0;
 	for(uint i=0; i<3; i++)
 	{
 		tpos += vert[i].pos * vweight[i];
+		tppos += vert[i].ppos * vweight[i];
 		tnorm += vert[i].norm * vweight[i];
 		ttxcd += vert[i].txcd * vweight[i];
 	}
 	tpos /= vweightSum;
 	tpos = mul(float4(tpos,1),tW).xyz;
+	tppos /= vweightSum;
+	tppos = mul(float4(tppos,1),tW).xyz;
 	tnorm /= vweightSum;
 	tnorm = mul(float4(tpos,0),tW).xyz;
 	ttxcd /= vweightSum;
@@ -89,7 +97,11 @@ void main(csin input, uint ThreadCount)
 		for(uint i=0; i<3; i++) Outbuf[pi[i]] = tpos[i];
 		
 		uint4 vi = mups_velocity(ii);
-		for(uint i=0; i<3; i++) Outbuf[vi[i]] = tnorm[i] * NormalToVelocity;
+		for(uint i=0; i<3; i++) 
+		{
+			Outbuf[vi[i]] = tnorm[i] * NormalToVelocity;
+			Outbuf[vi[i]] += ((tpos[i]-tppos[i]) * VelocityFromPrevPos) / Time.y;
+		}
 		Outbuf[vi.w] = 1;
 		
 		uint4 ci = mups_color(ii);
