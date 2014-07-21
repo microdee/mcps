@@ -1,0 +1,19 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
+   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\girlpower\DistanceFields\BasicDF.v4p" systemname="BasicDF" filename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\girlpower\DistanceFields\BasicDF.v4p">
+   <BOUNDS type="Window" left="2910" top="3285" width="11760" height="8820">
+   </BOUNDS>
+   <PACK Name="ImagePack" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
+   <NODE systemname="DFPrimitive (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\DFPrimitive.fx" nodename="DFPrimitive (DX11.Effect)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="3930" top="2925" width="1350" height="270">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="SampleDF (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\SampleDF.fx" nodename="SampleDF (DX11.Effect)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="6165" top="2820" width="1350" height="270">
+   </BOUNDS>
+   <PIN pinname="Technique" slicecount="1" values="Copy1">
+   </PIN>
+   </NODE>
+   </PATCH>
