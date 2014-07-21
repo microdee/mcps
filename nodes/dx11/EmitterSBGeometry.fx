@@ -16,6 +16,7 @@ SamplerState s0 <bool visible=false;string uiname="Sampler";>
 	{Filter=MIN_MAG_MIP_LINEAR;AddressU=CLAMP;AddressV=CLAMP;};
 
 StructuredBuffer<uint> CtrlTexSrc;
+float4x4 CtrlTexTr;
 StructuredBuffer<uint> CtrlTexDst;
 
 StructuredBuffer<uint> TriangleID;
@@ -101,6 +102,8 @@ void main(csin input, uint ThreadCount)
 			uint txii = max(input.DTID.y-1,0);
 			uint cid = CtrlTexSrc[txii%CtrlSrcC];
 			float4 ctrl = CtrlTex.SampleLevel(s0, float3(ttxcd, floor(cid/4)), 0);
+			ctrl.rgb = mul(float4(ctrl.rgb,1),CtrlTexTr).xyz;
+			
 			Outbuf[ii*pelsize+CtrlTexDst[txii]] = ctrl[cid%4];
 		}
 	}
