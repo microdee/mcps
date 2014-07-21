@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta31.2.dtd" >
-   <PATCH nodename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mre.mdmod.2\nodes\Modules\Segment (DX11.Geometry mups).v4p" systemname="Segment (DX11.Geometry mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mre.mdmod.2\nodes\Modules\Segment (DX11.Geometry mups).v4p">
-   <BOUNDS type="Window" left="13605" top="0" width="6630" height="15750">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
+   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\modules\Segment (DX11.Geometry mups).v4p" systemname="Segment (DX11.Geometry mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mre.mdmod.2\nodes\Modules\Segment (DX11.Geometry mups).v4p">
+   <BOUNDS type="Window" left="11130" top="1350" width="13170" height="13335">
    </BOUNDS>
    <NODE systemname="LinearSpread (Spreads)" nodename="LinearSpread (Spreads)" componentmode="Hidden" id="4">
    <BOUNDS type="Node" left="1545" top="1335" width="100" height="100">
@@ -17,7 +17,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="930" top="285" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="33">
+   <PIN pinname="Y Input Value" slicecount="1" values="5">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -55,9 +55,9 @@
    <LINK srcnodeid="5" srcpinname="Y Output Value" dstnodeid="7" dstpinname="Vertex Count">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="8" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1035" top="2685" width="780" height="240">
+   <BOUNDS type="Box" left="1395" top="2670" width="780" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="1035" top="2685" width="0" height="0">
+   <BOUNDS type="Node" left="1395" top="2670" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="100">
    </PIN>
@@ -101,9 +101,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="19" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="915" top="8190" width="795" height="240">
+   <BOUNDS type="Box" left="915" top="8790" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="915" top="8190" width="0" height="0">
+   <BOUNDS type="Node" left="915" top="8790" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Geometry Out|">
    </PIN>
@@ -111,7 +111,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Topology (DX11.Geometry)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Topology (DX11.Geometry)" componentmode="Hidden" id="21">
-   <BOUNDS type="Node" left="915" top="7560" width="100" height="100">
+   <BOUNDS type="Node" left="915" top="8160" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry In" visible="1" slicecount="1" values="||">
    </PIN>
@@ -121,9 +121,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="22" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="1260" top="7230" width="1260" height="240">
+   <BOUNDS type="Box" left="1260" top="7830" width="1260" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="1260" top="7230" width="0" height="0">
+   <BOUNDS type="Node" left="1260" top="7830" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" values="TriangleList">
    </PIN>
@@ -133,7 +133,7 @@
    <LINK srcnodeid="21" srcpinname="Geometry Out" dstnodeid="19" dstpinname="Input Node">
    </LINK>
    <NODE systemname="GetMaxElement (DX11.Geometry GeomFX)" filename="%VVVV%\packs\mre.mdmod.2\nodes\modules\GetMaxElement (DX11.Geometry GeomFX).v4p" nodename="GetMaxElement (DX11.Geometry GeomFX)" componentmode="Hidden" id="29">
-   <BOUNDS type="Node" left="3525" top="7170" width="100" height="100">
+   <BOUNDS type="Node" left="3525" top="7770" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Query Source" visible="1" slicecount="1" values="||">
    </PIN>
@@ -149,7 +149,7 @@
    </PIN>
    </NODE>
    <NODE systemname="JoinSegmentTex (DX11.GeomFX)" filename="%VVVV%\packs\mre.mdmod.2\nodes\geom11\JoinSegmentTex.gsfx" nodename="JoinSegmentTex (DX11.GeomFX)" componentmode="Hidden" id="10">
-   <BOUNDS type="Node" left="915" top="6930" width="1950" height="270">
+   <BOUNDS type="Node" left="915" top="6930" width="2100" height="270">
    </BOUNDS>
    <PIN pinname="Technique">
    </PIN>
@@ -179,6 +179,12 @@
    </PIN>
    <PIN pinname="CurvaturePowP" visible="1" slicecount="1" values="||">
    </PIN>
+   <PIN pinname="Custom Semantics" visible="1" pintype="Input" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="MupsData" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="PrevMupsData" slicecount="1" visible="1" values="||">
+   </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Geometry Out" dstnodeid="10" dstpinname="Geometry In">
    </LINK>
@@ -195,49 +201,23 @@
    <LINK srcnodeid="83" srcpinname="Output Enum" dstnodeid="10" dstpinname="Technique">
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="85" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="1215" top="4920" width="795" height="240">
+   <BOUNDS type="Box" left="1095" top="4620" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="1215" top="4920" width="0" height="0">
+   <BOUNDS type="Node" left="1095" top="4620" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="MupsData">
    </PIN>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="85" srcpinname="Output Node" dstnodeid="10" dstpinname="MupsData">
    </LINK>
-   <NODE nodename="IOBox (Node)" componentmode="InABox" id="86" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="1380" top="5505" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="1380" top="5505" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input Node" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="PrevMupsData">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="86" srcpinname="Output Node" dstnodeid="10" dstpinname="PrevMupsData">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="87" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1080" top="4065" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="1080" top="4065" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="27">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="ElementSize">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="87" srcpinname="Y Output Value" dstnodeid="10" dstpinname="ElementSize">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="88" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3510" top="8130" width="795" height="240">
+   <BOUNDS type="Box" left="3510" top="8730" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="3510" top="8130" width="0" height="0">
+   <BOUNDS type="Node" left="3510" top="8730" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -249,5 +229,71 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="29" srcpinname="Output" dstnodeid="88" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="89" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="3885" top="5475" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3885" top="5475" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Mups RenderSemantics|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="89" srcpinname="Output Node" dstnodeid="10" dstpinname="Custom Semantics">
+   </LINK>
+   <PACK Name="ImagePack" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
+   <NODE systemname="FrameDelay (DX11.Buffer Value)" filename="%VVVV%\packs\mups\nodes\modules\FrameDelay (DX11.Buffer Value).v4p" nodename="FrameDelay (DX11.Buffer Value)" componentmode="Hidden" id="90">
+   <BOUNDS type="Node" left="1215" top="5580" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Element Count" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="91" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2415" top="4605" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2415" top="4605" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="28">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Element Size|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="91" srcpinname="Y Output Value" dstnodeid="90" dstpinname="Element Size">
+   </LINK>
+   <LINK srcnodeid="85" srcpinname="Output Node" dstnodeid="90" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="90" srcpinname="Output" dstnodeid="10" dstpinname="PrevMupsData">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Y Output Value" dstnodeid="90" dstpinname="Element Count">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="92" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2895" top="5490" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2895" top="5490" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0.01">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="GrowTime">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="92" srcpinname="Y Output Value" dstnodeid="10" dstpinname="GrowTime">
    </LINK>
    </PATCH>

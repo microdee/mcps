@@ -1,0 +1,345 @@
+#include "mups.fxh"
+#define PI 3.1415926535897932
+#define GEOMVEL "SV_Position.xyz;NORMAL.xyz;TEXCOORD0.xy;COLOR0"
+// mups
+
+StructuredBuffer<float> MupsData;
+StructuredBuffer<float> PrevMupsData;
+/*
+size	offset	name		note
+3		0		position	
+3		3		velocity
+3		7		force
+4		10		color
+1		14		size		Radius1
+2		15		age
+ext:
+4		17		Rotation	Quaternion
+1		21		Radius2
+1		22		Thickness	
+1		23		Depth
+1		24		Cycles
+1		25		Phase
+1		26		Power
+1		27		Curvature
+*/
+//ext:
+float4 mups_Rotation(StructuredBuffer<float> mups, uint i) {return normalize(float4(mups[i*pelsize+17],mups[i*pelsize+18],mups[i*pelsize+19],mups[i*pelsize+20]));}
+float mups_Radius2(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+21];}
+float mups_Thickness(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+22];}
+float mups_Depth(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+23];}
+float mups_Cycles(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+24];}
+float mups_Phase(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+25];}
+float mups_Power(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+26];}
+float mups_Curvature(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+27];}
+
+StructuredBuffer<float> Linear;
+float GrowTime = 1;
+
+struct VsOutGeomvel
+{
+	float4 cpoint : SV_Position;
+	float3 norm : NORMAL;
+	float TexCd : TEXCOORD0;
+	float4 ppos : COLOR0;
+	float3 bufferdata : TEXCOORD1;
+};
+float PowS(float a, float b)
+{
+	return pow(abs(a),b)*sign(a);
+}
+VsOutGeomvel VsGeomvel(uint vi: SV_VertexID, uint ii: SV_InstanceID)
+{
+    VsOutGeomvel output;
+	uint LinearCount, LinearStr;
+	Linear.GetDimensions(LinearCount, LinearStr);
+	
+	//// current ////
+	
+	float3 circpos = 0;
+	float d = gmups_size(MupsData, ii);
+	float phase = mups_Phase(MupsData, ii);
+	float cycles = mups_Cycles(MupsData, ii);
+	float r = Linear[vi]*PI*cycles*2+phase*2*PI;
+	circpos.x = lerp(PowS(cos(r),mups_Power(MupsData, ii))*d, Linear[vi]-.5, mups_Curvature(MupsData, ii));
+	circpos.y = lerp(PowS(sin(r),mups_Power(MupsData, ii))*d, 0, mups_Curvature(MupsData, ii));
+	circpos.z = 0;
+	float3 norm = 0;
+	norm.x = lerp(cos(r), 0, mups_Curvature(MupsData, ii));
+	norm.y = lerp(sin(r), -1, mups_Curvature(MupsData, ii));
+	
+	//// previous ////
+	float3 pcircpos = 0;
+	float pd = gmups_size(PrevMupsData, ii);
+	float pphase = mups_Phase(PrevMupsData, ii);
+	float pcycles = mups_Cycles(PrevMupsData, ii);
+	float pr = Linear[vi]*PI*pcycles*2+pphase*2*PI;
+	pcircpos.x = lerp(PowS(cos(pr),mups_Power(PrevMupsData, ii))*pd, Linear[vi]-.5, mups_Curvature(PrevMupsData, ii));
+	pcircpos.y = lerp(PowS(sin(pr),mups_Power(PrevMupsData, ii))*pd, 0, mups_Curvature(PrevMupsData, ii));
+	pcircpos.z = 0;
+	
+	//// out ////
+	
+    output.cpoint = float4(circpos,1);
+	output.norm = norm;
+	output.TexCd = Linear[vi];
+	output.ppos = float4(pcircpos,ii);
+	output.bufferdata = float3(pelsize, LinearCount, vi);
+	
+    return output;
+}
+
+struct GsOutGeomvel
+{
+	float4 cpoint : SV_Position;
+	float3 norm : NORMAL;
+	float4 TexCd : TEXCOORD0;
+	float4 ppos : COLOR0;
+};
+
+struct GStmp
+{
+	float3 pos;
+	float2 txcd;
+};
+float4x4 QRotate(float4 q)
+{
+	float4x4 mat = {
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1};
+	mat[0][0] = 1 - 2*q.y*q.y - 2*q.z*q.z;
+	mat[0][1] = 2*q.x*q.y + 2*q.w*q.z;
+	mat[0][2] = 2*q.x*q.z - 2*q.w*q.y;
+	mat[1][0] = 2*q.x*q.y - 2*q.w*q.z;
+	mat[1][1] = 1 - 2*q.x*q.x - 2*q.z*q.z;
+	mat[1][2] = 2*q.y*q.z + 2*q.w*q.x;
+	mat[2][0] = 2*q.x*q.z + 2*q.w*q.y;
+	mat[2][1] = 2*q.y*q.z - 2*q.w*q.x;
+	mat[2][2] = 1 - 2*q.x*q.x - 2*q.y*q.y;
+	return mat;
+}
+[maxvertexcount(14)]
+void GsGeomvel(line VsOutGeomvel input[2], inout TriangleStream<GsOutGeomvel>GSOut)
+{
+	uint ii = input[0].ppos.w;
+	uint s = input[0].bufferdata.x;
+
+	//// current ////
+
+	GStmp evenring[4];
+	// pos
+	evenring[0].pos = input[0].cpoint.xyz;
+	evenring[1].pos = input[0].cpoint.xyz + input[0].norm * mups_Thickness(MupsData, ii);
+	evenring[2].pos = input[0].cpoint.xyz * mups_Radius2(MupsData, ii) + input[0].norm * mups_Thickness(MupsData, ii);
+	evenring[2].pos.z += mups_Depth(MupsData, ii);
+	evenring[3].pos = input[0].cpoint.xyz * mups_Radius2(MupsData, ii);
+	evenring[3].pos.z += mups_Depth(MupsData, ii);
+	// txcd
+	evenring[0].txcd = float2(input[0].TexCd, 0);
+	evenring[1].txcd = float2(input[0].TexCd, 1);
+	evenring[2].txcd = float2(input[0].TexCd, 0);
+	evenring[3].txcd = float2(input[0].TexCd, 1);
+	
+	GStmp oddring[4];
+	// pos
+	oddring[0].pos = input[1].cpoint.xyz;
+	oddring[1].pos = input[1].cpoint.xyz + input[1].norm * mups_Thickness(MupsData, ii);
+	oddring[2].pos = input[1].cpoint.xyz * mups_Radius2(MupsData, ii) + input[1].norm * mups_Thickness(MupsData, ii);
+	oddring[2].pos.z += mups_Depth(MupsData, ii);
+	oddring[3].pos = input[1].cpoint.xyz * mups_Radius2(MupsData, ii);
+	oddring[3].pos.z += mups_Depth(MupsData, ii);
+	// txcd
+	oddring[0].txcd = float2(input[1].TexCd, 0);
+	oddring[1].txcd = float2(input[1].TexCd, 1);
+	oddring[2].txcd = float2(input[1].TexCd, 0);
+	oddring[3].txcd = float2(input[1].TexCd, 1);
+
+	// norm
+	float3 eosnorm = 0;
+	float3 eosnorm0 = evenring[0].pos-evenring[3].pos;
+	float3 eosnorm1 = evenring[0].pos-oddring[3].pos;
+	eosnorm = normalize(cross(eosnorm0,eosnorm1));
+	float3 eisnorm = 0;
+	float3 eisnorm0 = evenring[1].pos-evenring[2].pos;
+	float3 eisnorm1 = evenring[1].pos-oddring[2].pos;
+	eisnorm = normalize(cross(eisnorm0,eisnorm1));
+	float3 efwnorm = 0;
+	float3 efwnorm0 = evenring[0].pos-evenring[1].pos;
+	float3 efwnorm1 = evenring[0].pos-oddring[1].pos;
+	efwnorm = normalize(cross(efwnorm0,efwnorm1));
+	float3 ebwnorm = 0;
+	float3 ebwnorm0 = evenring[2].pos-evenring[3].pos;
+	float3 ebwnorm1 = evenring[2].pos-oddring[3].pos;
+	ebwnorm = normalize(cross(ebwnorm0,ebwnorm1));
+
+	float3 oosnorm = 0;
+	float3 oosnorm0 = oddring[0].pos-oddring[3].pos;
+	float3 oosnorm1 = oddring[0].pos-evenring[3].pos;
+	oosnorm = normalize(cross(oosnorm0,oosnorm1));
+	float3 oisnorm = 0;
+	float3 oisnorm0 = oddring[1].pos-oddring[2].pos;
+	float3 oisnorm1 = oddring[1].pos-evenring[2].pos;
+	oisnorm = normalize(cross(oisnorm0,oisnorm1));
+	float3 ofwnorm = 0;
+	float3 ofwnorm0 = oddring[0].pos-oddring[1].pos;
+	float3 ofwnorm1 = oddring[0].pos-evenring[1].pos;
+	ofwnorm = normalize(cross(ofwnorm0,ofwnorm1));
+	float3 obwnorm = 0;
+	float3 obwnorm0 = oddring[2].pos-oddring[3].pos;
+	float3 obwnorm1 = oddring[2].pos-evenring[3].pos;
+	obwnorm = normalize(cross(obwnorm0,obwnorm1));
+
+	//// previous ////
+
+	float3 pevenring[4];
+	pevenring[0] = input[0].ppos.xyz;
+	pevenring[1] = input[0].ppos.xyz + input[0].norm * mups_Thickness(PrevMupsData, ii);
+	pevenring[2] = input[0].ppos.xyz * mups_Radius2(PrevMupsData, ii) + input[0].norm * mups_Thickness(PrevMupsData, ii);
+	pevenring[2].z += mups_Depth(PrevMupsData, ii);
+	pevenring[3] = input[0].ppos.xyz * mups_Radius2(PrevMupsData, ii);
+	pevenring[3].z += mups_Depth(PrevMupsData, ii);
+	
+	float3 poddring[4];
+	poddring[0] = input[1].ppos.xyz;
+	poddring[1] = input[1].ppos.xyz + input[1].norm * mups_Thickness(PrevMupsData, ii);
+	poddring[2] = input[1].ppos.xyz * mups_Radius2(PrevMupsData, ii) + input[1].norm * mups_Thickness(PrevMupsData, ii);
+	poddring[2].z += mups_Depth(PrevMupsData, ii);
+	poddring[3] = input[1].ppos.xyz * mups_Radius2(PrevMupsData, ii);
+	poddring[3].z += mups_Depth(PrevMupsData, ii);
+	
+	float grow = smoothstep(0,1,saturate(gmups_age(MupsData, ii).y/GrowTime));
+	float pgrow = smoothstep(0,1,saturate(gmups_age(PrevMupsData, ii).y/GrowTime));
+	//// transform ////
+	for(uint i=0; i<4; i++)
+	{
+		evenring[i].pos = mul(float4(evenring[i].pos,1),QRotate(mups_Rotation(MupsData, ii))).xyz;
+		evenring[i].pos *= grow;
+		evenring[i].pos += gmups_position(MupsData, ii);
+		oddring[i].pos = mul(float4(oddring[i].pos,1),QRotate(mups_Rotation(MupsData, ii))).xyz;
+		oddring[i].pos *= grow;
+		oddring[i].pos += gmups_position(MupsData, ii);
+		
+		pevenring[i] = mul(float4(pevenring[i],1),QRotate(mups_Rotation(PrevMupsData, ii))).xyz;
+		pevenring[i] *= pgrow;
+		pevenring[i] += gmups_position(PrevMupsData, ii);
+		poddring[i] = mul(float4(poddring[i],1),QRotate(mups_Rotation(PrevMupsData, ii))).xyz;
+		poddring[i] *= pgrow;
+		poddring[i] += gmups_position(PrevMupsData, ii);
+	}
+	if(gmups_age(MupsData, ii).x == 1)
+	{
+		for(uint i=0; i<4; i++)
+		{
+			pevenring[i] = evenring[i].pos;
+			poddring[i] = oddring[i].pos;
+		}
+	}
+	//// join ////
+
+	GsOutGeomvel v = (GsOutGeomvel)0;
+	GsOutGeomvel vle = (GsOutGeomvel)0;
+	GsOutGeomvel vlo = (GsOutGeomvel)0;
+	// ....
+	// o...
+	v.cpoint = float4(evenring[0].pos,1);
+	v.norm =   (eosnorm+efwnorm)/2;
+	v.TexCd =  float4(evenring[0].txcd,0,1);
+	v.ppos =   float4(pevenring[0],ii);
+	vle = v;
+	GSOut.Append(v);
+	// o...
+	// ....
+	v.cpoint = float4(oddring[0].pos,1);
+	v.norm =   (-oosnorm-ofwnorm)/2;
+	v.TexCd =  float4(oddring[0].txcd,0,1);
+	v.ppos =   float4(poddring[0],ii);
+	vlo = v;
+	GSOut.Append(v);
+	// ....
+	// .o..
+	v.cpoint = float4(evenring[1].pos,1);
+	v.norm =   (eisnorm+efwnorm)/2;
+	v.TexCd =  float4(evenring[1].txcd,0,1);
+	v.ppos =   float4(pevenring[1],ii);
+	GSOut.Append(v);
+	// .o..
+	// ....
+	v.cpoint = float4(oddring[1].pos,1);
+	v.norm =   (-oisnorm-ofwnorm)/2;
+	v.TexCd =  float4(oddring[1].txcd,0,1);
+	v.ppos =   float4(poddring[1],ii);
+	GSOut.Append(v);
+	// ....
+	// ..o.
+	v.cpoint = float4(evenring[2].pos,1);
+	v.norm =   (eisnorm+ebwnorm)/2;
+	v.TexCd =  float4(evenring[2].txcd,0,1);
+	v.ppos =   float4(pevenring[2],ii);
+	GSOut.Append(v);
+	// ..o.
+	// ....
+	v.cpoint = float4(oddring[2].pos,1);
+	v.norm =   (-oisnorm-obwnorm)/2;
+	v.TexCd =  float4(oddring[2].txcd,0,1);
+	v.ppos =   float4(poddring[2],ii);
+	GSOut.Append(v);
+	// ....
+	// ...o
+	v.cpoint = float4(evenring[3].pos,1);
+	v.norm =   (eosnorm+ebwnorm)/2;
+	v.TexCd =  float4(evenring[3].txcd,0,1);
+	v.ppos =   float4(pevenring[3],ii);
+	GSOut.Append(v);
+	// ...o
+	// ....
+	v.cpoint = float4(oddring[3].pos,1);
+	v.norm =   (-oosnorm-obwnorm)/2;
+	v.TexCd =  float4(oddring[3].txcd,0,1);
+	v.ppos =   float4(poddring[3],ii);
+	GSOut.Append(v);
+	GSOut.Append(vle);
+	GSOut.Append(vlo);
+	GSOut.RestartStrip();
+	if(input[0].bufferdata.z == 0)
+	{
+		float4 jump = float4(1,2,-1,-1);
+		uint wi = 0;
+		for(uint i=0; i<4; i++)
+		{
+			v.cpoint = float4(evenring[wi].pos,1);
+			v.norm =   float3(0,0,1);
+			v.TexCd =  float4(evenring[wi].txcd,0,1);
+			v.ppos =   float4(pevenring[wi],ii);
+			GSOut.Append(v);
+			wi += jump[i];
+		}
+	}
+	if(input[1].bufferdata.z == (input[1].bufferdata.y-1))
+	{
+		float4 jump = float4(1,2,-1,-1);
+		uint wi = 0;
+		for(uint i=0; i<4; i++)
+		{
+			v.cpoint = float4(oddring[wi].pos,1);
+			v.norm =   float3(0,0,1);
+			v.TexCd =  float4(oddring[wi].txcd,0,1);
+			v.ppos =   float4(poddring[wi],ii);
+			GSOut.Append(v);
+			wi += jump[i];
+		}
+	}
+}
+GeometryShader StreamGeomvel = ConstructGSWithSO( CompileShader( gs_5_0, GsGeomvel() ), GEOMVEL );
+technique11 GeomvelLayout
+{
+	pass P0
+	{
+		
+		SetVertexShader( CompileShader( vs_5_0, VsGeomvel() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GsGeomvel() ) );
+	    SetGeometryShader( StreamGeomvel );
+
+	}
+}
