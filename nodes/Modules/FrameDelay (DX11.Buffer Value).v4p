@@ -1,11 +1,11 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta31.2.dtd" >
-   <PATCH nodename="F:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\modules\FrameDelay (DX11.Buffer Value).v4p" systemname="FrameDelay (DX11.Buffer Value)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\FrameDelay (DX11.Buffer Value).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
+   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\modules\FrameDelay (DX11.Buffer Value).v4p" systemname="FrameDelay (DX11.Buffer Value)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\FrameDelay (DX11.Buffer Value).v4p">
    <BOUNDS type="Window" left="615" top="0" width="14640" height="15750">
    </BOUNDS>
    <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="1995" top="9135" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Enabled" visible="1">
+   <PIN pinname="Enabled" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -412,7 +412,7 @@
    <LINKPOINT x="5820" y="4710">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="FrameDelay (Animation)" nodename="FrameDelay (Animation)" componentmode="Hidden" id="38">
+   <NODE systemname="FrameDelay (Animation Legacy)" nodename="FrameDelay (Animation)" componentmode="Hidden" id="38">
    <BOUNDS type="Node" left="5655" top="6840" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output 1" visible="1">
@@ -452,12 +452,6 @@
    </LINK>
    <LINK srcnodeid="40" srcpinname="Output" dstnodeid="35" dstpinname="Enabled">
    </LINK>
-   <LINK srcnodeid="39" srcpinname="Output" dstnodeid="0" dstpinname="Enabled" linkstyle="Bezier">
-   <LINKPOINT x="5100" y="8108">
-   </LINKPOINT>
-   <LINKPOINT x="3030" y="8108">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="42">
    <BOUNDS type="Node" left="5010" top="9270" width="100" height="100">
    </BOUNDS>
@@ -474,8 +468,6 @@
    <PIN pinname="Buffers" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="40" srcpinname="Output" dstnodeid="42" dstpinname="Enabled">
-   </LINK>
    <LINK srcnodeid="1" srcpinname="Layer" dstnodeid="0" dstpinname="Layer">
    </LINK>
    <LINK srcnodeid="35" srcpinname="Layer" dstnodeid="42" dstpinname="Layer">
@@ -541,7 +533,7 @@
    </BOUNDS>
    <PIN pinname="Geometry" visible="1">
    </PIN>
-   <PIN pinname="sel" visible="1">
+   <PIN pinname="sel" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="BInput1" visible="1">
    </PIN>
@@ -550,6 +542,8 @@
    <PIN pinname="Technique" visible="1">
    </PIN>
    <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" slicecount="1" values="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="59" systemname="IOBox (String)" hiddenwhenlocked="1">
@@ -634,12 +628,6 @@
    <LINKPOINT x="2790" y="8790">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="39" srcpinname="Output" dstnodeid="53" dstpinname="sel" linkstyle="Bezier">
-   <LINKPOINT x="5100" y="9450">
-   </LINKPOINT>
-   <LINKPOINT x="3195" y="9450">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="0" srcpinname="Buffers" dstnodeid="53" dstpinname="BInput1" linkstyle="Bezier">
    <LINKPOINT x="2055" y="10598">
    </LINKPOINT>
@@ -688,4 +676,10 @@
    </LINK>
    <LINK srcnodeid="38" srcpinname="Output 1" dstnodeid="39" dstpinname="Input">
    </LINK>
+   <LINK srcnodeid="38" srcpinname="Output 1" dstnodeid="53" dstpinname="sel">
+   </LINK>
+   <PACK Name="ImagePack" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
    </PATCH>
