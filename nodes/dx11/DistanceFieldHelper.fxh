@@ -88,3 +88,29 @@ float capsule( float3 p, float3 a, float3 b, float r, float n)
     float h = clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
     return lengthn(pa - ba*h, n) - r;
 }
+
+// interface for distance function
+/*
+	"uint i" attribute recommended structure:
+	.x: Particle ID
+	.y: Iteration count
+	.z: Primitive Property buffer size
+	.w: Operation Property buffer size
+*/
+interface DFInterface
+{
+	float df(float initd, float3 p, uint4 i);
+};
+
+// calculate normals
+float3 CalcNorm(float initd, float3 p, uint4 i, float width, DFInterface idf)
+{
+	float3 grad;
+	grad.x = idf.df(initd, p + float3( width, 0, 0), i) -
+	         idf.df(initd, p + float3(-width, 0, 0), i);
+	grad.y = idf.df(initd, p + float3( 0, width, 0), i) -
+	         idf.df(initd, p + float3( 0,-width, 0), i);
+	grad.z = idf.df(initd, p + float3( 0, 0, width), i) -
+	         idf.df(initd, p + float3( 0, 0,-width), i);
+	return normalize(grad);
+};
