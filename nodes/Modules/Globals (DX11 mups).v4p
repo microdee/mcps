@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\modules\Globals (DX11 mups).v4p" systemname="Globals (DX11 mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\Globals (DX11 mups).v4p">
+   <PATCH nodename="E:\vvvv\mups\mups\nodes\modules\Globals (DX11 mups).v4p" systemname="Globals (DX11 mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\Globals (DX11 mups).v4p">
    <BOUNDS type="Window" left="11415" top="1740" width="15780" height="11955">
    </BOUNDS>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="6">
@@ -139,7 +139,7 @@
    </PIN>
    </NODE>
    <NODE systemname="FrameDifference (Animation)" nodename="FrameDifference (Animation)" componentmode="Hidden" id="63">
-   <BOUNDS type="Node" left="8310" top="3255" width="100" height="100">
+   <BOUNDS type="Node" left="8175" top="3255" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="49.4121415175032">
    </PIN>
@@ -248,32 +248,6 @@
    </NODE>
    <LINK srcnodeid="66" srcpinname="Output" dstnodeid="70" dstpinname="X">
    </LINK>
-   <NODE systemname="Counter (Animation)" nodename="Counter (Animation)" componentmode="Hidden" id="73">
-   <BOUNDS type="Node" left="9540" top="5595" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Maximum" visible="1">
-   </PIN>
-   <PIN pinname="Increment" visible="1">
-   </PIN>
-   <PIN pinname="Up" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Subtract (Value)" nodename="Subtract (Value)" componentmode="Hidden" id="74">
-   <BOUNDS type="Node" left="10050" top="4995" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input 1" visible="1" slicecount="1" values="1000">
-   </PIN>
-   <PIN pinname="Input 2" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Input Count" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Input 3" slicecount="1" values="1">
-   </PIN>
-   </NODE>
    <NODE systemname="Add (Value Spectral)" nodename="Add (Value Spectral)" componentmode="Hidden" id="75">
    <BOUNDS type="Node" left="10185" top="3300" width="100" height="100">
    </BOUNDS>
@@ -300,10 +274,8 @@
    </NODE>
    <LINK srcnodeid="76" srcpinname="Y Output Value" dstnodeid="75" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="75" srcpinname="Output" dstnodeid="73" dstpinname="Increment">
-   </LINK>
    <NODE systemname="NOT (Boolean)" nodename="NOT (Boolean)" componentmode="Hidden" id="79">
-   <BOUNDS type="Node" left="9525" top="4320" width="100" height="100">
+   <BOUNDS type="Node" left="9435" top="4245" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -311,8 +283,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="79" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="79" srcpinname="Output" dstnodeid="73" dstpinname="Up">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="80" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="11910" top="2835" width="480" height="480">
@@ -333,25 +303,11 @@
    </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
-   </NODE>
-   <LINK srcnodeid="80" srcpinname="Y Output Value" dstnodeid="73" dstpinname="Reset">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="84" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9630" top="6195" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="9630" top="6195" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="73" srcpinname="Output" dstnodeid="84" dstpinname="Y Input Value">
-   </LINK>
    <NODE systemname="SequentialAdd (Value)" filename="..\..\..\..\..\nodes\plugins\ValueSequentialAdd\ValueSequentialAdd.csproj" nodename="SequentialAdd (Value)" componentmode="Hidden" id="85">
-   <BOUNDS type="Node" left="11190" top="5340" width="100" height="100">
+   <BOUNDS type="Node" left="11415" top="5550" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -394,8 +350,6 @@
    <BOUNDS type="Box" left="945" top="7290">
    </BOUNDS>
    </NODE>
-   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="74" dstpinname="Input 1">
-   </LINK>
    <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="88" dstpinname="Input">
    </LINK>
    <NODE id="88" componentmode="Hidden" systemname="CalculateThreadCount (Value mups)" filename="%VVVV%\packs\mups\nodes\Modules\CalculateThreadCount (Value mups).v4p" nodename="%VVVV%\packs\mups\nodes\Modules\CalculateThreadCount (Value mups).v4p" hiddenwhenlocked="0" managers="">
@@ -607,8 +561,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="70" srcpinname="XY" dstnodeid="64" dstpinname="InputXY">
-   </LINK>
-   <LINK srcnodeid="73" srcpinname="Output" dstnodeid="93" dstpinname="Input">
    </LINK>
    <NODE id="93" systemname="RenderSemantic (DX11.Layer Value)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="RenderSemantic (DX11.Layer Value)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <PIN pinname="Input" visible="1" pintype="Input">
@@ -1026,16 +978,12 @@
    </LINK>
    <LINK srcnodeid="69" srcpinname="Y Output Value" dstnodeid="103" dstpinname="Reset">
    </LINK>
-   <LINK srcnodeid="75" srcpinname="Output" dstnodeid="74" dstpinname="Input 2">
-   </LINK>
    <PACK Name="testPack" Version="0.1.0">
    </PACK>
    <PACK Name="ImagePack" Version="0.1.0">
    </PACK>
    <PACK Name="addonpack" Version="31.9.0">
    </PACK>
-   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="73" dstpinname="Maximum">
-   </LINK>
    <NODE id="100" nodename="IOBox (Value Advanced)" componentmode="InABox" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9540" top="2460" width="435" height="240">
    </BOUNDS>
@@ -1053,7 +1001,7 @@
    </PIN>
    </NODE>
    <NODE id="98" systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden">
-   <BOUNDS type="Node" left="9120" top="3615" width="100" height="100">
+   <BOUNDS type="Node" left="9465" top="3615" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input 2">
    </PIN>
@@ -1081,7 +1029,7 @@
    <LINK srcnodeid="101" srcpinname="Output" dstnodeid="103" dstpinname="Go To Position">
    </LINK>
    <NODE systemname="Max (Value)" nodename="Max (Value)" componentmode="Hidden" id="105">
-   <BOUNDS type="Node" left="9120" top="2910" width="100" height="100">
+   <BOUNDS type="Node" left="9480" top="3195" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input 2" slicecount="1" values="1">
    </PIN>
@@ -1093,5 +1041,75 @@
    <LINK srcnodeid="67" srcpinname="Y Output Value" dstnodeid="105" dstpinname="Input 1">
    </LINK>
    <LINK srcnodeid="105" srcpinname="Output" dstnodeid="98" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Mod (Value)" nodename="Mod (Value)" componentmode="Hidden" id="106">
+   <BOUNDS type="Node" left="9435" top="5670" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="106" dstpinname="Input 2">
+   </LINK>
+   <NODE systemname="FrameDelay (Value)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="FrameDelay (Value)" componentmode="Hidden" id="107">
+   <BOUNDS type="Node" left="10245" top="5895" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output 1" visible="1">
+   </PIN>
+   <PIN pinname="Initialize" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Add (Value)" nodename="Add (Value)" componentmode="Hidden" id="108">
+   <BOUNDS type="Node" left="9435" top="5265" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" id="109">
+   <BOUNDS type="Node" left="9435" top="4830" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="79" srcpinname="Output" dstnodeid="109" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="75" srcpinname="Output" dstnodeid="109" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="108" srcpinname="Output" dstnodeid="106" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="109" srcpinname="Output" dstnodeid="108" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="106" srcpinname="Output" dstnodeid="107" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="107" srcpinname="Output 1" dstnodeid="108" dstpinname="Input 2">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="110" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="9645" top="6555" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9645" top="6555" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="106" srcpinname="Output" dstnodeid="110" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="80" srcpinname="Y Output Value" dstnodeid="107" dstpinname="Initialize">
+   </LINK>
+   <LINK srcnodeid="106" srcpinname="Output" dstnodeid="93" dstpinname="Input">
    </LINK>
    </PATCH>

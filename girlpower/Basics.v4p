@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\girlpower\00-Basic.v4p" systemname="Fountain" filename="F:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\girlpower\Fountain.v4p" locked="0">
-   <BOUNDS type="Window" left="0" top="0" width="17235" height="14085">
+   <PATCH nodename="E:\vvvv\mups\mups\girlpower\Basics.v4p" systemname="Fountain" filename="F:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\girlpower\Fountain.v4p" locked="0">
+   <BOUNDS type="Window" left="315" top="0" width="16920" height="15600">
    </BOUNDS>
    <NODE systemname="Globals (DX11 mups)" filename="%VVVV%\packs\mups\nodes\modules\Globals (DX11 mups).v4p" componentmode="Hidden" id="0" nodename="%VVVV%\packs\mups\nodes\Modules\Globals (DX11 mups).v4p">
    <BOUNDS type="Node" left="2850" top="10740" width="1350" height="270">
@@ -448,26 +448,6 @@
    </LINK>
    <LINK srcnodeid="154" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum background fpsS">
    </LINK>
-   <NODE systemname="SSAO" filename="%VVVV%\packs\mups\girlpower\SSAO\SSAO.v4p" nodename="%VVVV%\packs\mups\girlpower\SSAO\SSAO.v4p" componentmode="Hidden" id="159">
-   <BOUNDS type="Node" left="9195" top="48600" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Position" visible="1">
-   </PIN>
-   <PIN pinname="Normal" visible="1">
-   </PIN>
-   <PIN pinname="View" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Buffers" visible="1">
-   </PIN>
-   <PIN pinname="Radius" slicecount="1" values="0.42">
-   </PIN>
-   <PIN pinname="Amount" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Gamma" slicecount="1" values="1.12">
-   </PIN>
-   </NODE>
    <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="%VVVV%\packs\mrre\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="160">
    <BOUNDS type="Node" left="9180" top="47625" width="100" height="100">
    </BOUNDS>
@@ -524,10 +504,6 @@
    </NODE>
    <LINK srcnodeid="162" srcpinname="Transform Out" dstnodeid="163" dstpinname="ProjectionInverse">
    </LINK>
-   <LINK srcnodeid="160" srcpinname="Texture Out" dstnodeid="159" dstpinname="Position">
-   </LINK>
-   <LINK srcnodeid="163" srcpinname="Texture Out" dstnodeid="159" dstpinname="Normal">
-   </LINK>
    <NODE id="77" systemname="Renderer (DX11 TempTarget)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TempTarget)" componentmode="InAWindow">
    <BOUNDS type="Window" left="11895" top="1440" width="15360" height="10635">
    </BOUNDS>
@@ -569,7 +545,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="8070" top="52965" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="6555" top="1065" width="22050" height="12975">
+   <BOUNDS type="Window" left="32670" top="-1755" width="22050" height="12975">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -1605,11 +1581,11 @@
    <LINK srcnodeid="375" srcpinname="Output" dstnodeid="297" dstpinname="Random Seed">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="378" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="11745" top="44430" width="480" height="480">
+   <BOUNDS type="Box" left="11820" top="44565" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="11745" top="44430" width="0" height="0">
+   <BOUNDS type="Node" left="11820" top="44565" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1619,7 +1595,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <PACK Name="ImagePack" Version="0.1.0">
@@ -2292,54 +2268,10 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE systemname="Camera (Transform Orbit)" filename="%VVVV%\addonpack\lib\nodes\modules\Transform\Camera (Transform Orbit).v4p" nodename="Camera (Transform Orbit)" componentmode="Hidden" id="81">
-   <BOUNDS type="Node" left="10380" top="45330" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="View" visible="1">
-   </PIN>
-   <PIN pinname="Projection" visible="1">
-   </PIN>
-   <PIN pinname="Inital Distance" slicecount="1" values="14.59">
-   </PIN>
-   <PIN pinname="Inverse View" visible="1">
-   </PIN>
-   <PIN pinname="Position" visible="1">
-   </PIN>
-   <PIN pinname="Initial Yaw" slicecount="1" values="-0.11">
-   </PIN>
-   <PIN pinname="Initial Pitch" slicecount="1" values="0.15">
-   </PIN>
-   <PIN pinname="Mouse" visible="1">
-   </PIN>
-   <PIN pinname="Keyboard" visible="1">
-   </PIN>
-   <PIN pinname="Roll" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="162" dstpinname="Source">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="160" dstpinname="Projection">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="View" dstnodeid="160" dstpinname="View">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="163" dstpinname="Projection">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="View" dstnodeid="163" dstpinname="View">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="77" dstpinname="Projection">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="View" dstnodeid="77" dstpinname="View">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="159" dstpinname="Projection">
-   </LINK>
-   <LINK srcnodeid="81" srcpinname="View" dstnodeid="159" dstpinname="View">
-   </LINK>
-   <LINK srcnodeid="378" srcpinname="Y Output Value" dstnodeid="81" dstpinname="Reset">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="432" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="10380" top="44385" width="795" height="720">
+   <BOUNDS type="Box" left="11760" top="43275" width="795" height="720">
    </BOUNDS>
-   <BOUNDS type="Node" left="10380" top="44385" width="0" height="0">
+   <BOUNDS type="Node" left="11760" top="43275" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="3" values="-12.21,0,-3.53">
    </PIN>
@@ -2351,9 +2283,9 @@
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="3">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="432" srcpinname="Y Output Value" dstnodeid="81" dstpinname="Target Initial Position">
-   </LINK>
    <NODE systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" id="433">
    <BOUNDS type="Node" left="10290" top="5235" width="100" height="100">
    </BOUNDS>
@@ -2511,7 +2443,7 @@
    <NODE systemname="Resize (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\modules\Resize (DX11.Texture 2d).v4p" nodename="Resize (DX11.Texture 2d)" componentmode="Hidden" id="171">
    <BOUNDS type="Node" left="9210" top="49455" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Texture In" visible="1">
+   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
@@ -2520,8 +2452,6 @@
    <PIN pinname="Texture SizeXY" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="159" srcpinname="Buffers" dstnodeid="171" dstpinname="Texture In">
-   </LINK>
    <NODE systemname="ColorChannelRemap (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\ColorChannelRemap.tfx" nodename="ColorChannelRemap (DX11.TextureFX)" componentmode="Hidden" id="444">
    <BOUNDS type="Node" left="9210" top="49920" width="100" height="100">
    </BOUNDS>
@@ -2583,5 +2513,155 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="450" srcpinname="Layer" dstnodeid="359" dstpinname="Layer 2">
+   </LINK>
+   <NODE systemname="SSAO" filename="SSAO\SSAO.v4p" nodename="SSAO\SSAO.v4p" componentmode="Hidden" id="159">
+   <BOUNDS type="Node" left="9195" top="48600" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Position" visible="1">
+   </PIN>
+   <PIN pinname="Normal" visible="1">
+   </PIN>
+   <PIN pinname="View" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Buffers" visible="1">
+   </PIN>
+   <PIN pinname="Radius" slicecount="1" values="0.33">
+   </PIN>
+   <PIN pinname="Amount" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Gamma" slicecount="1" values="0.98">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="160" srcpinname="Texture Out" dstnodeid="159" dstpinname="Position">
+   </LINK>
+   <LINK srcnodeid="163" srcpinname="Texture Out" dstnodeid="159" dstpinname="Normal">
+   </LINK>
+   <LINK srcnodeid="159" srcpinname="Buffers" dstnodeid="171" dstpinname="Texture In">
+   </LINK>
+   <NODE systemname="Camera (Transform microdee)" filename="..\..\..\mcropack\VVVV.Packs.mcro\nodes\modules\Camera (Transform microdee).v4p" nodename="Camera (Transform microdee)" componentmode="Hidden" id="81">
+   <BOUNDS type="Node" left="10380" top="45330" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   <PIN pinname="Inital Distance">
+   </PIN>
+   <PIN pinname="Inverse View" visible="1">
+   </PIN>
+   <PIN pinname="Position" visible="1">
+   </PIN>
+   <PIN pinname="Initial Yaw">
+   </PIN>
+   <PIN pinname="Initial Pitch">
+   </PIN>
+   <PIN pinname="Mouse" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Keyboard" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Roll">
+   </PIN>
+   <PIN pinname="Initial Rotation" visible="1" slicecount="3" values="0,0,0">
+   </PIN>
+   <PIN pinname="Initial Interest" visible="1">
+   </PIN>
+   <PIN pinname="Initial Distance" slicecount="1" values="10.96">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="162" dstpinname="Source">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="160" dstpinname="Projection">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="View" dstnodeid="160" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="163" dstpinname="Projection">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="View" dstnodeid="163" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="77" dstpinname="Projection">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="View" dstnodeid="77" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="378" srcpinname="Y Output Value" dstnodeid="81" dstpinname="Reset">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="Projection" dstnodeid="159" dstpinname="Projection">
+   </LINK>
+   <LINK srcnodeid="81" srcpinname="View" dstnodeid="159" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="432" srcpinname="Y Output Value" dstnodeid="81" dstpinname="Initial Interest">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="452" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="10875" top="43350" width="795" height="720">
+   </BOUNDS>
+   <BOUNDS type="Node" left="10875" top="43350" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="3" values="0.13,-0.09,0.04">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="3">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="452" srcpinname="Y Output Value" dstnodeid="81" dstpinname="Initial Rotation">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="453" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="11820" top="44205" width="780" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11820" top="44205" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0.25">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="453" srcpinname="Y Output Value" dstnodeid="81" dstpinname="Initial FOV">
+   </LINK>
+   <NODE systemname="S (Mouse)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="S (Mouse)" componentmode="Hidden" id="454">
+   <BOUNDS type="Node" left="8055" top="53535" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Send String" slicecount="1" values="m">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="164" srcpinname="Mouse State" dstnodeid="454" dstpinname="Input">
+   </LINK>
+   <NODE systemname="S (Keyboard)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="S (Keyboard)" componentmode="Hidden" id="455">
+   <BOUNDS type="Node" left="8310" top="53895" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Send String" slicecount="1" values="k">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="164" srcpinname="Keyboard State" dstnodeid="455" dstpinname="Input">
+   </LINK>
+   <NODE systemname="R (Mouse)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Mouse)" componentmode="Hidden" id="456">
+   <BOUNDS type="Node" left="10560" top="44385" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Receive String" slicecount="1" values="m">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="456" srcpinname="Output" dstnodeid="81" dstpinname="Mouse">
+   </LINK>
+   <NODE systemname="R (Keyboard)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Keyboard)" componentmode="Hidden" id="457">
+   <BOUNDS type="Node" left="10680" top="44820" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Receive String" slicecount="1" values="k">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="457" srcpinname="Output" dstnodeid="81" dstpinname="Keyboard">
    </LINK>
    </PATCH>

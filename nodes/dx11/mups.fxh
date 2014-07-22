@@ -12,7 +12,6 @@ uint3 mups_force(uint i) {return uint3(i*pelsize+7,i*pelsize+8,i*pelsize+9);}
 uint4 mups_color(uint i) {return uint4(i*pelsize+10,i*pelsize+11,i*pelsize+12,i*pelsize+13);}
 uint mups_size(uint i) {return i*pelsize+14;}
 uint2 mups_age(uint i) {return uint2(i*pelsize+15,i*pelsize+16);}
-uint mups_sleep(uint i) {return i*pelsize+17;}
 
 float3 gmups_position(StructuredBuffer<float> mups, uint i) {return float3(mups[mups_position(i).x],mups[mups_position(i).y],mups[mups_position(i).z]);}
 float4 gmups_velocity(StructuredBuffer<float> mups, uint i) {return float4(mups[mups_velocity(i).x],mups[mups_velocity(i).y],mups[mups_velocity(i).z],mups[mups_velocity(i).w]);}
