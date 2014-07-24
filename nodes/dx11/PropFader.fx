@@ -1,5 +1,7 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+
 #include "mups.fxh"
+RWByteAddressBuffer Outbuf : BACKBUFFER;
+
 StructuredBuffer<float2> SourceFromTo;
 StructuredBuffer<float2> AgeFromTo;
 StructuredBuffer<uint> Destination;
@@ -21,11 +23,10 @@ void main(csin input)
 	
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
-	uint2 ai = mups_age(ii);
-	float fader = saturate((Outbuf[ai.y]-AgeFromTo[id%AgeFC].x)/(AgeFromTo[id%AgeFC].y-AgeFromTo[id%AgeFC].x));
+	float fader = saturate((mups_age_load(Outbuf, ii).y-AgeFromTo[id%AgeFC].x)/(AgeFromTo[id%AgeFC].y-AgeFromTo[id%AgeFC].x));
 	
-	Outbuf[ii*pelsize + Destination[id%dstC]] = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
-	
+	float res = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
+	mups_store(Outbuf, ii, Destination[id%dstC]*4, res);
 }
 
 [numthreads(1, 1, 1)]

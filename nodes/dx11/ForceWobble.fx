@@ -2,10 +2,10 @@
 #define MINTWOPI -6.283185307179586476925286766559
 #define TWOPI 6.283185307179586476925286766559
 
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 float Freqs[22] : IMMUTABLE = {17,13,9,23,33,43,5,6,7,93,73,53,43,33,23,53,93,73,13,1,17,8};
 float Amps[5] : IMMUTABLE = {5,5,9,7,2};
-float4x4 FieldTr;
+float4x4 FieldTr : WORLDINVERSE;
 float Distort = 0;
 float Saturation = 0;
 
@@ -36,20 +36,9 @@ void main(csin input)
 {
 	
 	uint ii=input.DTID.x;
-	
-	float3 pos = 0;
-	uint3 pi = mups_position(ii);
-	
-	[unroll]
-	for(uint i=0; i<3; i++)
-		pos[i] = Outbuf[pi[i]];
-	
-	uint3 fi = mups_force(ii);
-	
+	float3 pos = mups_position_load(Outbuf, ii);
 	float3 force = distort(pos, FieldTr, Saturation, Freqs, Amps) * Distort;
-	
-	[unroll]
-	for(uint i=0; i<3; i++) Outbuf[fi[i]] += force[i];
+	mups_force_store(Outbuf, ii, force);
 }
 
 [numthreads(1, 1, 1)]

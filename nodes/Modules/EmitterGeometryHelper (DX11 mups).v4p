@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\Modules\EmitterGeometryHelper (DX11 mups).v4p" systemname="EmitterGeometryHelper (DX11 mups)" filename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\Modules\EmitterGeometryHelper (DX11 mups).v4p">
-   <BOUNDS type="Window" left="32370" top="615" width="9000" height="6000">
+   <PATCH nodename="E:\vvvv\mups\mups\nodes\modules\EmitterGeometryHelper (DX11 mups).v4p" systemname="EmitterGeometryHelper (DX11 mups)" filename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\Modules\EmitterGeometryHelper (DX11 mups).v4p">
+   <BOUNDS type="Window" left="10305" top="5820" width="9000" height="6000">
    </BOUNDS>
    <PACK Name="ImagePack" Version="0.1.0">
    </PACK>
@@ -118,24 +118,6 @@
    </NODE>
    <LINK srcnodeid="5" srcpinname="Output" dstnodeid="8" dstpinname="Random Seed">
    </LINK>
-   <NODE systemname="DynamicBuffer (DX11.Buffer UInt)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer UInt)" componentmode="Hidden" id="4">
-   <BOUNDS type="Node" left="2070" top="3615" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Buffer" visible="1">
-   </PIN>
-   <PIN pinname="Data" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="6" srcpinname="Whole Part" dstnodeid="4" dstpinname="Data">
-   </LINK>
-   <NODE systemname="DynamicBuffer (DX11.Buffer 3d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 3d)" componentmode="Hidden" id="3">
-   <BOUNDS type="Node" left="4170" top="5295" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Buffer" visible="1">
-   </PIN>
-   <PIN pinname="DataXYZ" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="Normalize (3d Vector)" nodename="Normalize (3d Vector)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="4170" top="4710" width="100" height="100">
    </BOUNDS>
@@ -145,8 +127,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="10" srcpinname="Output" dstnodeid="2" dstpinname="XYZ">
-   </LINK>
-   <LINK srcnodeid="2" srcpinname="NormalizedXYZ" dstnodeid="3" dstpinname="DataXYZ">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3645" top="2340" width="795" height="240">
@@ -162,6 +142,8 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Emitting Particle Count|">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="1" values="6">
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="8" dstpinname="Spread Count">
@@ -195,9 +177,9 @@
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="TriangleID">
    </PIN>
+   <PIN pinname="Input Node" slicecount="1" values="||">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="4" srcpinname="Buffer" dstnodeid="14" dstpinname="Input Node">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="15" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="4185" top="5865" width="795" height="240">
    </BOUNDS>
@@ -205,7 +187,23 @@
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="VertexWeight">
    </PIN>
+   <PIN pinname="Input Node" slicecount="1" values="||">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="3" srcpinname="Buffer" dstnodeid="15" dstpinname="Input Node">
+   <NODE systemname="DynamicBuffer (DX11.Buffer UInt)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer UInt)" componentmode="Hidden" id="16">
+   <BOUNDS type="Node" left="2070" top="3615" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Whole Part" dstnodeid="16" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Buffer" dstnodeid="14" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="DynamicBuffer (DX11.Buffer 3d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 3d)" componentmode="Hidden" id="18">
+   <BOUNDS type="Node" left="4170" top="5295" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="NormalizedXYZ" dstnodeid="18" dstpinname="DataXYZ">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Buffer" dstnodeid="15" dstpinname="Input Node">
    </LINK>
    </PATCH>

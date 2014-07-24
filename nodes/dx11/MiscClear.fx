@@ -1,6 +1,6 @@
 #include "mups.fxh"
 
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 StructuredBuffer<float> Source;
 StructuredBuffer<uint> Destination;
 
@@ -16,7 +16,7 @@ void main(csin input)
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
 	
-	Outbuf[ii*pelsize+Destination[id]] = Source[id];
+	mups_store(Outbuf, ii, Destination[id]*4, Source[id]);
 }
 
 [numthreads(1, 1, 1)]

@@ -6,16 +6,80 @@ float2 Time : PS_TIME;
 float EmitCounter : PS_EMITTERCOUNTER;
 StructuredBuffer<uint> EmitCountOffs : PS_EMITTERCOUNTEROFFSET;
 
-uint3 mups_position(uint i) {return uint3(i*pelsize+0,i*pelsize+1,i*pelsize+2);}
-uint4 mups_velocity(uint i) {return uint4(i*pelsize+3,i*pelsize+4,i*pelsize+5,i*pelsize+6);}
-uint3 mups_force(uint i) {return uint3(i*pelsize+7,i*pelsize+8,i*pelsize+9);}
-uint4 mups_color(uint i) {return uint4(i*pelsize+10,i*pelsize+11,i*pelsize+12,i*pelsize+13);}
-uint mups_size(uint i) {return i*pelsize+14;}
-uint2 mups_age(uint i) {return uint2(i*pelsize+15,i*pelsize+16);}
+float3 mups_position_load(RWByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load3( i*pelsize ));}
+float4 mups_velocity_load(RWByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load4( i*pelsize + 12 ));}
+float3 mups_force_load(RWByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load3( i*pelsize + 28 ));}
+float4 mups_color_load(RWByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load4( i*pelsize + 40 ));}
+float mups_size_load(RWByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load( i*pelsize + 56 ));}
+float2 mups_age_load(RWByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load2( i*pelsize + 60 ));}
 
-float3 gmups_position(StructuredBuffer<float> mups, uint i) {return float3(mups[mups_position(i).x],mups[mups_position(i).y],mups[mups_position(i).z]);}
-float4 gmups_velocity(StructuredBuffer<float> mups, uint i) {return float4(mups[mups_velocity(i).x],mups[mups_velocity(i).y],mups[mups_velocity(i).z],mups[mups_velocity(i).w]);}
-float3 gmups_force(StructuredBuffer<float> mups, uint i) {return float3(mups[mups_force(i).x],mups[mups_force(i).y],mups[mups_force(i).z]);}
-float4 gmups_color(StructuredBuffer<float> mups, uint i) {return float4(mups[mups_color(i).x],mups[mups_color(i).y],mups[mups_color(i).z],mups[mups_color(i).w]);}
-float gmups_size(StructuredBuffer<float> mups, uint i) {return mups[mups_size(i).x];}
-float2 gmups_age(StructuredBuffer<float> mups, uint i) {return float2(mups[mups_age(i).x],mups[mups_age(i).y]);}
+float mups_load(RWByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load( i*pelsize + offset ));}
+float2 mups_load2(RWByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load2( i*pelsize + offset ));}
+float3 mups_load3(RWByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load3( i*pelsize + offset ));}
+float4 mups_load4(RWByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load4( i*pelsize + offset ));}
+float4x4 mups_load4x4(RWByteAddressBuffer mupsb, uint i, uint offset)
+{
+	float4x4 tmp = 0;
+	[unroll]
+	for(uint i=0; i<4; i++)
+	{
+		[unroll]
+		for(uint j=0; j<4; j++)
+		{
+			tmp[i][j] = asfloat(mupsb.Load( i*pelsize + offset + i*16+j*4 ));
+		}
+	}
+	return tmp;
+}
+
+float3 mups_position_load(ByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load3( i*pelsize ));}
+float4 mups_velocity_load(ByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load4( i*pelsize + 12 ));}
+float3 mups_force_load(ByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load3( i*pelsize + 28 ));}
+float4 mups_color_load(ByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load4( i*pelsize + 40 ));}
+float mups_size_load(ByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load( i*pelsize + 56 ));}
+float2 mups_age_load(ByteAddressBuffer mupsb, uint i) {return asfloat(mupsb.Load2( i*pelsize + 60 ));}
+
+float mups_load(ByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load( i*pelsize + offset ));}
+float2 mups_load2(ByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load2( i*pelsize + offset ));}
+float3 mups_load3(ByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load3( i*pelsize + offset ));}
+float4 mups_load4(ByteAddressBuffer mupsb, uint i, uint offset) {return asfloat(mupsb.Load4( i*pelsize + offset ));}
+float4x4 mups_load4x4(ByteAddressBuffer mupsb, uint i, uint offset)
+{
+	float4x4 tmp = 0;
+	[unroll]
+	for(uint i=0; i<4; i++)
+	{
+		[unroll]
+		for(uint j=0; j<4; j++)
+		{
+			tmp[i][j] = asfloat(mupsb.Load( i*pelsize + offset + i*16+j*4 ));
+		}
+	}
+	return tmp;
+}
+
+void mups_position_store(RWByteAddressBuffer mupsb, uint i, float3 In) { mupsb.Store3( i*pelsize , asuint(In) ); }
+void mups_velocity_store(RWByteAddressBuffer mupsb, uint i, float4 In) { mupsb.Store4( i*pelsize + 12 , asuint(In) ); }
+void mups_velocity_store(RWByteAddressBuffer mupsb, uint i, float3 In) { mupsb.Store3( i*pelsize + 12 , asuint(In) ); }
+void mups_velocity_store(RWByteAddressBuffer mupsb, uint i, float In) { mupsb.Store( i*pelsize + 24 , asuint(In) ); }
+void mups_force_store(RWByteAddressBuffer mupsb, uint i, float3 In) { mupsb.Store3( i*pelsize + 28 , asuint(In) ); }
+void mups_color_store(RWByteAddressBuffer mupsb, uint i, float4 In) { mupsb.Store4( i*pelsize + 40 , asuint(In) ); }
+void mups_size_store(RWByteAddressBuffer mupsb, uint i, float In) { mupsb.Store( i*pelsize + 56 , asuint(In) ); }
+void mups_age_store(RWByteAddressBuffer mupsb, uint i, float2 In) { mupsb.Store2( i*pelsize + 60 , asuint(In) ); }
+
+void mups_store(RWByteAddressBuffer mupsb, uint i, uint offset, float In) { mupsb.Store( i*pelsize + offset , asuint(In) ); }
+void mups_store(RWByteAddressBuffer mupsb, uint i, uint offset, float2 In) { mupsb.Store2( i*pelsize + offset , asuint(In) ); }
+void mups_store(RWByteAddressBuffer mupsb, uint i, uint offset, float3 In) { mupsb.Store3( i*pelsize + offset , asuint(In) ); }
+void mups_store(RWByteAddressBuffer mupsb, uint i, uint offset, float4 In) { mupsb.Store4( i*pelsize + offset , asuint(In) ); }
+void mups_store(RWByteAddressBuffer mupsb, uint i, uint offset, float4x4 In)
+{
+	[unroll]
+	for(uint i=0; i<4; i++)
+	{
+		[unroll]
+		for(uint j=0; j<4; j++)
+		{
+			mupsb.Store( i*pelsize + offset + i*16+j*4 , asuint(In[i][j]));
+		}
+	}
+}

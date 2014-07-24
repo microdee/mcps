@@ -1,6 +1,6 @@
 #include "mups.fxh"
 
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 
 float3 gravity = {0,-9.80665,0};
 float VelocityDamper = 1;
@@ -19,41 +19,35 @@ struct csin
 void main(csin input)
 {
 	uint ii=input.DTID.x;
-	uint2 ai = mups_age(ii);
-	Outbuf[ai.x]++;
-	Outbuf[ai.y] += Time.y;
+	float2 age = mups_age_load(Outbuf, ii);
+	age.x ++;
+	age.y += Time.y;
+	mups_age_store(Outbuf, ii, age);
 	//bool sleep = Outbuf[mups_sleep(ii)] > SleepThreshold;
 	
 	if(AddVelocity)
 	{
-		uint4 vi = mups_velocity(ii);
+		float4 velocity = mups_velocity_load(Outbuf, ii);
 		if(AddForce)
 		{
-			uint3 fi = mups_force(ii);
-			for(uint i=0; i<3; i++)
-			{
-				Outbuf[fi[i]] += gravity[i];
-				
-				Outbuf[vi[i]] += Outbuf[fi[i]] * Time.y;
-				Outbuf[vi[i]] *= VelocityDamper;
-				Outbuf[vi[i]] *= Outbuf[vi.w];
-			}
+			float3 force = mups_force_load(Outbuf, ii);
+			force += gravity;
+
+			velocity.xyz += force * Time.y;
 		}
-		else
-		{
-			for(uint i=0; i<3; i++)
-			{
-				Outbuf[vi[i]] *= VelocityDamper;
-				Outbuf[vi[i]] *= Outbuf[vi.w];
-			}
-		}
-		uint3 pi = mups_position(ii);
-		for(uint i=0; i<3; i++) Outbuf[pi[i]] += Outbuf[vi[i]] * Time.y;
+
+		float3 pos = mups_position_load(Outbuf, ii);
+		pos += velocity.xyz * Time.y;
+		mups_position_store(Outbuf, ii, pos);
+
+		velocity.xyz *= VelocityDamper * velocity.w;
+		mups_velocity_store(Outbuf, ii, velocity);
 	}
+	/*
 	if(Time.x < ResetAllEps)
 	{
-		for(uint i=0; i<pelsize; i++) Outbuf[ii*pelsize+i] = 0;
-	}
+		for(uint i=0; i < (pelsize/4); i++) mups_store(Outbuf, ii, i*4, 0);
+	}*/
 }
 
 [numthreads(1, 1, 1)]

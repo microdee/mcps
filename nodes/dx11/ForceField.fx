@@ -1,9 +1,10 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+
 #include "mups.fxh"
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 
 Texture3D Field;
 float influance;
-float4x4 InvTransformField;
+float4x4 InvTransformField : WORLDINVERSE;
 
 struct csin
 {
@@ -25,19 +26,13 @@ void main(csin input)
 {	
 	uint ii=input.DTID.x;
 	
-	float3 pos = 0;
-	uint3 pi = mups_position(ii);
-	
-	[unroll]
-	for(uint i=0; i<3; i++)
-		pos[i] = Outbuf[pi[i]];
+	float3 pos = mups_position_load(Outbuf, ii);
+
 	float3 mpos = mul(float4(pos,1),InvTransformField).xyz;
 	mpos += 0.5;
 	float3 dir = Field.SampleLevel(s0, mpos, 0).xyz * influance;
 	
-	uint3 fi = mups_force(ii);
-	[unroll]
-	for(uint i=0; i<3; i++) Outbuf[fi[i]] += dir[i];
+	mups_force_store(Outbuf, ii, dir);
 }
 
 [numthreads(1, 1, 1)]

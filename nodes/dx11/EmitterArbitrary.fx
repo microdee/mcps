@@ -1,5 +1,6 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+
 #include "mups.fxh"
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 StructuredBuffer<float> Source;
 StructuredBuffer<uint> Destination;
 bool ResetColor = false;
@@ -29,26 +30,15 @@ void main(csin input, uint ThreadCount)
 	uint ii = input.DTID.x + EmitCounter + EmitCountOffs[EmitterID];
 	uint pii = input.DTID.x;
 	uint dii = input.DTID.y;
-	uint2 ai = mups_age(ii);
-	Outbuf[ai.x] = 0;
-	Outbuf[ai.y] = 0;
-	
-	if(ResetColor)
-	{
-		uint4 ci = mups_color(ii);
-		for(uint i=0; i<4; i++) Outbuf[ci[i]] = Color[i];
-	}
-	if(ResetVelocity)
-	{
-		uint4 ci = mups_velocity(ii);
-		for(uint i=0; i<4; i++) Outbuf[ci[i]] = Velocity[i];
-	}
-	
-	if(ResetSize)
-		Outbuf[mups_size(ii)] = Size;
+	mups_age_store(Outbuf, ii, 0);
 	
 	uint sii = pii*DstC+dii;
-	Outbuf[ii*pelsize + Destination[dii]] = Source[sii];
+	mups_store(Outbuf, ii, Destination[dii] * 4, Source[sii]);
+	
+	if(ResetColor) mups_color_store(Outbuf, ii, Color);
+	if(ResetVelocity) mups_velocity_store(Outbuf, ii, Velocity);
+	
+	if(ResetSize) mups_size_store(Outbuf, ii, Size);
 }
 
 [numthreads(1, 1, 1)]

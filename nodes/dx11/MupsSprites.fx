@@ -8,7 +8,7 @@ float4x4 tVPI : VIEWPROJECTIONINVERSE;
 Texture2D texture2d;
 
 float4 c <bool color=true;> = 1;
-StructuredBuffer<float> mupsData;
+ByteAddressBuffer mupsData;
 float TailLength=.5;
 float radius = 0.05f;
 float innerradius = 0;
@@ -42,9 +42,7 @@ vs2ps VS(VS_IN In)
 {
     //inititalize all fields of output struct with 0
     vs2ps Out = (vs2ps)0;
-	uint3 pi = mups_position(In.iv);
-	float3 p = 0;
-	for(uint i=0; i<3; i++) p[i] = mupsData[pi[i]];
+	float3 p = mups_position_load(mupsData, In.iv);
 	
 	//float4 po = In.p + float4(PData[In.iv],0);
     Out.PosWVP = float4(p,1);// mul(float4(po.xyz,1),tVP);
@@ -60,9 +58,7 @@ void GS(point vs2ps In[1], inout TriangleStream<vs2ps> SpriteStream)
 	output.iv=In[0].iv;
 	uint iv=In[0].iv;
 	
-	float3 vel=0;
-	uint4 vi = mups_velocity(iv);
-	for(uint i=0; i<3; i++) vel[i] = mupsData[vi[i]] * Time.y;
+	float3 vel = mups_velocity_load(mupsData, iv).xyz * Time.y;
 	
 	float3 camPos=mul(float4(0,0,0,1),tVI).xyz;
 	float3 View = p - camPos;
@@ -74,7 +70,7 @@ void GS(point vs2ps In[1], inout TriangleStream<vs2ps> SpriteStream)
 	
 	//.961*length(mul(float4(In[0].PosW.xyz+upVector,1.0),tV).xy-mul(float4(In[0].PosW.xyz-upVector,1.0),tV).xy);
 	
-	float size=radius*mupsData[mups_size(In[0].iv)];
+	float size=radius * mups_size_load(mupsData, iv);
 	upVector*=size;
 	upVector*=1+TailLength*40*(length(vel));
 	rightVector*=size;
@@ -104,13 +100,13 @@ void GS2d(point vs2ps In[1], inout TriangleStream<vs2ps> SpriteStream)
     // Emit two new triangles
     //
 	uint iv=In[0].iv;
-	float3 vel=0;
-	uint4 vi = mups_velocity(iv);
-	for(uint i=0; i<3; i++) vel[i] = mupsData[vi[i]] * Time.y;
+
+	float3 vel = mups_velocity_load(mupsData, iv).xyz * Time.y;
+
 	float3 camPos=mul(float4(0,0,0,1),tVI).xyz;
 	float3 p=In[0].PosWVP.xyz;
 	float3 View = p - camPos;
-	float size=radius*mupsData[mups_size(In[0].iv)];
+	float size=radius * mups_size_load(mupsData, iv);
     for(int i=0; i<4; i++)
     {
         float3 pos = g_positions[i]*size;
@@ -142,7 +138,7 @@ void GSsprite(point vs2ps In[1], inout TriangleStream<vs2ps> SpriteStream)
     //
     // Emit two new triangles
     //
-	float size=radius*mupsData[mups_size(In[0].iv)];
+	float size=radius * mups_size_load(mupsData, In[0].iv);
     for(int i=0; i<4; i++)
     {
         float3 position = g_positions[i]*size;
@@ -164,8 +160,7 @@ float4 PS_Tex(vs2ps In): SV_Target
 	if(length(In.TexCd.xy-.5)>0.5)discard;
 	if(length(In.TexCd.xy-.5)<innerradius)discard;
 	
-	uint4 ci = mups_color(In.iv);
-	for(uint i=0; i<4; i++) col[i] *= mupsData[ci[i]];
+	col *= mups_color_load(mupsData, In.iv);
 	
 	//col.a=1-2*length(In.TexCd.xy-.5);
 	//col.rgb*=smoothstep(.5,0,length(In.TexCd.xy-.5));

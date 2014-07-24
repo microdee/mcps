@@ -1,5 +1,6 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+
 #include "mups.fxh"
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 
 ByteAddressBuffer IndexBuf;
 StructuredBuffer<float3> GeomPosition;
@@ -48,9 +49,8 @@ void main(csin input, uint ThreadCount)
 	// calculate ID's
 	uint ii=input.DTID.x + EmitCounter + EmitCountOffs[EmitterID];
 	uint pii=input.DTID.x;
-	uint2 ai = mups_age(ii);
-	Outbuf[ai.x] = 0;
-	Outbuf[ai.y] = 0;
+	mups_age_store(Outbuf, ii, 0);
+
 	uint trii = TriangleID[pii]*3;
 	
 	// calculate barycentric
@@ -81,17 +81,10 @@ void main(csin input, uint ThreadCount)
 	// main thread
 	if(input.DTID.y == 0)
 	{
-		float4 col = ColorTex.SampleLevel(s0, ttxcd, 0);
-		uint3 pi = mups_position(ii);
-		for(uint i=0; i<3; i++) Outbuf[pi[i]] = tpos[i];
-		
-		uint4 vi = mups_velocity(ii);
-		for(uint i=0; i<3; i++) Outbuf[vi[i]] = tnorm[i] * NormalToVelocity;
-		Outbuf[vi.w] = 1;
-		
-		uint4 ci = mups_color(ii);
-		for(uint i=0; i<4; i++) Outbuf[ci[i]] = col[i];
-		Outbuf[mups_size(ii)] = 1;
+		mups_position_store(Outbuf, ii, tpos);
+		mups_velocity_store(Outbuf, ii, float4(tnorm * NormalToVelocity, 1));
+		mups_color_store(Outbuf, ii, col);
+		mups_size_store(Outbuf, ii, 1);
 	}
 	
 	// optional texture controlled
@@ -104,7 +97,7 @@ void main(csin input, uint ThreadCount)
 			float4 ctrl = CtrlTex.SampleLevel(s0, float3(ttxcd, floor(cid/4)), 0);
 			ctrl.rgb = mul(float4(ctrl.rgb,1),CtrlTexTr).xyz;
 			
-			Outbuf[ii*pelsize+CtrlTexDst[txii]] = ctrl[cid%4];
+			mups_store(Outbuf, ii, CtrlTexDst[txii] * 4, ctrl[cid%4]);
 		}
 	}
 }

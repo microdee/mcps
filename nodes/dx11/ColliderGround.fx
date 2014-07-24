@@ -1,5 +1,6 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+
 #include "mups.fxh"
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 StructuredBuffer<float4x4> GroundTr;
 StructuredBuffer<float4x4> InvGroundTr;
 Texture2D DirTex;
@@ -23,15 +24,9 @@ void main(csin input)
 	uint ii = input.DTID.x;
 	uint trii = input.DTID.y;
 	
-	float3 cpos = 0;
-	uint3 pi = mups_position(ii);
-	for(uint i=0; i<3; i++)
-		cpos[i] = Outbuf[pi[i]];
+	float3 cpos = mups_position_load(Outbuf, ii);
 	
-	float4 vel = 0;
-	uint4 vi = mups_velocity(ii);
-	for(uint i=0; i<4; i++)
-		vel[i] = Outbuf[vi[i]];
+	float4 vel =  mups_velocity_load(Outbuf, ii);
 	
 	float3 npos = mul(float4(cpos,1),InvGroundTr[trii]).xyz;
 	float3 nvel = mul(float4(vel.xyz,0),InvGroundTr[trii]).xyz;
@@ -42,10 +37,9 @@ void main(csin input)
 		nvel.xyz += (DirTex.SampleLevel(s0, uv, 0).rgb-.5) * DirAm * saturate(nvel.y-1);
 		nvel = mul(float4(nvel,0),GroundTr[trii]).xyz;
 		npos = mul(float4(npos.x,0,npos.z,1),GroundTr[trii]).xyz;
-		for(uint i=0; i<3; i++)
-			Outbuf[pi[i]] = npos[i];
-		for(uint i=0; i<3; i++)
-			Outbuf[vi[i]] = nvel[i];
+
+		mups_position_store(Outbuf, ii, npos);
+		mups_velocity_store(Outbuf, ii, float4(nvel,vel.w));
 	}
 	
 }

@@ -1,5 +1,7 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+
 #include "mups.fxh"
+RWByteAddressBuffer Outbuf : BACKBUFFER;
+
 StructuredBuffer<float3> Position;
 StructuredBuffer<float3> Velocity;
 float VelInfluence = 0;
@@ -20,11 +22,7 @@ void main(csin input)
 	uint ii=input.DTID.x;
 	uint aii=input.DTID.y;
 	
-	float3 pos = 0;
-	uint3 pi = mups_position(ii);
-	[unroll]
-	for(uint i=0; i<3; i++)
-		pos[i] = Outbuf[pi[i]];
+	float3 pos = mups_position_load(Outbuf, ii);
 	
 	float3 avel = Velocity[aii];
 	
@@ -43,10 +41,7 @@ void main(csin input)
 		float3 force = dir*attr;
 		force += cvel;
 		
-		uint3 fi = mups_force(ii);
-		
-		[unroll]
-		for(uint i=0; i<3; i++) Outbuf[fi[i]] += force[i];
+		mups_force_store(Outbuf, ii, force);
 	}
 }
 

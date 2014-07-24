@@ -3,35 +3,40 @@
 #define GEOMVEL "SV_Position.xyz;NORMAL.xyz;TEXCOORD0.xy;COLOR0"
 // mups
 
-StructuredBuffer<float> MupsData;
-StructuredBuffer<float> PrevMupsData;
+ByteAddressBuffer MupsData;
+ByteAddressBuffer PrevMupsData;
+
 /*
-size	offset	name		note
-3		0		position	
-3		3		velocity
-3		7		force
-4		10		color
-1		14		size		Radius1
-2		15		age
+		Offset
+size	F	B		name		note
+3		0	0		position	
+3		3	12		velocity
+3		7	28		force
+4		10	40		color
+1		14	56		size		Radius1
+2		15	60		age
 ext:
-4		17		Rotation	Quaternion
-1		21		Radius2
-1		22		Thickness	
-1		23		Depth
-1		24		Cycles
-1		25		Phase
-1		26		Power
-1		27		Curvature
+4		17	68		Rotation	Quaternion
+1		21	84		Radius2
+1		22	88		Thickness	
+1		23	92		Depth
+1		24	96		Cycles
+1		25	100		Phase
+1		26	104		Power
+1		27	108		Curvature
+
+size:	28f	112b
 */
+
 //ext:
-float4 mups_Rotation(StructuredBuffer<float> mups, uint i) {return normalize(float4(mups[i*pelsize+17],mups[i*pelsize+18],mups[i*pelsize+19],mups[i*pelsize+20]));}
-float mups_Radius2(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+21];}
-float mups_Thickness(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+22];}
-float mups_Depth(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+23];}
-float mups_Cycles(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+24];}
-float mups_Phase(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+25];}
-float mups_Power(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+26];}
-float mups_Curvature(StructuredBuffer<float> mups, uint i) {return mups[i*pelsize+27];}
+float4 mups_Rotation(ByteAddressBuffer mups, uint i) {return mups_load4(mups, i, 68);}
+float mups_Radius2(ByteAddressBuffer mups, uint i) {return mups_load(mups, i, 84);}
+float mups_Thickness(ByteAddressBuffer mups, uint i) {return mups_load(mups, i, 88);}
+float mups_Depth(ByteAddressBuffer mups, uint i) {return mups_load(mups, i, 92);}
+float mups_Cycles(ByteAddressBuffer mups, uint i) {return mups_load(mups, i, 96);}
+float mups_Phase(ByteAddressBuffer mups, uint i) {return mups_load(mups, i, 100);}
+float mups_Power(ByteAddressBuffer mups, uint i) {return mups_load(mups, i, 104);}
+float mups_Curvature(ByteAddressBuffer mups, uint i) {return mups_load(mups, i, 108);}
 
 StructuredBuffer<float> Linear;
 float GrowTime = 1;
@@ -57,7 +62,7 @@ VsOutGeomvel VsGeomvel(uint vi: SV_VertexID, uint ii: SV_InstanceID)
 	//// current ////
 	
 	float3 circpos = 0;
-	float d = gmups_size(MupsData, ii);
+	float d = mups_size_load(MupsData, ii);
 	float phase = mups_Phase(MupsData, ii);
 	float cycles = mups_Cycles(MupsData, ii);
 	float r = Linear[vi]*PI*cycles*2+phase*2*PI;
@@ -70,7 +75,7 @@ VsOutGeomvel VsGeomvel(uint vi: SV_VertexID, uint ii: SV_InstanceID)
 	
 	//// previous ////
 	float3 pcircpos = 0;
-	float pd = gmups_size(PrevMupsData, ii);
+	float pd = mups_size_load(PrevMupsData, ii);
 	float pphase = mups_Phase(PrevMupsData, ii);
 	float pcycles = mups_Cycles(PrevMupsData, ii);
 	float pr = Linear[vi]*PI*pcycles*2+pphase*2*PI;
@@ -209,26 +214,26 @@ void GsGeomvel(line VsOutGeomvel input[2], inout TriangleStream<GsOutGeomvel>GSO
 	poddring[3] = input[1].ppos.xyz * mups_Radius2(PrevMupsData, ii);
 	poddring[3].z += mups_Depth(PrevMupsData, ii);
 	
-	float grow = smoothstep(0,1,saturate(gmups_age(MupsData, ii).y/GrowTime));
-	float pgrow = smoothstep(0,1,saturate(gmups_age(PrevMupsData, ii).y/GrowTime));
+	float grow = smoothstep(0,1,saturate(mups_age_load(MupsData, ii).y/GrowTime));
+	float pgrow = smoothstep(0,1,saturate(mups_age_load(PrevMupsData, ii).y/GrowTime));
 	//// transform ////
 	for(uint i=0; i<4; i++)
 	{
 		evenring[i].pos = mul(float4(evenring[i].pos,1),QRotate(mups_Rotation(MupsData, ii))).xyz;
 		evenring[i].pos *= grow;
-		evenring[i].pos += gmups_position(MupsData, ii);
+		evenring[i].pos += mups_position_load(MupsData, ii);
 		oddring[i].pos = mul(float4(oddring[i].pos,1),QRotate(mups_Rotation(MupsData, ii))).xyz;
 		oddring[i].pos *= grow;
-		oddring[i].pos += gmups_position(MupsData, ii);
+		oddring[i].pos += mups_position_load(MupsData, ii);
 		
 		pevenring[i] = mul(float4(pevenring[i],1),QRotate(mups_Rotation(PrevMupsData, ii))).xyz;
 		pevenring[i] *= pgrow;
-		pevenring[i] += gmups_position(PrevMupsData, ii);
+		pevenring[i] += mups_position_load(PrevMupsData, ii);
 		poddring[i] = mul(float4(poddring[i],1),QRotate(mups_Rotation(PrevMupsData, ii))).xyz;
 		poddring[i] *= pgrow;
-		poddring[i] += gmups_position(PrevMupsData, ii);
+		poddring[i] += mups_position_load(PrevMupsData, ii);
 	}
-	if(gmups_age(MupsData, ii).x == 1)
+	if(mups_age_load(MupsData, ii).x == 1)
 	{
 		for(uint i=0; i<4; i++)
 		{

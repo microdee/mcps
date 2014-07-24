@@ -3,7 +3,7 @@
 #include "DistanceFieldHelper.fxh"
 #include "DistanceFieldPrimitiveSelector.fxh"
 
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 StructuredBuffer<float4> OperationMass;
 // Operation A
 // Operation B
@@ -25,8 +25,6 @@ float SurfaceNormalCalcWidth = 0.1;
 float IsoSurface = 0;
 float Strength = 1;
 float Power = 1;
-
-uint mups_distance(uint i) {return i*pelsize+DistanceAddress;}
 
 float dfiter(float initd, float3 p, uint3 i)
 {
@@ -85,18 +83,16 @@ void main(csin input)
 	
 	uint ii=input.DTID.x;
 	
-	float3 pos = 0;
-	uint3 pi = mups_position(ii);
-	[unroll]
-	for(uint i=0; i<3; i++)
-		pos[i] = Outbuf[pi[i]];
+	float3 pos = mups_position_load(Outbuf, ii);
 	
-	uint di = mups_distance(ii);
-	float initd = Outbuf[di];
+	// load distance from particle
+	float initd = mups_load(Outbuf, ii, DistanceAddress * 4);
 	
 	float3 dir = CalcNorm(initd, pos, uint4(maxc, tc, pc, oc), SurfaceNormalCalcWidth, DF);
 	float ad = DF.df(initd, pos, uint4(maxc, tc, pc, oc));
-	Outbuf[di] = ad;
+
+	// write distance
+	mups_store(Outbuf, ii, DistanceAddress * 4, ad);
 	
 	float r = IsoSurface;
 	float s = Strength;
@@ -106,10 +102,7 @@ void main(csin input)
 		float attr = pows(ad/IsoSurface, p) * -s;
 		float3 force = dir*attr;
 		
-		uint3 fi = mups_force(ii);
-		
-		[unroll]
-		for(uint i=0; i<3; i++) Outbuf[fi[i]] += force[i];
+		mups_force_store(Outbuf, ii, force);
 	}
 }
 
