@@ -1,7 +1,6 @@
 
 StructuredBuffer<float> Prop;
 /*
-	Optional
 	(uint Sel)	(Name)		(Size in floats)	
 	 0			sphere		1
 	 1			sphereN		2
@@ -15,11 +14,135 @@ StructuredBuffer<float> Prop;
 	 9			coneN		3
 	10			capsule		7
 	11			capsuleN	8
-
-	if you want to select primitive type from buffer 
-
-	and 1+ in case of a single call selector (select primitive)
 */
+
+float PSphere(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	return sphere(p,Prop[ii+0]);
+}
+float PSphereN(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	return sphere(p,Prop[ii+0],Prop[ii+1]);
+}
+float PCylinder(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float3 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	cc.z = Prop[ii+2];
+	return cylinder(p,cc);
+}
+float PCylinderN(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float3 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	cc.z = Prop[ii+2];
+	return cylinder(p,cc,Prop[ii+3]);
+}
+float PPlane(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float4 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	cc.z = Prop[ii+2];
+	cc.w = Prop[ii+3];
+	return plane(p,cc);
+}
+float PBox(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float3 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	cc.z = Prop[ii+2];
+	return box(p,cc);
+}
+float PTorus(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float2 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	return torus(p,cc);
+}
+float PTorusN(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float2 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	float2 nn;
+	nn.x = Prop[ii+2];
+	nn.y = Prop[ii+3];
+	return torus(p,cc,nn);
+}
+float PCone(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float2 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	return cone(p,cc);
+}
+float PConeN(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float2 cc;
+	cc.x = Prop[ii+0];
+	cc.y = Prop[ii+1];
+	return cone(p,cc,Prop[ii+2]);
+}
+float PCapsule(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float3 aa;
+	aa.x = Prop[ii+0];
+	aa.y = Prop[ii+1];
+	aa.z = Prop[ii+2];
+	float3 bb;
+	bb.x = Prop[ii+3];
+	bb.y = Prop[ii+4];
+	bb.z = Prop[ii+5];
+	return capsule(p,aa,bb,Prop[ii+6]);
+}
+float PCapsuleN(float3 p, uint PropAddress)
+{
+	uint ii = PropAddress;
+	float3 aa;
+	aa.x = Prop[ii+0];
+	aa.y = Prop[ii+1];
+	aa.z = Prop[ii+2];
+	float3 bb;
+	bb.x = Prop[ii+3];
+	bb.y = Prop[ii+4];
+	bb.z = Prop[ii+5];
+	return capsule(p,aa,bb,Prop[ii+6],Prop[ii+7]);
+}
+
+// selector:
+float Primitive(float3 p, float Select, uint PropAddress)
+{
+	float res = 0;
+	if(floor(Select)==0) res = PSphere(p, PropAddress);
+	if(floor(Select)==1) res = PSphereN(p, PropAddress);
+	if(floor(Select)==2) res = PCylinder(p, PropAddress);
+	if(floor(Select)==3) res = PCylinderN(p, PropAddress);
+	if(floor(Select)==4) res = PPlane(p, PropAddress);
+	if(floor(Select)==5) res = PBox(p, PropAddress);
+	if(floor(Select)==6) res = PTorus(p, PropAddress);
+	if(floor(Select)==7) res = PTorusN(p, PropAddress);
+	if(floor(Select)==8) res = PCone(p, PropAddress);
+	if(floor(Select)==9) res = PConeN(p, PropAddress);
+	if(floor(Select)==10) res = PCapsule(p, PropAddress);
+	if(floor(Select)==11) res = PCapsuleN(p, PropAddress);
+	return res;
+}
 
 interface iPrimitive{
 	float Primitive(float3 p, uint i);
@@ -30,7 +153,7 @@ class iSphere : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		return sphere(p,Prop[ii+0]);
+		return PSphere(p,ii);
 	}
 };
 class iSphereN : iPrimitive{
@@ -38,7 +161,7 @@ class iSphereN : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		return sphere(p,Prop[ii+0],Prop[ii+1]);
+		return PSphereN(p,ii);
 	}
 };
 class iCylinder : iPrimitive{
@@ -46,11 +169,7 @@ class iCylinder : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float3 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		cc.z = Prop[ii+2];
-		return cylinder(p,cc);
+		return PCylinder(p,ii);
 	}
 };
 class iCylinderN : iPrimitive{
@@ -58,11 +177,7 @@ class iCylinderN : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float3 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		cc.z = Prop[ii+2];
-		return cylinder(p,cc,Prop[ii+3]);
+		return PCylinderN(p,ii);
 	}
 };
 class iPlane : iPrimitive{
@@ -70,12 +185,7 @@ class iPlane : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float4 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		cc.z = Prop[ii+2];
-		cc.w = Prop[ii+3];
-		return plane(p,cc);
+		return PPlane(p,ii);
 	}
 };
 class iBox : iPrimitive{
@@ -83,11 +193,7 @@ class iBox : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float3 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		cc.z = Prop[ii+2];
-		return box(p,cc);
+		return PBox(p,ii);
 	}
 };
 class iTorus : iPrimitive{
@@ -95,10 +201,7 @@ class iTorus : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float2 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		return torus(p,cc);
+		return PTorus(p,ii);
 	}
 };
 class iTorusN : iPrimitive{
@@ -106,13 +209,7 @@ class iTorusN : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float2 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		float2 nn;
-		nn.x = Prop[ii+2];
-		nn.y = Prop[ii+3];
-		return torus(p,cc,nn);
+		return PTorusN(p,ii);
 	}
 };
 class iCone : iPrimitive{
@@ -120,10 +217,7 @@ class iCone : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float2 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		return cone(p,cc);
+		return PCone(p,ii);
 	}
 };
 class iConeN : iPrimitive{
@@ -131,10 +225,7 @@ class iConeN : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float2 cc;
-		cc.x = Prop[ii+0];
-		cc.y = Prop[ii+1];
-		return cone(p,cc,Prop[ii+2]);
+		return PConeN(p,ii);
 	}
 };
 class iCapsule : iPrimitive{
@@ -142,15 +233,7 @@ class iCapsule : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float3 aa;
-		aa.x = Prop[ii+0];
-		aa.y = Prop[ii+1];
-		aa.z = Prop[ii+2];
-		float3 bb;
-		bb.x = Prop[ii+3];
-		bb.y = Prop[ii+4];
-		bb.z = Prop[ii+5];
-		return capsule(p,aa,bb,Prop[ii+6]);
+		return PCapsule(p,ii);
 	}
 };
 class iCapsuleN : iPrimitive{
@@ -158,15 +241,7 @@ class iCapsuleN : iPrimitive{
 	float Primitive(float3 p, uint i)
 	{
 		uint ii = i*this.PropSize();
-		float3 aa;
-		aa.x = Prop[ii+0];
-		aa.y = Prop[ii+1];
-		aa.z = Prop[ii+2];
-		float3 bb;
-		bb.x = Prop[ii+3];
-		bb.y = Prop[ii+4];
-		bb.z = Prop[ii+5];
-		return capsule(p,aa,bb,Prop[ii+6],Prop[ii+7]);
+		return PCapsuleN(p,ii);
 	}
 };
 iSphere Sphere;
