@@ -2,7 +2,7 @@
    <PATCH nodename="E:\vvvv\mups\mups\girlpower\Basics.v4p" systemname="Fountain" filename="F:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\girlpower\Fountain.v4p" locked="0">
    <BOUNDS type="Window" left="315" top="0" width="16920" height="15600">
    </BOUNDS>
-   <NODE systemname="Globals (DX11 mups)" filename="%VVVV%\packs\mups\nodes\modules\Globals (DX11 mups).v4p" componentmode="Hidden" id="0" nodename="%VVVV%\packs\mups\nodes\Modules\Globals (DX11 mups).v4p">
+   <NODE systemname="Globals (DX11 mups)" filename="..\nodes\modules\Globals (DX11 mups).v4p" componentmode="Hidden" id="0" nodename="%VVVV%\packs\mups\nodes\Modules\Globals (DX11 mups).v4p">
    <BOUNDS type="Node" left="2850" top="10740" width="1350" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="2850" top="10740" width="4800" height="3600">
@@ -60,7 +60,7 @@
    </NODE>
    <LINK srcnodeid="55" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Particle Count">
    </LINK>
-   <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="56">
+   <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="56">
    <BOUNDS type="Node" left="10050" top="40770" width="1350" height="270">
    </BOUNDS>
    <PIN pinname="Element Count" visible="1">
@@ -92,10 +92,10 @@
    </NODE>
    <LINK srcnodeid="57" srcpinname="Y Output Value" dstnodeid="56" dstpinname="Stride">
    </LINK>
-   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="67">
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="67">
    <BOUNDS type="Node" left="9225" top="7095" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Thread X" visible="1">
+   <PIN pinname="Thread X" visible="1" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Geometry Out" visible="1">
    </PIN>
@@ -156,7 +156,7 @@
    </LINK>
    <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="73" dstpinname="Input 1" hiddenwhenlocked="1">
    </LINK>
-   <NODE systemname="MupsSprites (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\MupsSprites.fx" nodename="MupsSprites (DX11.Effect)" componentmode="Hidden" id="78">
+   <NODE systemname="MupsSprites (DX11.Effect)" filename="..\nodes\dx11\MupsSprites.fx" nodename="MupsSprites (DX11.Effect)" componentmode="Hidden" id="78">
    <BOUNDS type="Node" left="8925" top="41865" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry" visible="1">
@@ -180,7 +180,7 @@
    <PIN pinname="innerradius" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="NullGeometry (DX11.Drawer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="NullGeometry (DX11.Drawer)" componentmode="Hidden" id="79">
+   <NODE systemname="NullGeometry (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="NullGeometry (DX11.Drawer)" componentmode="Hidden" id="79">
    <BOUNDS type="Node" left="8460" top="40410" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry Out" visible="1">
@@ -190,12 +190,12 @@
    </NODE>
    <LINK srcnodeid="79" srcpinname="Geometry Out" dstnodeid="78" dstpinname="Geometry">
    </LINK>
-   <NODE systemname="Semantics (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Semantics (DX11.Layer)" componentmode="Hidden" id="80">
+   <NODE systemname="Semantics (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Semantics (DX11.Layer)" componentmode="Hidden" id="80">
    <BOUNDS type="Node" left="8925" top="42870" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer In" visible="1">
    </PIN>
-   <PIN pinname="Custom Semantics" visible="1" slicecount="1" values="||">
+   <PIN pinname="Custom Semantics" visible="1" slicecount="6" values=",,,,,">
    </PIN>
    <PIN pinname="Layer Out" visible="1">
    </PIN>
@@ -204,7 +204,7 @@
    </LINK>
    <LINK srcnodeid="56" srcpinname="Buffers" dstnodeid="78" dstpinname="mupsData">
    </LINK>
-   <NODE systemname="Rasterizer (DX11.RenderState)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Rasterizer (DX11.RenderState)" componentmode="Hidden" id="84">
+   <NODE systemname="Rasterizer (DX11.RenderState)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Rasterizer (DX11.RenderState)" componentmode="Hidden" id="84">
    <BOUNDS type="Node" left="7140" top="40590" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Render State" visible="1" slicecount="1" values="||">
@@ -276,7 +276,7 @@
    </LINK>
    <LINK srcnodeid="74" srcpinname="Output" dstnodeid="100" dstpinname="Input 2">
    </LINK>
-   <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="103">
+   <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="103">
    <BOUNDS type="Node" left="10380" top="33780" width="7245" height="270">
    </BOUNDS>
    <PIN pinname="Layer 1" visible="1" slicecount="1" values="||">
@@ -294,7 +294,7 @@
    <PIN pinname="Layer 4" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <NODE systemname="AspectRatio (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="AspectRatio (DX11.Layer)" componentmode="Hidden" id="111">
+   <NODE systemname="AspectRatio (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="AspectRatio (DX11.Layer)" componentmode="Hidden" id="111">
    <BOUNDS type="Node" left="8250" top="44430" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer In" visible="1">
@@ -302,7 +302,7 @@
    <PIN pinname="Layer Out" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="142">
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="142">
    <BOUNDS type="Node" left="14415" top="24615" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Thread X" visible="1">
@@ -340,7 +340,7 @@
    <PIN pinname="Transform Out" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="DynamicBuffer (DX11.Buffer Transform)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Transform)" componentmode="Hidden" id="145">
+   <NODE systemname="DynamicBuffer (DX11.Buffer Transform)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Transform)" componentmode="Hidden" id="145">
    <BOUNDS type="Node" left="15675" top="25455" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Data" visible="1">
@@ -352,7 +352,7 @@
    </NODE>
    <LINK srcnodeid="144" srcpinname="Transform Out" dstnodeid="145" dstpinname="Data">
    </LINK>
-   <NODE systemname="DynamicBuffer (DX11.Buffer Transform)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Transform)" componentmode="Hidden" id="148">
+   <NODE systemname="DynamicBuffer (DX11.Buffer Transform)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Transform)" componentmode="Hidden" id="148">
    <BOUNDS type="Node" left="15480" top="25845" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Data" visible="1" slicecount="1" values="||">
@@ -420,7 +420,7 @@
    </NODE>
    <LINK srcnodeid="153" srcpinname="Y Output Value" dstnodeid="143" dstpinname="TranslateY">
    </LINK>
-   <NODE systemname="MAINLOOP (VVVV)" nodename="MainLoop (VVVV)" componentmode="Hidden" id="-6">
+   <NODE systemname="MainLoop (VVVV)" nodename="MainLoop (VVVV)" componentmode="Hidden" id="-6">
    <BOUNDS type="Node" left="13455" top="1740" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Maximum background fpsS" visible="1">
@@ -448,7 +448,7 @@
    </LINK>
    <LINK srcnodeid="154" srcpinname="Y Output Value" dstnodeid="-6" dstpinname="Maximum background fpsS">
    </LINK>
-   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="%VVVV%\packs\mrre\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="160">
+   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="..\..\..\mcropack\VVVV.Packs.mcro\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="160">
    <BOUNDS type="Node" left="9180" top="47625" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
@@ -480,7 +480,7 @@
    </NODE>
    <LINK srcnodeid="162" srcpinname="Transform Out" dstnodeid="160" dstpinname="ProjectionInverse">
    </LINK>
-   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="%VVVV%\packs\mrre\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="163">
+   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="..\..\..\mcropack\VVVV.Packs.mcro\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="163">
    <BOUNDS type="Node" left="10965" top="47625" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
@@ -504,7 +504,7 @@
    </NODE>
    <LINK srcnodeid="162" srcpinname="Transform Out" dstnodeid="163" dstpinname="ProjectionInverse">
    </LINK>
-   <NODE id="77" systemname="Renderer (DX11 TempTarget)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TempTarget)" componentmode="InAWindow">
+   <NODE id="77" systemname="Renderer (DX11 TempTarget)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TempTarget)" componentmode="InAWindow">
    <BOUNDS type="Window" left="11895" top="1440" width="15360" height="10635">
    </BOUNDS>
    <BOUNDS type="Node" left="8100" top="46095" width="100" height="100">
@@ -540,12 +540,12 @@
    </LINK>
    <LINK srcnodeid="111" srcpinname="Layer Out" dstnodeid="77" dstpinname="Layer">
    </LINK>
-   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="164" border="1">
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="164" border="1">
    <BOUNDS type="Node" left="8070" top="52965" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8070" top="52965" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="32670" top="-1755" width="22050" height="12975">
+   <BOUNDS type="Window" left="44085" top="-450" width="22050" height="12975">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -556,7 +556,7 @@
    <PIN pinname="Keyboard State" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="165">
+   <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="165">
    <BOUNDS type="Node" left="8535" top="51795" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Transform" visible="1">
@@ -576,7 +576,7 @@
    </NODE>
    <LINK srcnodeid="166" srcpinname="Transform Out" dstnodeid="165" dstpinname="Transform">
    </LINK>
-   <NODE systemname="S (VALUE ADVANCED)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="S (Value Advanced)" componentmode="Hidden" id="167">
+   <NODE systemname="S (Value Advanced)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="S (Value Advanced)" componentmode="Hidden" id="167">
    <BOUNDS type="Node" left="9075" top="54540" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -600,7 +600,7 @@
    </NODE>
    <LINK srcnodeid="168" srcpinname="Output String" dstnodeid="167" dstpinname="Send String">
    </LINK>
-   <NODE systemname="R (VALUE ADVANCED)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Value Advanced)" componentmode="Hidden" id="170">
+   <NODE systemname="R (Value Advanced)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Value Advanced)" componentmode="Hidden" id="170">
    <BOUNDS type="Node" left="9345" top="45525" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Receive String" visible="1" slicecount="1" values="res">
@@ -612,7 +612,7 @@
    </NODE>
    <LINK srcnodeid="170" srcpinname="Output" dstnodeid="77" dstpinname="Texture SizeXY">
    </LINK>
-   <NODE systemname="Blend (DX11.TextureFX)" filename="%VVVV%\packs\DX11\nodes\texture11\Mixer\Blend.tfx" nodename="Blend (DX11.TextureFX)" componentmode="Hidden" id="173">
+   <NODE systemname="Blend (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Mixer\Blend.tfx" nodename="Blend (DX11.TextureFX)" componentmode="Hidden" id="173">
    <BOUNDS type="Node" left="8865" top="50490" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Opacity" slicecount="1" values="1">
@@ -628,7 +628,7 @@
    <PIN pinname="Texture In 2" slicecount="1" visible="1" values="||">
    </PIN>
    </NODE>
-   <NODE systemname="EmitterArbitrary (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\EmitterArbitrary.fx" nodename="EmitterArbitrary (DX11.Effect)" componentmode="Hidden" id="207">
+   <NODE systemname="EmitterArbitrary (DX11.Effect)" filename="..\nodes\dx11\EmitterArbitrary.fx" nodename="EmitterArbitrary (DX11.Effect)" componentmode="Hidden" id="207">
    <BOUNDS type="Node" left="11175" top="14025" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry" visible="1">
@@ -637,7 +637,7 @@
    </PIN>
    <PIN pinname="Velocity" visible="1">
    </PIN>
-   <PIN pinname="Technique" visible="1">
+   <PIN pinname="Technique" visible="1" slicecount="1" values="Emit64">
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -655,6 +655,8 @@
    </PIN>
    <PIN pinname="Destination" visible="1">
    </PIN>
+   <PIN pinname="emitcount" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="67" srcpinname="Geometry Out" dstnodeid="207" dstpinname="Geometry">
    </LINK>
@@ -664,7 +666,7 @@
    <LINKPOINT x="11850" y="21240">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="S (NODE)" nodename="S (Node)" componentmode="Hidden" id="226">
+   <NODE systemname="S (Node)" nodename="S (Node)" componentmode="Hidden" id="226">
    <BOUNDS type="Node" left="2850" top="11805" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -676,8 +678,8 @@
    </NODE>
    <LINK srcnodeid="0" srcpinname="RenderSemantics" dstnodeid="226" dstpinname="Input Value">
    </LINK>
-   <NODE systemname="S (NODE)" nodename="S (Node)" componentmode="Hidden" id="229">
-   <BOUNDS type="Node" left="3165" top="12330" width="100" height="100">
+   <NODE systemname="S (Node)" nodename="S (Node)" componentmode="Hidden" id="229">
+   <BOUNDS type="Node" left="3330" top="12375" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1" slicecount="1" values="||">
    </PIN>
@@ -688,8 +690,8 @@
    </NODE>
    <LINK srcnodeid="0" srcpinname="ResourceSemantics" dstnodeid="229" dstpinname="Input Value">
    </LINK>
-   <NODE systemname="S (VALUE)" nodename="S (Value)" componentmode="Hidden" id="231">
-   <BOUNDS type="Node" left="3450" top="12855" width="100" height="100">
+   <NODE systemname="S (Value)" nodename="S (Value)" componentmode="Hidden" id="231">
+   <BOUNDS type="Node" left="3810" top="12855" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1" slicecount="1" values="0">
    </PIN>
@@ -700,8 +702,8 @@
    </NODE>
    <LINK srcnodeid="0" srcpinname="BufferSize" dstnodeid="231" dstpinname="Input Value">
    </LINK>
-   <NODE systemname="S (VALUE)" nodename="S (Value)" componentmode="Hidden" id="232">
-   <BOUNDS type="Node" left="3960" top="13335" width="100" height="100">
+   <NODE systemname="S (Value)" nodename="S (Value)" componentmode="Hidden" id="232">
+   <BOUNDS type="Node" left="4275" top="13305" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -710,52 +712,8 @@
    <PIN pinname="Send String" slicecount="1" values="mups_Threads">
    </PIN>
    </NODE>
-   <NODE id="236" componentmode="Hidden" systemname="CalculateThreadCount (Value mups)" filename="%VVVV%\packs\mups\nodes\Modules\CalculateThreadCount (Value mups).v4p" nodename="%VVVV%\packs\mups\nodes\Modules\CalculateThreadCount (Value mups).v4p" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Input" visible="1" pintype="Input" slicecount="1" values="100">
-   </PIN>
-   <PIN pinname="Group Count" visible="1" pintype="Output">
-   </PIN>
-   <PIN pinname="Thread Count" visible="1" pintype="Output">
-   </PIN>
-   <PIN pinname="Thread High" pintype="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Node" left="9240" top="6090" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9240" top="6090" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="10950" top="6615" width="9000" height="6000">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Max Threads" pintype="Input" visible="1" slicecount="1" values="16">
-   </PIN>
-   <PIN pinname="Evaluate" pintype="Input" visible="-1" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Window Handle" pintype="Output" visible="-1">
-   </PIN>
-   <PIN pinname="Patch" pintype="Output" visible="-1">
-   </PIN>
-   <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Ord2Enum (Enumerations)" nodename="Ord2Enum (Enumerations)" componentmode="Hidden" id="237">
-   <BOUNDS type="Node" left="13065" top="12105" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Ord Value" visible="1">
-   </PIN>
-   <PIN pinname="Enum" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="236" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="236" srcpinname="Group Count" dstnodeid="67" dstpinname="Thread X">
-   </LINK>
-   <LINK srcnodeid="236" srcpinname="Thread High" dstnodeid="237" dstpinname="Ord Value">
-   </LINK>
-   <LINK srcnodeid="237" srcpinname="Enum" dstnodeid="207" dstpinname="Technique">
-   </LINK>
-   <NODE systemname="R (VALUE)" nodename="R (Value)" componentmode="Hidden" id="241">
-   <BOUNDS type="Node" left="14190" top="22395" width="100" height="100">
+   <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="241">
+   <BOUNDS type="Node" left="14415" top="22530" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -774,7 +732,7 @@
    </NODE>
    <LINK srcnodeid="143" srcpinname="Transform Out" dstnodeid="242" dstpinname="Input">
    </LINK>
-   <NODE systemname="R (NODE)" nodename="R (Node)" componentmode="Hidden" id="243">
+   <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="243">
    <BOUNDS type="Node" left="10515" top="34710" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -784,7 +742,7 @@
    <PIN pinname="Receive String" slicecount="1" values="mups_RenderSemantics">
    </PIN>
    </NODE>
-   <NODE systemname="R (NODE)" nodename="R (Node)" componentmode="Hidden" id="246">
+   <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="246">
    <BOUNDS type="Node" left="10665" top="35175" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -794,7 +752,7 @@
    <PIN pinname="Receive String" slicecount="1" values="mups_ResourceSemantics">
    </PIN>
    </NODE>
-   <NODE systemname="R (VALUE)" nodename="R (Value)" componentmode="Hidden" id="247">
+   <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="247">
    <BOUNDS type="Node" left="10545" top="38880" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -806,7 +764,7 @@
    </NODE>
    <LINK srcnodeid="247" srcpinname="Input Value" dstnodeid="56" dstpinname="Element Count">
    </LINK>
-   <NODE systemname="S (VALUE)" nodename="S (Value)" componentmode="Hidden" id="251">
+   <NODE systemname="S (Value)" nodename="S (Value)" componentmode="Hidden" id="251">
    <BOUNDS type="Node" left="1050" top="9885" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -818,7 +776,7 @@
    </NODE>
    <LINK srcnodeid="55" srcpinname="Y Output Value" dstnodeid="251" dstpinname="Input Value">
    </LINK>
-   <NODE systemname="R (VALUE)" nodename="R (Value)" componentmode="Hidden" id="258">
+   <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="258">
    <BOUNDS type="Node" left="10845" top="35595" width="255" height="270">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -828,39 +786,7 @@
    <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
    </PIN>
    </NODE>
-   <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="262">
-   <BOUNDS type="Node" left="3960" top="11280" width="615" height="270">
-   </BOUNDS>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Y" visible="1">
-   </PIN>
-   <PIN pinname="Z" visible="1">
-   </PIN>
-   <PIN pinname="XYZ" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="0" srcpinname="Group Count" dstnodeid="262" dstpinname="X">
-   </LINK>
-   <LINK srcnodeid="0" srcpinname="Thread Count" dstnodeid="262" dstpinname="Y">
-   </LINK>
-   <LINK srcnodeid="0" srcpinname="Thread High" dstnodeid="262" dstpinname="Z">
-   </LINK>
-   <LINK srcnodeid="262" srcpinname="XYZ" dstnodeid="232" dstpinname="Input Value">
-   </LINK>
-   <NODE systemname="Vector (3d Split)" nodename="Vector (3d Split)" componentmode="Hidden" id="263">
-   <BOUNDS type="Node" left="10845" top="36420" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="XYZ" visible="1">
-   </PIN>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Z" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="258" srcpinname="Input Value" dstnodeid="263" dstpinname="XYZ">
-   </LINK>
-   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="274">
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="274">
    <BOUNDS type="Node" left="14640" top="17835" width="840" height="270">
    </BOUNDS>
    <PIN pinname="Thread X" visible="1">
@@ -870,8 +796,8 @@
    <BOUNDS type="Box" left="14640" top="17835">
    </BOUNDS>
    </NODE>
-   <NODE systemname="R (VALUE)" nodename="R (Value)" componentmode="Hidden" id="273">
-   <BOUNDS type="Node" left="14640" top="15360" width="255" height="270">
+   <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="273">
+   <BOUNDS type="Node" left="14640" top="15825" width="255" height="270">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -880,30 +806,6 @@
    <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
    </PIN>
    </NODE>
-   <NODE systemname="Ord2Enum (Enumerations)" nodename="Ord2Enum (Enumerations)" componentmode="Hidden" id="271">
-   <BOUNDS type="Node" left="16890" top="19635" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Ord Value" visible="1">
-   </PIN>
-   <PIN pinname="Enum" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Vector (3d Split)" nodename="Vector (3d Split)" componentmode="Hidden" id="270">
-   <BOUNDS type="Node" left="14640" top="15825" width="570" height="270">
-   </BOUNDS>
-   <PIN pinname="XYZ" visible="1">
-   </PIN>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Z" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="273" srcpinname="Input Value" dstnodeid="270" dstpinname="XYZ">
-   </LINK>
-   <LINK srcnodeid="270" srcpinname="X" dstnodeid="274" dstpinname="Thread X">
-   </LINK>
-   <LINK srcnodeid="270" srcpinname="Z" dstnodeid="271" dstpinname="Ord Value">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="275" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="11040" top="39825" width="480" height="480">
    </BOUNDS>
@@ -923,30 +825,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="275" srcpinname="Y Output Value" dstnodeid="56" dstpinname="Enabled">
-   </LINK>
-   <NODE systemname="Ord2Enum (Enumerations)" nodename="Ord2Enum (Enumerations)" componentmode="Hidden" id="279">
-   <BOUNDS type="Node" left="17295" top="25500" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Ord Value" visible="1">
-   </PIN>
-   <PIN pinname="Enum" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Vector (3d Split)" nodename="Vector (3d Split)" componentmode="Hidden" id="278">
-   <BOUNDS type="Node" left="14415" top="23175" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="XYZ" visible="1" slicecount="3" values="0,0,0">
-   </PIN>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Z" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="278" srcpinname="Z" dstnodeid="279" dstpinname="Ord Value">
-   </LINK>
-   <LINK srcnodeid="241" srcpinname="Input Value" dstnodeid="278" dstpinname="XYZ">
-   </LINK>
-   <LINK srcnodeid="278" srcpinname="X" dstnodeid="142" dstpinname="Thread X">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="280" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4755" top="10965" width="795" height="240">
@@ -996,23 +874,7 @@
    </LINK>
    <LINK srcnodeid="173" srcpinname="Texture Out" dstnodeid="165" dstpinname="Texture">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="284" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="10935" top="5655" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="10935" top="5655" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="64">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="284" srcpinname="Y Output Value" dstnodeid="236" dstpinname="Max Threads">
-   </LINK>
-   <NODE systemname="R (NODE)" nodename="R (Node)" componentmode="Hidden" id="286">
+   <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="286">
    <BOUNDS type="Node" left="9180" top="42330" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -1024,7 +886,7 @@
    </NODE>
    <LINK srcnodeid="286" srcpinname="Input Value" dstnodeid="80" dstpinname="Custom Semantics">
    </LINK>
-   <NODE systemname="R (VALUE)" nodename="R (Value)" componentmode="Hidden" id="287">
+   <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="287">
    <BOUNDS type="Node" left="8460" top="39885" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
@@ -1036,18 +898,18 @@
    </NODE>
    <LINK srcnodeid="287" srcpinname="Input Value" dstnodeid="79" dstpinname="Vertex Count">
    </LINK>
-   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="296">
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="296">
    <BOUNDS type="Node" left="21285" top="30405" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Thread X" visible="1">
+   <PIN pinname="Thread X" visible="1" slicecount="1" values="2001">
    </PIN>
    <PIN pinname="Geometry Out" visible="1">
    </PIN>
    <PIN pinname="Thread Y" slicecount="1" visible="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="R (VALUE)" nodename="R (Value)" componentmode="Hidden" id="295">
-   <BOUNDS type="Node" left="20595" top="28140" width="100" height="100">
+   <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="295">
+   <BOUNDS type="Node" left="21270" top="29475" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -1056,30 +918,6 @@
    <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
    </PIN>
    </NODE>
-   <NODE systemname="Ord2Enum (Enumerations)" nodename="Ord2Enum (Enumerations)" componentmode="Hidden" id="292">
-   <BOUNDS type="Node" left="22935" top="31170" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Ord Value" visible="1">
-   </PIN>
-   <PIN pinname="Enum" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Vector (3d Split)" nodename="Vector (3d Split)" componentmode="Hidden" id="291">
-   <BOUNDS type="Node" left="21270" top="29115" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="XYZ" visible="1">
-   </PIN>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Z" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="291" srcpinname="Z" dstnodeid="292" dstpinname="Ord Value">
-   </LINK>
-   <LINK srcnodeid="295" srcpinname="Input Value" dstnodeid="291" dstpinname="XYZ">
-   </LINK>
-   <LINK srcnodeid="291" srcpinname="X" dstnodeid="296" dstpinname="Thread X">
-   </LINK>
    <NODE systemname="RandomSpread (Spreads)" nodename="RandomSpread (Spreads)" componentmode="Hidden" id="297">
    <BOUNDS type="Node" left="23085" top="28935" width="100" height="100">
    </BOUNDS>
@@ -1146,7 +984,7 @@
    </LINK>
    <LINK srcnodeid="300" srcpinname="Y Output Value" dstnodeid="299" dstpinname="Column Count">
    </LINK>
-   <NODE systemname="DynamicBuffer (DX11.Buffer 3d)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 3d)" componentmode="Hidden" id="302">
+   <NODE systemname="DynamicBuffer (DX11.Buffer 3d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 3d)" componentmode="Hidden" id="302">
    <BOUNDS type="Node" left="22755" top="30255" width="100" height="100">
    </BOUNDS>
    <PIN pinname="DataXYZ" visible="1">
@@ -1154,7 +992,7 @@
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="DynamicBuffer (DX11.Buffer 3d)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 3d)" componentmode="Hidden" id="303">
+   <NODE systemname="DynamicBuffer (DX11.Buffer 3d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 3d)" componentmode="Hidden" id="303">
    <BOUNDS type="Node" left="24495" top="30615" width="100" height="100">
    </BOUNDS>
    <PIN pinname="DataXYZ" visible="1" slicecount="3" values="0,0,0">
@@ -1214,46 +1052,10 @@
    </LINK>
    <LINK srcnodeid="100" srcpinname="Output" dstnodeid="72" dstpinname="Input 1">
    </LINK>
-   <NODE systemname="PropFader (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\PropFader.fx" nodename="PropFader (DX11.Effect)" componentmode="Hidden" id="101">
-   <BOUNDS type="Node" left="14490" top="19860" width="1350" height="270">
-   </BOUNDS>
-   <PIN pinname="Technique" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Enabled" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="ColorFrom" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="ColorTo" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Geometry" visible="1">
-   </PIN>
-   <PIN pinname="SizeFromTo" visible="1">
-   </PIN>
-   <PIN pinname="AgeFromTo" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="FadePower" slicecount="1" values="0.38">
-   </PIN>
-   <PIN pinname="SourceFromTo" visible="1">
-   </PIN>
-   <PIN pinname="Destination" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="101" srcpinname="Layer" dstnodeid="103" dstpinname="Layer 2" linkstyle="VHV">
-   <LINKPOINT x="14520" y="21180">
-   </LINKPOINT>
-   <LINKPOINT x="13290" y="21180">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="274" srcpinname="Geometry Out" dstnodeid="101" dstpinname="Geometry">
-   </LINK>
-   <LINK srcnodeid="271" srcpinname="Enum" dstnodeid="101" dstpinname="Technique">
-   </LINK>
-   <NODE systemname="ForceAttractor (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\ForceAttractor.fx" nodename="ForceAttractor (DX11.Effect)" componentmode="Hidden" id="289">
+   <NODE systemname="ForceAttractor (DX11.Effect)" filename="..\nodes\dx11\ForceAttractor.fx" nodename="ForceAttractor (DX11.Effect)" componentmode="Hidden" id="289">
    <BOUNDS type="Node" left="21810" top="32025" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Technique" visible="1">
+   <PIN pinname="Technique" visible="1" slicecount="1" values="mups64">
    </PIN>
    <PIN pinname="Geometry" visible="1">
    </PIN>
@@ -1266,8 +1068,6 @@
    <PIN pinname="Enabled" slicecount="1" visible="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="292" srcpinname="Enum" dstnodeid="289" dstpinname="Technique">
-   </LINK>
    <LINK srcnodeid="296" srcpinname="Geometry Out" dstnodeid="289" dstpinname="Geometry">
    </LINK>
    <LINK srcnodeid="302" srcpinname="Buffer" dstnodeid="289" dstpinname="Position">
@@ -1280,10 +1080,10 @@
    <LINKPOINT x="16155" y="32280">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="ColliderGround (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\ColliderGround.fx" nodename="ColliderGround (DX11.Effect)" componentmode="Hidden" id="141">
+   <NODE systemname="ColliderGround (DX11.Effect)" filename="..\nodes\dx11\ColliderGround.fx" nodename="ColliderGround (DX11.Effect)" componentmode="Hidden" id="141">
    <BOUNDS type="Node" left="14685" top="26385" width="1200" height="270">
    </BOUNDS>
-   <PIN pinname="Technique" visible="1">
+   <PIN pinname="Technique" visible="1" slicecount="1" values="Ground64">
    </PIN>
    <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
    </PIN>
@@ -1311,8 +1111,6 @@
    <LINK srcnodeid="141" srcpinname="Layer" dstnodeid="103" dstpinname="Layer 3">
    </LINK>
    <LINK srcnodeid="148" srcpinname="Buffer" dstnodeid="141" dstpinname="GroundTr">
-   </LINK>
-   <LINK srcnodeid="279" srcpinname="Enum" dstnodeid="141" dstpinname="Technique">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="318" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="13230" top="4455" width="480" height="480">
@@ -1362,7 +1160,7 @@
    </LINK>
    <LINK srcnodeid="72" srcpinname="Output" dstnodeid="319" dstpinname="Input 2">
    </LINK>
-   <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="320">
+   <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="320">
    <BOUNDS type="Node" left="11415" top="11985" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Data" visible="1">
@@ -1382,7 +1180,7 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="DynamicBuffer (DX11.Buffer UInt)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer UInt)" componentmode="Hidden" id="321">
+   <NODE systemname="DynamicBuffer (DX11.Buffer UInt)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer UInt)" componentmode="Hidden" id="321">
    <BOUNDS type="Node" left="17160" top="9960" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Data" visible="1" slicecount="7" values="0">
@@ -1410,16 +1208,16 @@
    </NODE>
    <LINK srcnodeid="323" srcpinname="Y Output Value" dstnodeid="322" dstpinname=".. To [">
    </LINK>
-   <NODE systemname="MainGroup (DX11 mups)" filename="%VVVV%\packs\mups\nodes\modules\MainGroup (DX11 mups).v4p" nodename="MainGroup (DX11 mups)" componentmode="Hidden" id="326">
+   <NODE systemname="MainGroup (DX11 mups)" filename="..\nodes\modules\MainGroup (DX11 mups).v4p" nodename="MainGroup (DX11 mups)" componentmode="Hidden" id="326">
    <BOUNDS type="Node" left="10365" top="37455" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="Render Semantics" visible="1">
+   <PIN pinname="Render Semantics" visible="1" slicecount="6" values=",,,,,">
    </PIN>
-   <PIN pinname="Resource Semantics" visible="1">
+   <PIN pinname="Resource Semantics" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Group Count" visible="1">
+   <PIN pinname="Group Count" visible="1" slicecount="1" values="2001">
    </PIN>
    <PIN pinname="Thread High" visible="1">
    </PIN>
@@ -1433,10 +1231,6 @@
    <LINK srcnodeid="243" srcpinname="Input Value" dstnodeid="326" dstpinname="Render Semantics">
    </LINK>
    <LINK srcnodeid="246" srcpinname="Input Value" dstnodeid="326" dstpinname="Resource Semantics">
-   </LINK>
-   <LINK srcnodeid="263" srcpinname="X" dstnodeid="326" dstpinname="Group Count">
-   </LINK>
-   <LINK srcnodeid="263" srcpinname="Z" dstnodeid="326" dstpinname="Thread High">
    </LINK>
    <LINK srcnodeid="305" srcpinname="Y Output Value" dstnodeid="326" dstpinname="gravityXYZ">
    </LINK>
@@ -1522,7 +1316,7 @@
    </NODE>
    <LINK srcnodeid="355" srcpinname="Y Output Value" dstnodeid="67" dstpinname="Thread Y">
    </LINK>
-   <NODE systemname="Group (DX11.Layer)" nodename="Group (DX11.Layer)" componentmode="Hidden" id="359" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll">
+   <NODE systemname="Group (DX11.Layer)" nodename="Group (DX11.Layer)" componentmode="Hidden" id="359" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll">
    <BOUNDS type="Node" left="8355" top="52440" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer 1" visible="1">
@@ -1659,9 +1453,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="384" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="5865" top="4845" width="4770" height="270">
+   <BOUNDS type="Node" left="5730" top="4845" width="4770" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="5865" top="4845" width="3210" height="1620">
+   <BOUNDS type="Box" left="5730" top="4845" width="3210" height="1620">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Emitters&apos; count should be cons-ed together and feed it to globals.&cr;&lf;This way globals can determine which particle was overwritten earliest and calculate the most optimal emitter offset.&cr;&lf;If an emitter is disabled its count should be multiplied by 0 when feeding it to Globals|">
    </PIN>
@@ -1726,20 +1520,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="389" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="13950" top="12030" width="4050" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="13950" top="12030" width="2295" height="525">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|selecting the most optimal thread count via techniques|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="390" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="12585" top="13200" width="795" height="240">
    </BOUNDS>
@@ -1786,16 +1566,6 @@
    <PIN pinname="Size" slicecount="1" values="30">
    </PIN>
    </NODE>
-   <NODE systemname="DynamicBuffer (DX11.Buffer 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 2d)" componentmode="Hidden" id="396">
-   <BOUNDS type="Node" left="15150" top="19020" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="DataXY" visible="1" slicecount="2" values="1,0">
-   </PIN>
-   <PIN pinname="Buffer" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="396" srcpinname="Buffer" dstnodeid="101" dstpinname="SourceFromTo">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="397" systemname="IOBox (String)">
    <BOUNDS type="Node" left="11475" top="16575" width="4020" height="270">
    </BOUNDS>
@@ -1811,11 +1581,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="398" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="15015" top="16395" width="795" height="240">
+   <BOUNDS type="Box" left="15015" top="16845" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="15015" top="16395" width="0" height="0">
+   <BOUNDS type="Node" left="15015" top="16845" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1827,9 +1597,9 @@
    <LINK srcnodeid="398" srcpinname="Y Output Value" dstnodeid="274" dstpinname="Thread Y">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="399" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="15900" top="16215" width="4020" height="270">
+   <BOUNDS type="Node" left="15900" top="16665" width="4020" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="15900" top="16215" width="2895" height="510">
+   <BOUNDS type="Box" left="15900" top="16665" width="2895" height="510">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Dispatcher Y usually determine the properties count to be modified|">
    </PIN>
@@ -1845,7 +1615,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="16800" top="15300" width="4065" height="270">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|here we fade the size of the particle based on its age|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|here we fade the color of the particles based on their age|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -1884,38 +1654,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="403" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="15135" top="18240" width="795" height="480">
-   </BOUNDS>
-   <BOUNDS type="Node" left="15135" top="18240" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" values="1,0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="2">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="403" srcpinname="Y Output Value" dstnodeid="396" dstpinname="DataXY">
-   </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="404" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="15990" top="18225" width="495" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="15990" top="18225" width="495" height="495">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|from&cr;&lf;to|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
    <NODE systemname="DynamicBuffer (DX11.Buffer 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer 2d)" componentmode="Hidden" id="407">
    <BOUNDS type="Node" left="16710" top="18315" width="100" height="100">
    </BOUNDS>
@@ -1929,7 +1667,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="16695" top="17535" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" values="5,6">
+   <PIN pinname="Y Input Value" slicecount="2" values="1,5">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1942,40 +1680,12 @@
    </NODE>
    <LINK srcnodeid="406" srcpinname="Y Output Value" dstnodeid="407" dstpinname="DataXY">
    </LINK>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="405" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="16170" top="17535" width="495" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="16170" top="17535" width="495" height="495">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|from&cr;&lf;to|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="408" systemname="IOBox (String)">
    <BOUNDS type="Node" left="17550" top="17655" width="720" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="17550" top="17655" width="720" height="270">
+   <BOUNDS type="Box" left="17550" top="17655" width="705" height="270">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="seconds">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="409" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="16920" top="19965" width="3150" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="16920" top="19965" width="3180" height="285">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|select optimal thread count via techniques|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -2089,9 +1799,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="419" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="21270" top="26250" width="3225" height="270">
+   <BOUNDS type="Node" left="21750" top="26250" width="3225" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="21270" top="26250" width="2085" height="465">
+   <BOUNDS type="Box" left="21750" top="26250" width="2085" height="465">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Here dispatch Y means how many attractors we have|">
    </PIN>
@@ -2200,32 +1910,14 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <LINK srcnodeid="407" srcpinname="Buffer" dstnodeid="101" dstpinname="AgeFromTo">
-   </LINK>
    <NODE systemname="DynamicBuffer (DX11.Buffer UInt)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer UInt)" componentmode="Hidden" id="427">
    <BOUNDS type="Node" left="18390" top="18255" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Buffer" visible="1">
    </PIN>
-   </NODE>
-   <LINK srcnodeid="427" srcpinname="Buffer" dstnodeid="101" dstpinname="Destination">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="428" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="18405" top="17565" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="18405" top="17565" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="14">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   <PIN pinname="Data" slicecount="1" values="14">
    </PIN>
    </NODE>
-   <LINK srcnodeid="428" srcpinname="Y Output Value" dstnodeid="427" dstpinname="Data">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="429" systemname="IOBox (String)">
    <BOUNDS type="Node" left="19260" top="17565" width="1905" height="270">
    </BOUNDS>
@@ -2466,7 +2158,7 @@
    </LINK>
    <LINK srcnodeid="444" srcpinname="Texture Out" dstnodeid="173" dstpinname="Texture In 2">
    </LINK>
-   <NODE systemname="R (VALUE ADVANCED)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Value Advanced)" componentmode="Hidden" id="445">
+   <NODE systemname="R (Value Advanced)" filename="%VVVV%\addonpack\lib\nodes\plugins\RSNodes.dll" nodename="R (Value Advanced)" componentmode="Hidden" id="445">
    <BOUNDS type="Node" left="10245" top="49215" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Receive String" visible="1" slicecount="1" values="res">
@@ -2540,7 +2232,7 @@
    </LINK>
    <LINK srcnodeid="159" srcpinname="Buffers" dstnodeid="171" dstpinname="Texture In">
    </LINK>
-   <NODE systemname="Camera (Transform microdee)" filename="..\..\..\mcropack\VVVV.Packs.mcro\nodes\modules\Camera (Transform microdee).v4p" nodename="Camera (Transform microdee)" componentmode="Hidden" id="81">
+   <NODE systemname="Camera (Transform microdee)" filename="..\..\..\mcropack\VVVV.Packs.mcro\nodes\Modules\Camera (Transform microdee).v4p" nodename="Camera (Transform microdee)" componentmode="Hidden" id="81">
    <BOUNDS type="Node" left="10380" top="45330" width="100" height="100">
    </BOUNDS>
    <PIN pinname="View" visible="1">
@@ -2663,5 +2355,137 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="457" srcpinname="Output" dstnodeid="81" dstpinname="Keyboard">
+   </LINK>
+   <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="207" dstpinname="emitcount">
+   </LINK>
+   <NODE systemname="Expr (Value)" nodename="Expr (Value)" componentmode="Hidden" id="469" hiddenwhenlocked="0" managers="">
+   <BOUNDS type="Node" left="9210" top="6120" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="trunc(in/64+0.9999)">
+   </PIN>
+   <PIN pinname="Variable Names" pintype="Configuration" slicecount="1" values="in">
+   </PIN>
+   <PIN pinname="" pintype="Input" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="in" pintype="Input" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Term" pintype="Input" visible="1" slicecount="1" values="trunc(in/64+0.9999)">
+   </PIN>
+   <PIN pinname="Output" pintype="Output" visible="1">
+   </PIN>
+   <PIN pinname="Error" pintype="Output" visible="1">
+   </PIN>
+   <PIN pinname="ID" pintype="Output" visible="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="469" dstpinname="in">
+   </LINK>
+   <LINK srcnodeid="469" srcpinname="Output" dstnodeid="67" dstpinname="Thread X">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Group Count" dstnodeid="232" dstpinname="Input Value">
+   </LINK>
+   <LINK srcnodeid="273" srcpinname="Input Value" dstnodeid="274" dstpinname="Thread X">
+   </LINK>
+   <LINK srcnodeid="241" srcpinname="Input Value" dstnodeid="142" dstpinname="Thread X">
+   </LINK>
+   <LINK srcnodeid="295" srcpinname="Input Value" dstnodeid="296" dstpinname="Thread X">
+   </LINK>
+   <LINK srcnodeid="258" srcpinname="Input Value" dstnodeid="326" dstpinname="Group Count">
+   </LINK>
+   <NODE systemname="PropFaderTo (DX11.Effect)" filename="..\nodes\dx11\PropFaderTo.fx" nodename="PropFaderTo (DX11.Effect)" componentmode="Hidden" id="101">
+   <BOUNDS type="Node" left="14490" top="19860" width="1350" height="270">
+   </BOUNDS>
+   <PIN pinname="Technique" visible="1" slicecount="1" values="FadeTo">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="ColorFrom" visible="1">
+   </PIN>
+   <PIN pinname="ColorTo" visible="1">
+   </PIN>
+   <PIN pinname="Geometry" visible="1">
+   </PIN>
+   <PIN pinname="SizeFromTo" visible="1">
+   </PIN>
+   <PIN pinname="AgeFromTo" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="FadePower">
+   </PIN>
+   <PIN pinname="SourceFromTo" visible="1">
+   </PIN>
+   <PIN pinname="Destination" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Source" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="101" srcpinname="Layer" dstnodeid="103" dstpinname="Layer 2" linkstyle="VHV">
+   <LINKPOINT x="14520" y="21180">
+   </LINKPOINT>
+   <LINKPOINT x="13290" y="21180">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="274" srcpinname="Geometry Out" dstnodeid="101" dstpinname="Geometry">
+   </LINK>
+   <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="471">
+   <BOUNDS type="Node" left="15180" top="19095" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Data" visible="1">
+   </PIN>
+   <PIN pinname="Buffer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE id="405" nodename="IOBox (String)" componentmode="InABox" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="16170" top="17535" width="495" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="16170" top="17535" width="495" height="495">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|from&cr;&lf;to|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="407" srcpinname="Buffer" dstnodeid="101" dstpinname="AgeFromTo">
+   </LINK>
+   <LINK srcnodeid="427" srcpinname="Buffer" dstnodeid="101" dstpinname="Destination">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="472" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="18420" top="17220" width="795" height="960">
+   </BOUNDS>
+   <BOUNDS type="Node" left="18420" top="17220" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="4" values="10,11,12,13">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="|0, 0, 0, 1|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="472" srcpinname="Y Output Value" dstnodeid="427" dstpinname="Data">
+   </LINK>
+   <NODE systemname="RGB (Color Split Vector)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.RGBVector.dll" nodename="RGB (Color Split Vector)" componentmode="Hidden" id="473">
+   <BOUNDS type="Node" left="15195" top="18375" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname=" RGBA" visible="1">
+   </PIN>
+   <PIN pinname="Input" slicecount="1" values="|1.00000,0.00000,0.00104,1.00000|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="473" srcpinname=" RGBA" dstnodeid="471" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="471" srcpinname="Buffer" dstnodeid="101" dstpinname="Source">
    </LINK>
    </PATCH>

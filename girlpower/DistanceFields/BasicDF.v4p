@@ -6,7 +6,7 @@
    </PACK>
    <PACK Name="addonpack" Version="31.9.0">
    </PACK>
-   <NODE systemname="DFPrimitive (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\DFPrimitive.fx" nodename="DFPrimitive (DX11.Effect)" componentmode="Hidden" id="0">
+   <NODE systemname="DFPrimitive (DX11.Effect)" filename="..\..\nodes\dx11\DFPrimitive.fx" nodename="DFPrimitive (DX11.Effect)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="4320" top="10680" width="1350" height="270">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
@@ -168,7 +168,7 @@
    </NODE>
    <LINK srcnodeid="14" srcpinname="Output Enum" dstnodeid="0" dstpinname="Primitive">
    </LINK>
-   <NODE systemname="DFPrimitive (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\DFPrimitive.fx" nodename="DFPrimitive (DX11.Effect)" componentmode="Hidden" id="16">
+   <NODE systemname="DFPrimitive (DX11.Effect)" filename="..\..\nodes\dx11\DFPrimitive.fx" nodename="DFPrimitive (DX11.Effect)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="10605" top="10605" width="1350" height="270">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
@@ -744,7 +744,7 @@
    <PIN pinname="Limit" slicecount="1" values="2">
    </PIN>
    </NODE>
-   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="..\..\..\..\Emeshe\Emeshe\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="62">
+   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="..\..\..\..\mcropack\VVVV.Packs.mcro\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="62">
    <BOUNDS type="Node" left="6555" top="21105" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1">
@@ -800,7 +800,7 @@
    </LINK>
    <LINK srcnodeid="60" srcpinname="Depth Buffer" dstnodeid="62" dstpinname="Texture In">
    </LINK>
-   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="..\..\..\..\Emeshe\Emeshe\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="66">
+   <NODE systemname="DepthToWorld (DX11.TextureFX)" filename="..\..\..\..\mcropack\VVVV.Packs.mcro\nodes\texture11\DepthToWorld.tfx" nodename="DepthToWorld (DX11.TextureFX)" componentmode="Hidden" id="66">
    <BOUNDS type="Node" left="8445" top="21090" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1">
@@ -943,7 +943,7 @@
    </PIN>
    <PIN pinname="Sampler" visible="1" pintype="Input" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Threshold" slicecount="1" values="0.86" visible="1">
+   <PIN pinname="Threshold" slicecount="1" visible="1" values="0.86">
    </PIN>
    <PIN pinname="Radius" slicecount="1" values="0.28">
    </PIN>

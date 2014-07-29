@@ -1,10 +1,10 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\modules\MainGroup (DX11 mups).v4p" systemname="MainGroup (DX11 mups)" filename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mups\nodes\Modules\MainGroup (DX11 mups).v4p">
-   <BOUNDS type="Window" left="14745" top="1830" width="9000" height="6000">
+   <PATCH nodename="E:\vvvv\mups\mups\nodes\modules\MainGroup (DX11 mups).v4p" systemname="MainGroup (DX11 mups)" filename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mups\nodes\Modules\MainGroup (DX11 mups).v4p">
+   <BOUNDS type="Window" left="14745" top="1830" width="9000" height="8910">
    </BOUNDS>
    <PACK Name="testPack" Version="0.1.0">
    </PACK>
-   <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="11">
+   <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="3705" top="6135" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer 1" visible="1">
@@ -20,7 +20,7 @@
    <PIN pinname="Layer 3" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Clear (DX11 mups)" filename="%VVVV%\packs\mups\nodes\Modules\Clear (DX11 mups).v4p" componentmode="Hidden" id="7" nodename="%VVVV%\packs\mups\nodes\Modules\Clear (DX11 mups).v4p">
+   <NODE systemname="Clear (DX11 mups)" filename="Clear (DX11 mups).v4p" componentmode="Hidden" id="7" nodename="%VVVV%\packs\mups\nodes\Modules\Clear (DX11 mups).v4p">
    <BOUNDS type="Node" left="3870" top="4470" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="3870" top="4470" width="4800" height="3600">
@@ -38,7 +38,7 @@
    </NODE>
    <LINK srcnodeid="7" srcpinname="Layer" dstnodeid="11" dstpinname="Layer 1">
    </LINK>
-   <NODE systemname="Iterator (DX11.Effect)" filename="%VVVV%\packs\mups\nodes\dx11\Iterator.fx" nodename="Iterator (DX11.Effect)" componentmode="Hidden" id="6">
+   <NODE systemname="Iterator (DX11.Effect)" filename="..\dx11\Iterator.fx" nodename="Iterator (DX11.Effect)" componentmode="Hidden" id="6">
    <BOUNDS type="Node" left="5295" top="4350" width="1350" height="270">
    </BOUNDS>
    <PIN pinname="VelocityDamper">
@@ -49,7 +49,7 @@
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="Technique" visible="1">
+   <PIN pinname="Technique" visible="1" slicecount="1" values="Iterate64">
    </PIN>
    <PIN pinname="ResetAll" visible="1">
    </PIN>
@@ -60,7 +60,7 @@
    <PIN pinname="AddVelocity" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="5">
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="5475" top="3900" width="840" height="270">
    </BOUNDS>
    <PIN pinname="Thread X" visible="1">
@@ -69,16 +69,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="5" srcpinname="Geometry Out" dstnodeid="6" dstpinname="Geometry">
-   </LINK>
-   <NODE systemname="Ord2Enum (Enumerations)" nodename="Ord2Enum (Enumerations)" componentmode="Hidden" id="2">
-   <BOUNDS type="Node" left="6570" top="3945" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Ord Value" visible="1">
-   </PIN>
-   <PIN pinname="Enum" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="2" srcpinname="Enum" dstnodeid="6" dstpinname="Technique">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="0" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="5685" top="2610" width="795" height="240">
@@ -130,29 +120,7 @@
    </NODE>
    <LINK srcnodeid="13" srcpinname="Y Output Value" dstnodeid="7" dstpinname="Group Count">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="14" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="4395" top="1950" width="780" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="4395" top="1950" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="49">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Thread High|">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="7" dstpinname="Thread High">
-   </LINK>
    <LINK srcnodeid="13" srcpinname="Y Output Value" dstnodeid="5" dstpinname="Thread X">
-   </LINK>
-   <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="2" dstpinname="Ord Value">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="15" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="5310" top="1575" width="795" height="720">
