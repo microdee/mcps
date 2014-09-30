@@ -26,7 +26,9 @@ void CS_FadeFromTo(csin input)
 	uint id=input.DTID.y;
 	uint2 ai = mups_age(ii);
 	float fader = saturate((Outbuf[ai.y]-AgeFromTo[id%AgeFC].x)/(AgeFromTo[id%AgeFC].y-AgeFromTo[id%AgeFC].x));
-	
-	Outbuf[ii*pelsize + Destination[id%dstC]] = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
+	if((Outbuf[ai.y] > AgeFromTo[id%AgeFC].x) && (Outbuf[ai.y] < AgeFromTo[id%AgeFC].y))
+	{
+		Outbuf[ii*pelsize + Destination[id%dstC]] = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
+	}
 }
 technique11 FadeFromTo { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_FadeFromTo() ) );} }
