@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\mups\mups\nodes\modules\Globals (DX11 mups).v4p" systemname="Globals (DX11 mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\Globals (DX11 mups).v4p">
-   <BOUNDS type="Window" left="11415" top="1740" width="15780" height="11955">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
+   <PATCH nodename="C:\vvvv\libs\mups\nodes\modules\Globals (DX11 mups).v4p" systemname="Globals (DX11 mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\Globals (DX11 mups).v4p" scrollx="0" scrolly="360">
+   <BOUNDS type="Window" left="9060" top="3225" width="15780" height="11955">
    </BOUNDS>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="6">
    <BOUNDS type="Node" left="930" top="1245" width="100" height="100">
@@ -123,7 +123,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5790" top="1890" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -700,7 +700,7 @@
    </PACK>
    <PACK Name="ImagePack" Version="0.1.0">
    </PACK>
-   <PACK Name="addonpack" Version="31.9.0">
+   <PACK Name="addonpack" Version="33.3.0">
    </PACK>
    <NODE id="100" nodename="IOBox (Value Advanced)" componentmode="InABox" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9540" top="2460" width="435" height="240">

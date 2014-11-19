@@ -1,0 +1,298 @@
+#include "mups.fxh"
+#include "quaternion.fxh"
+#define GEOMVEL "SV_Position.xyz;NORMAL.xyz;TEXCOORD0.xy;COLOR0"
+// mups
+
+StructuredBuffer<float> MupsData;
+StructuredBuffer<float> PrevMupsData;
+/*
+size	offset	name		note
+3		0		position	
+3		3		velocity
+3		7		force
+4		10		color		ignored :(
+1		14		size
+2		15		age
+ext:
+4		17		Rotation	Quaternion
+total:
+21
+*/
+float4 mups_Rotation(StructuredBuffer<float> mups, uint i) {return normalize(float4(mups[i*pelsize+17],mups[i*pelsize+18],mups[i*pelsize+19],mups[i*pelsize+20]));}
+
+float GrowTime = 1;
+bool Grow = true;
+float4x4 PreTransform;
+
+struct VsInUsual
+{
+	float4 cpoint : POSITION;
+	float3 norm : NORMAL;
+	float TexCd : TEXCOORD0;
+};
+struct VsOutGeomvel
+{
+	float4 cpoint : POSITION;
+	float3 norm : NORMAL;
+	float TexCd : TEXCOORD0;
+	float4 ppos : COLOR0;
+};
+float PowS(float a, float b)
+{
+	return pow(abs(a),b)*sign(a);
+}
+float4x4 QRotate(float4 q)
+{
+	float4x4 mat = {
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1};
+	mat[0][0] = 1 - 2*q.y*q.y - 2*q.z*q.z;
+	mat[0][1] = 2*q.x*q.y + 2*q.w*q.z;
+	mat[0][2] = 2*q.x*q.z - 2*q.w*q.y;
+	mat[1][0] = 2*q.x*q.y - 2*q.w*q.z;
+	mat[1][1] = 1 - 2*q.x*q.x - 2*q.z*q.z;
+	mat[1][2] = 2*q.y*q.z + 2*q.w*q.x;
+	mat[2][0] = 2*q.x*q.z + 2*q.w*q.y;
+	mat[2][1] = 2*q.y*q.z - 2*q.w*q.x;
+	mat[2][2] = 1 - 2*q.x*q.x - 2*q.y*q.y;
+	return mat;
+}
+VsOutGeomvel VsGeom(VsInUsual input, uint ii: SV_InstanceID)
+{
+    VsOutGeomvel output;
+	
+	uint ci = ii*4;
+	
+    output.cpoint = mul(input.cpoint, PreTransform);
+	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
+	output.TexCd = input.TexCd;
+	output.ppos = float4(output.cpoint.xyz, ci);
+	
+    return output;
+}
+VsOutGeomvel VsGeomPrecise(VsInUsual input, uint ii: SV_InstanceID)
+{
+    VsOutGeomvel output;
+    output.cpoint = mul(input.cpoint, PreTransform);
+	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
+	output.TexCd = input.TexCd;
+	output.ppos = float4(output.cpoint.xyz, ii);
+	
+    return output;
+}
+VsOutGeomvel VsGeomVelIid(VsOutGeomvel input, uint ii: SV_InstanceID)
+{
+    VsOutGeomvel output;
+	
+	uint ci = ii*4;
+	
+    output.cpoint = mul(input.cpoint, PreTransform);
+	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
+	output.TexCd = input.TexCd;
+	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, ci);
+	
+    return output;
+}
+VsOutGeomvel VsGeomVelIidPrecise(VsOutGeomvel input, uint ii: SV_InstanceID)
+{
+    VsOutGeomvel output = input;
+    output.cpoint = mul(input.cpoint, PreTransform);
+	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
+	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, ii);
+	
+    return output;
+}
+VsOutGeomvel VsGeomVel(VsOutGeomvel input)
+{
+    VsOutGeomvel output;
+	
+	uint ci = input.ppos.w*4;
+	
+    output.cpoint = mul(input.cpoint, PreTransform);
+	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
+	output.TexCd = input.TexCd;
+	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, ci);
+	
+    return output;
+}
+VsOutGeomvel VsGeomVelPrecise(VsOutGeomvel input)
+{
+    VsOutGeomvel output = input;
+    output.cpoint = mul(input.cpoint, PreTransform);
+	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
+	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, input.ppos.w);
+	
+    return output;
+}
+
+struct GsOutGeomvel
+{
+	float4 cpoint : SV_Position;
+	float3 norm : NORMAL;
+	float4 TexCd : TEXCOORD0;
+	float4 ppos : COLOR0;
+};
+
+[maxvertexcount(12)]
+void GsGeomvel(triangle VsOutGeomvel input[3], inout TriangleStream<GsOutGeomvel>GSOut)
+{
+	GsOutGeomvel o = (GsOutGeomvel)0;
+	[unroll]
+	for(uint i=0; i<4; i++)
+	{
+		uint pi = input[0].ppos.w + i;
+			
+			//// current ////
+			float3 pos = gmups_position(MupsData, pi);
+			float4 rot = mups_Rotation(MupsData, pi);
+			float4x4 rotm = QRotate(rot);
+			float size = gmups_size(MupsData, pi);
+			float2 age = gmups_age(MupsData, pi);
+			
+			//// previous ////
+			float3 ppos = gmups_position(PrevMupsData, pi);
+			float4 prot = mups_Rotation(PrevMupsData, pi);
+			float4x4 protm = QRotate(prot);
+			float psize = gmups_size(PrevMupsData, pi);
+			float2 page = gmups_age(PrevMupsData, pi);
+			
+			[unroll]
+			for(uint j=0; j<3; j++)
+			{
+				//// current ////
+				float4 cpos = input[j].cpoint;
+				cpos.xyz *= size;
+				cpos = mul(cpos, rotm);
+				cpos.xyz += pos;
+				float3 cnorm = mul(float4(input[j].norm,0), rotm).xyz;
+				
+				//// previous ////
+				float4 pcpos = float4(input[j].ppos.xyz,1);
+				pcpos.xyz *= psize;
+				pcpos = mul(pcpos, protm);
+				pcpos.xyz += ppos;
+				
+				o.cpoint = cpos;
+				o.norm = cnorm;
+				o.TexCd = input[j].TexCd;
+				o.ppos = float4(pcpos.xyz, pi);
+				if(age.x < 2) o.ppos.xyz = o.cpoint.xyz;
+				GSOut.Append(o);
+			}
+			GSOut.RestartStrip();
+	}
+}
+
+[maxvertexcount(3)]
+void GsGeomvelPrecise(triangle VsOutGeomvel input[3], inout TriangleStream<GsOutGeomvel>GSOut)
+{
+	GsOutGeomvel o = (GsOutGeomvel)0;
+	uint pi = input[0].ppos.w;
+		//// current ////
+		float3 pos = gmups_position(MupsData, pi);
+		float4 rot = mups_Rotation(MupsData, pi);
+		float4x4 rotm = qrot(rot);
+		float size = gmups_size(MupsData, pi);
+		float age = gmups_age(MupsData, pi).y;
+		
+		//// previous ////
+		float3 ppos = gmups_position(PrevMupsData, pi);
+		float4 prot = mups_Rotation(PrevMupsData, pi);
+		float4x4 protm = qrot(prot);
+		float psize = gmups_size(PrevMupsData, pi);
+		float page = gmups_age(PrevMupsData, pi).y;
+		
+		[unroll]
+		for(uint j=0; j<3; j++)
+		{
+			//// current ////
+			float4 cpos = input[j].cpoint;
+			cpos.xyz *= size;
+			cpos = mul(cpos, rotm);
+			cpos.xyz += pos;
+			float3 cnorm = mul(float4(input[j].norm,0), rotm).xyz;
+			
+			//// previous ////
+			float4 pcpos = float4(input[j].ppos.xyz,1);
+			pcpos.xyz *= psize;
+			pcpos = mul(pcpos, protm);
+			pcpos.xyz += ppos;
+			
+			o.cpoint = cpos;
+			o.norm = cnorm;
+			o.TexCd = input[j].TexCd;
+			o.ppos = float4(pcpos.xyz, pi);
+			GSOut.Append(o);
+		}
+		GSOut.RestartStrip();
+}
+GeometryShader StreamGeomvel = ConstructGSWithSO( CompileShader( gs_5_0, GsGeomvel() ), GEOMVEL );
+
+technique11 Usual
+{
+	pass P0
+	{
+		
+		SetVertexShader( CompileShader( vs_5_0, VsGeomPrecise() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GsGeomvelPrecise() ) );
+	    SetGeometryShader( StreamGeomvel );
+
+	}
+}
+technique11 UsualOptimized
+{
+	pass P0
+	{
+		
+		SetVertexShader( CompileShader( vs_5_0, VsGeom() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GsGeomvel() ) );
+	    SetGeometryShader( StreamGeomvel );
+
+	}
+}
+technique11 GeomVel
+{
+	pass P0
+	{
+		
+		SetVertexShader( CompileShader( vs_5_0, VsGeomVelPrecise() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GsGeomvelPrecise() ) );
+	    SetGeometryShader( StreamGeomvel );
+
+	}
+}
+technique11 GeomVelOptimized
+{
+	pass P0
+	{
+		
+		SetVertexShader( CompileShader( vs_5_0, VsGeomVel() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GsGeomvel() ) );
+	    SetGeometryShader( StreamGeomvel );
+
+	}
+}
+technique11 GeomVelInstanced
+{
+	pass P0
+	{
+		
+		SetVertexShader( CompileShader( vs_5_0, VsGeomVelIidPrecise() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GsGeomvelPrecise() ) );
+	    SetGeometryShader( StreamGeomvel );
+
+	}
+}
+technique11 GeomVelInstancedOptimized
+{
+	pass P0
+	{
+		
+		SetVertexShader( CompileShader( vs_5_0, VsGeomVelIid() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GsGeomvel() ) );
+	    SetGeometryShader( StreamGeomvel );
+
+	}
+}
