@@ -1,5 +1,9 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
-#include "mups.fxh"
+
+#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/CSThreadDefines.fxh"
+
+RWByteAddressBuffer Outbuf : BACKBUFFER;
+
 StructuredBuffer<float2> SourceFromTo;
 StructuredBuffer<float2> AgeFromTo;
 StructuredBuffer<uint> Destination;
@@ -12,23 +16,24 @@ struct csin
 	uint3 GID : SV_GroupID;
 };
 
-[numthreads(64, 1, 1)]
-void CS_FadeFromTo(csin input)
+[numthreads(XTHREADS, YTHREADS, ZTHREADS)]
+void CSMain(csin input)
 {
-	if(input.DTID.x > pcount) return;
+	if(input.DTID.x > PCOUNT) return;
 
 	uint sftC, dstC, AgeFC, Str;
 	SourceFromTo.GetDimensions(sftC, Str);
 	Destination.GetDimensions(dstC, Str);
 	AgeFromTo.GetDimensions(AgeFC, Str);
-	
+
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
-	uint2 ai = mups_age(ii);
-	float fader = saturate((Outbuf[ai.y]-AgeFromTo[id%AgeFC].x)/(AgeFromTo[id%AgeFC].y-AgeFromTo[id%AgeFC].x));
-	if((Outbuf[ai.y] > AgeFromTo[id%AgeFC].x) && (Outbuf[ai.y] < AgeFromTo[id%AgeFC].y))
+    float age = mupsAgeLoad(Outbuf, ii);
+	float fader = saturate((age-AgeFromTo[id%AgeFC].x)/(AgeFromTo[id%AgeFC].y-AgeFromTo[id%AgeFC].x));
+	if((age > AgeFromTo[id%AgeFC].x) && (age < AgeFromTo[id%AgeFC].y))
 	{
-		Outbuf[ii*pelsize + Destination[id%dstC]] = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
+        float result = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
+        mupsStore(Outbuf, ii, Destination[id%dstC], result);
 	}
 }
-technique11 FadeFromTo { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_FadeFromTo() ) );} }
+technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

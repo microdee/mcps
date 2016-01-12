@@ -1,198 +1,133 @@
-#include "mups.fxh"
+#include "../../../mp.fxh/mupsRead.fxh"
 
-float4x4 tV : VIEW;
-float4x4 tVP : VIEWPROJECTION;
-float4x4 tVI : VIEWINVERSE;
-float4x4 tVPI : VIEWPROJECTIONINVERSE;
+//define TEXTURED
 
 Texture2D texture2d;
+ByteAddressBuffer mupsData;
 
-float4 c <bool color=true;> = 1;
-StructuredBuffer<float> mupsData;
-float TailLength=.5;
-float radius = 0.05f;
-float innerradius = 0;
- 
-float3 g_positions[4]:IMMUTABLE ={float3( -1, 1, 0 ),float3( 1, 1, 0 ),float3( -1, -1, 0 ),float3( 1, -1, 0 ),};
-float2 g_texcoords[4]:IMMUTABLE ={float2(0,1), float2(1,1),float2(0,0),float2(1,0),};
+cbuffer cbPerDraw : register( b0 )
+{
+    float4x4 tVP : VIEWPROJECTION;
+    float4x4 ptVP : PREVIOUSVIEWPROJECTION;
+};
 
+cbuffer cbPerObj : register( b1 )
+{
+    float4 c <bool color=true;> = 1;
+    float TailLength=.5;
+    float radius = 5;
+    float innerradius = 0;
+    float Perspective = 1;
+	float2 res : TARGETSIZE;
+};
 
+float3 qpos[4]:IMMUTABLE ={float3( -1, 1, 0 ),float3( 1, 1, 0 ),float3( -1, -1, 0 ),float3( 1, -1, 0 ),};
+float2 quv[4]:IMMUTABLE ={float2(0,1), float2(1,1),float2(0,0),float2(1,0),};
 
-SamplerState g_samLinear : IMMUTABLE
+SamplerState sL
 {
     Filter = MIN_MAG_MIP_LINEAR;
     AddressU = Clamp;
     AddressV = Clamp;
 };
 
-struct VS_IN
+struct VSIn
 {
 	uint iv : SV_VertexID;
-	//float4 p: POSITION;	
 };
 
-struct vs2ps
+struct VSOut
 {
-    float4 PosWVP: SV_POSITION;	
-	float2 TexCd : TEXCOORD0;
-	uint iv : TEXCOORD1;
+    float4 pos : SV_POSITION;
+    float4 ppos : PREVPOS;
+	float2 uv : TEXCOORD0;
+	uint iv : VID;
 };
 
-vs2ps VS(VS_IN In)
+VSOut VS(VSIn In)
 {
-    //inititalize all fields of output struct with 0
-    vs2ps Out = (vs2ps)0;
-	uint3 pi = mups_position(In.iv);
-	float3 p = 0;
-	for(uint i=0; i<3; i++) p[i] = mupsData[pi[i]];
-	
-	//float4 po = In.p + float4(PData[In.iv],0);
-    Out.PosWVP = float4(p,1);// mul(float4(po.xyz,1),tVP);
+    VSOut Out = (VSOut)0;
+	float3 p = mupsPositionLoad(mupsData, In.iv);
+	float4 vel = mupsVelocityLoad(mupsData, In.iv);
+    float3 pp = p-vel.xyz * mupsTime.y;
+
+    Out.pos = mul(float4(p, 1), tVP);
+    Out.ppos = mul(float4(pp, 1), ptVP);
+
 	Out.iv=In.iv;
     return Out;
 }
 [maxvertexcount(4)]
-void GS(point vs2ps In[1], inout TriangleStream<vs2ps> SpriteStream)
+void GS(point VSOut In[1], inout TriangleStream<VSOut> GSOut)
 {
-    vs2ps output;
-	output.TexCd = 0;	
-	float3 p=In[0].PosWVP.xyz;
-	output.iv=In[0].iv;
+    VSOut o;
+	o.iv=In[0].iv;
 	uint iv=In[0].iv;
-	
-	float3 vel=0;
-	uint4 vi = mups_velocity(iv);
-	for(uint i=0; i<3; i++) vel[i] = mupsData[vi[i]] * Time.y;
-	
-	float3 camPos=mul(float4(0,0,0,1),tVI).xyz;
-	float3 View = p - camPos;
-	View = normalize(View);
-	float3 upVector = normalize(vel+.0000001*float3(0,1,0));//float3(1, 1, 0);
-	float3 rightVector = normalize(cross(View, upVector));
-	//upVector*=1+1./(.1+88*length(mul(float4(upVector,1),tVP).xyz));
-	//output.Color=c*pow(2,float4(In[0].vel.yzx*40,0))*(1+.3*length(In[0].vel));
-	
-	//.961*length(mul(float4(In[0].PosW.xyz+upVector,1.0),tV).xy-mul(float4(In[0].PosW.xyz-upVector,1.0),tV).xy);
-	
-	float size=radius*mupsData[mups_size(In[0].iv)];
-	upVector*=size;
-	upVector*=1+TailLength*40*(length(vel));
-	rightVector*=size;
-	output.TexCd=float2(1,1);
-    output.PosWVP = mul(float4(p+rightVector+upVector,1.0),tVP);  
-    SpriteStream.Append(output);
-	output.TexCd=float2(0,1);
-	output.PosWVP = mul(float4(p-rightVector+upVector,1.0),tVP);  
-    SpriteStream.Append(output);
-	output.TexCd=float2(1,0);
-	output.PosWVP = mul(float4(p+rightVector-upVector*1,1.0),tVP);  
-    SpriteStream.Append(output);
-	output.TexCd=float2(0,0);
-	output.PosWVP = mul(float4(p-rightVector-upVector*1,1.0),tVP);  
-    SpriteStream.Append(output);
-	SpriteStream.RestartStrip();
 
-}
-float3x3 lookat(float3 dir,float3 up=float3(0,1,0)){float3 z=normalize(dir);float3 x=normalize(cross(up,z));float3 y=normalize(cross(z,x));return float3x3(x,y,z);} 
+    float3 p = In[0].pos.xyz / In[0].pos.w;
+    float denom = In[0].pos.w;
+    float3 pp = In[0].ppos.xyz / In[0].ppos.w;
 
-[maxvertexcount(4)]
-void GS2d(point vs2ps In[1], inout TriangleStream<vs2ps> SpriteStream)
-{
-    vs2ps output;
-    
-    //
-    // Emit two new triangles
-    //
-	uint iv=In[0].iv;
-	float3 vel=0;
-	uint4 vi = mups_velocity(iv);
-	for(uint i=0; i<3; i++) vel[i] = mupsData[vi[i]] * Time.y;
-	float3 camPos=mul(float4(0,0,0,1),tVI).xyz;
-	float3 p=In[0].PosWVP.xyz;
-	float3 View = p - camPos;
-	float size=radius*mupsData[mups_size(In[0].iv)];
-    for(int i=0; i<4; i++)
+    float2 svel = p.xy-pp.xy;
+    float angle = 0;
+    if(length(svel) > 0.0001)
     {
-        float3 pos = g_positions[i]*size;
-        //pos=mul(pos,(float3x3)tVI);
-    	float3 screen_vel=float3(1,1,0)*mul(vel,(float3x3)tV);
-    	
-    	screen_vel=mul(float4(p,1.0),tV).xyz-mul(float4(p+vel,1.0),tV).xyz;
-    	//screen_vel*=.5;
-    	screen_vel.z=0;
-    	pos.x*=1+TailLength*50*length(screen_vel);
-    	//pos*=.5;
-    	pos=mul(pos.yzx,lookat(screen_vel,float3(0,0,1)));
-    	pos=mul(pos,(float3x3)tVI);
-    	pos+=p;
-    	//float3 norm=mul(float3(0,0,-1),(float3x3)tVI);
-        output.PosWVP=mul(float4(pos,1.0),tVP);
-    	output.iv=In[0].iv;
-        output.TexCd=g_texcoords[i];	
-        SpriteStream.Append(output);
+        float2 nsvel = normalize(svel);
+        angle = atan2(-nsvel.y, nsvel.x);
     }
-    SpriteStream.RestartStrip();
-}
+    float2x2 rotm = {1,0,0,1};
+    rotm[0][0] = cos(angle);
+    rotm[0][1] = -sin(angle);
+    rotm[1][0] = -rotm[0][1];
+    rotm[1][1] = rotm[0][0];
 
-[maxvertexcount(4)]
-void GSsprite(point vs2ps In[1], inout TriangleStream<vs2ps> SpriteStream)
-{
-    vs2ps output;
-    
-    //
-    // Emit two new triangles
-    //
-	float size=radius*mupsData[mups_size(In[0].iv)];
-    for(int i=0; i<4; i++)
+    float2 ss = 1/res;
+
+    for(uint i=0; i<4; i++)
     {
-        float3 position = g_positions[i]*size;
-    	//pow(2,sin(ppos[In[0].iv].age));
-        position = mul( position, (float3x3)tVI ) + In[0].PosWVP.xyz;
-    	//float3 norm = mul(float3(0,0,-1),(float3x3)tVI );
-        output.PosWVP = mul( float4(position,1.0), tVP );
-    	output.iv=In[0].iv;
-        output.TexCd = g_texcoords[i];	
-        SpriteStream.Append(output);
+        float2 cpos = (qpos[i].xy * radius) / lerp(1, denom, Perspective);
+        #if defined(KNOW_SIZE)
+            cpos *= mupsSizeLoad(mupsData, iv);
+        #endif
+        cpos.x += (length(svel) * TailLength * qpos[i].x) / max(ss.x, ss.y);
+        cpos = mul(cpos, rotm);
+    	cpos *= ss;
+        cpos += p.xy;
+        o.pos = float4(cpos, p.z, 1);
+        o.uv = quv[i];
+        o.ppos = o.pos;
+    	if((p.z < 1) && (p.z > 0))
+        	GSOut.Append(o);
     }
-    SpriteStream.RestartStrip();
+
+	GSOut.RestartStrip();
 }
 
-
-float4 PS_Tex(vs2ps In): SV_Target
+float4 PS_Tex(VSOut In): SV_Target
 {
-    float4 col = texture2d.Sample( g_samLinear, In.TexCd)*c;
-	if(length(In.TexCd.xy-.5)>0.5)discard;
-	if(length(In.TexCd.xy-.5)<innerradius)discard;
-	
-	uint4 ci = mups_color(In.iv);
-	for(uint i=0; i<4; i++) col[i] *= mupsData[ci[i]];
-	
-	//col.a=1-2*length(In.TexCd.xy-.5);
-	//col.rgb*=smoothstep(.5,0,length(In.TexCd.xy-.5));
+    clip(0.5 - length(In.uv.xy-.5));
+    clip(length(In.uv.xy-.5) - innerradius);
+
+    float4 col = c;
+
+    #if defined(KNOW_COLOR)
+       col *= mupsColorLoad(mupsData, In.iv);
+    #endif
+    #if defined(TEXTURED)
+	   col *= texture2d.Sample( sL, In.uv);
+    #endif
+
     return col;
 }
 
 
-technique10 WorldVelocity
+technique10 tech
 {
 	pass P0
 	{
-		
+
 		SetVertexShader( CompileShader( vs_4_0, VS() ) );
 		SetGeometryShader( CompileShader( gs_4_0, GS() ) );
 		SetPixelShader( CompileShader( ps_4_0, PS_Tex() ) );
 	}
 }
-technique10 ScreenVelocity
-{
-	pass P0
-	{
-		
-		SetVertexShader( CompileShader( vs_4_0, VS() ) );
-		SetGeometryShader( CompileShader( gs_4_0, GS2d() ) );
-		SetPixelShader( CompileShader( ps_4_0, PS_Tex() ) );
-	}
-}
-
-
-

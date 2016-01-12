@@ -1,13 +1,17 @@
-#include "mups.fxh"
 
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
+#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/CSThreadDefines.fxh"
 
-float3 gravity = {0,-9.80665,0};
-float VelocityDamper = 1;
-//float SleepThreshold = 0.5;
-bool AddVelocity = true;
-bool AddForce = true;
-float ResetAllEps = 0.034;
+RWByteAddressBuffer Outbuf : BACKBUFFER;
+cbuffer cbuf
+{
+    float3 gravity = {0,-9.80665,0};
+    float VelocityDamper = 1;
+    //float SleepThreshold = 0.5;
+    bool AddVelocity = true;
+    bool AddForce = true;
+    float ResetAllEps = 0.034;
+};
 
 struct csin
 {
@@ -16,46 +20,45 @@ struct csin
 	uint3 GID : SV_GroupID;
 };
 
-[numthreads(64, 1, 1)]
+[numthreads(XTHREADS, YTHREADS, ZTHREADS)]
 void CS_Iterate64(csin input)
 {
-	if(input.DTID.x > pcount) return;
-	
+	if(input.DTID.x > PCOUNT) return;
+
 	uint ii=input.DTID.x;
-	uint2 ai = mups_age(ii);
-	Outbuf[ai.x]++;
-	Outbuf[ai.y] += Time.y;
+
+	float2 age = mupsAgeLoad(Outbuf, ii);
+	age.x++;
+	age.y += mupsTime.y;
+	mupsAgeStore(Outbuf, ii, age);
 	//bool sleep = Outbuf[mups_sleep(ii)] > SleepThreshold;
-	
+
 	if(AddVelocity)
 	{
-		uint4 vi = mups_velocity(ii);
+		float4 vel = mupsVelocityLoad(Outbuf, ii);
 		if(AddForce)
 		{
-			uint3 fi = mups_force(ii);
-			for(uint i=0; i<3; i++)
-			{
-				Outbuf[fi[i]] += gravity[i];
-				
-				Outbuf[vi[i]] += Outbuf[fi[i]] * Time.y;
-				Outbuf[vi[i]] *= VelocityDamper;
-				Outbuf[vi[i]] *= Outbuf[vi.w];
-			}
+			float3 force = mupsForceLoad(Outbuf, ii);
+			force += gravity;
+			vel.xyz += force;
+			vel.xyz *= VelocityDamper;
+			vel.xyz *= vel.w;
+			mupsVelocityStore(Outbuf, ii, vel);
+			mupsForceStore(Outbuf, ii, force);
 		}
 		else
 		{
-			for(uint i=0; i<3; i++)
-			{
-				Outbuf[vi[i]] *= VelocityDamper;
-				Outbuf[vi[i]] *= Outbuf[vi.w];
-			}
+			vel.xyz *= VelocityDamper;
+			vel.xyz *= vel.w;
+			mupsVelocityStore(Outbuf, ii, vel);
 		}
-		uint3 pi = mups_position(ii);
-		for(uint i=0; i<3; i++) Outbuf[pi[i]] += Outbuf[vi[i]] * Time.y;
+		float3 pos = mupsPositionLoad(Outbuf, ii);
+		pos += vel.xyz * mupsTime.y;
+		mupsPositionStore(Outbuf, ii, pos);
 	}
-	if(Time.x < ResetAllEps)
+	if(mupsTime.x < ResetAllEps)
 	{
-		for(uint i=0; i<pelsize; i++) Outbuf[ii*pelsize+i] = 0;
+		for(uint i=0; i<PELSIZE; i++) mupsStore(Outbuf, ii, i, 0);
 	}
 }
 technique11 Iterate64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_Iterate64() ) );} }

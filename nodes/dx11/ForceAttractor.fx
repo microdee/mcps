@@ -1,8 +1,10 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
-#include "mups.fxh"
+
+#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/CSThreadDefines.fxh"
+
+RWByteAddressBuffer Outbuf : BACKBUFFER;
 StructuredBuffer<float3> Position;
-StructuredBuffer<float3> Velocity;
-float VelInfluence = 0;
+StructuredBuffer<float4> VelAndInfl;
 StructuredBuffer<float3> RadiusStrengthPow;
 
 struct csin
@@ -12,25 +14,22 @@ struct csin
 	uint3 GID : SV_GroupID;
 };
 
-[numthreads(64, 1, 1)]
-void CS_mups64(csin input)
+[numthreads(XTHREADS, YTHREADS, ZTHREADS)]
+void CSMain(csin input)
 {
-	if(input.DTID.x > pcount) return;
-	
-	uint rspc, Str;
+	if(input.DTID.x > PCOUNT) return;
+
+	uint velc, rspc, Str;
 	RadiusStrengthPow.GetDimensions(rspc, Str);
-	
+	VelAndInfl.GetDimensions(velc, Str);
+
 	uint ii=input.DTID.x;
 	uint aii=input.DTID.y;
-	
-	float3 pos = 0;
-	uint3 pi = mups_position(ii);
-	[unroll]
-	for(uint i=0; i<3; i++)
-		pos[i] = Outbuf[pi[i]];
-	
-	float3 avel = Velocity[aii];
-	
+
+	float3 pos = mupsPositionLoad(Outbuf, ii);
+
+	float4 avel = VelAndInfl[aii%velc];
+
 	float3 dir = Position[aii]-pos;
 	float ad = length(dir);
 	dir = normalize(dir);
@@ -41,15 +40,13 @@ void CS_mups64(csin input)
 	{
 		float attr = max(r - ad, 0);
 		attr = pow(attr, p);
-		float3 cvel = avel*VelInfluence*attr;
+		float3 cvel = avel.xyz * avel.w * attr;
 		attr *= s;
-		float3 force = dir*attr;
+		float3 force = dir * attr;
 		force += cvel;
-		
-		uint3 fi = mups_force(ii);
-		
-		[unroll]
-		for(uint i=0; i<3; i++) Outbuf[fi[i]] += force[i];
+
+        float3 absforce = mupsForceLoad(Outbuf, ii) + force;
+        mupsForceStore(Outbuf, ii, absforce);
 	}
 }
-technique11 mups64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_mups64() ) );} }
+technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

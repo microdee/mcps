@@ -1,10 +1,10 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\Modules\EmitterGeometryHelper (DX11 mups).v4p" systemname="EmitterGeometryHelper (DX11 mups)" filename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\Modules\EmitterGeometryHelper (DX11 mups).v4p">
-   <BOUNDS type="Window" left="32370" top="615" width="9000" height="6000">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\EmitterGeometryHelper (DX11 mups).v4p" systemname="EmitterGeometryHelper (DX11 mups)" filename="E:\vvvv\app\vvvv_45beta32.1_x86\packs\mups\nodes\Modules\EmitterGeometryHelper (DX11 mups).v4p" scrollx="720" scrolly="195">
+   <BOUNDS type="Window" left="12825" top="5280" width="9000" height="6000">
    </BOUNDS>
    <PACK Name="ImagePack" Version="0.1.0">
    </PACK>
-   <PACK Name="addonpack" Version="31.9.0">
+   <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE systemname="Random (Value)" nodename="Random (Value)" componentmode="Hidden" id="13">
    <BOUNDS type="Node" left="5580" top="2700" width="100" height="100">
@@ -208,4 +208,6 @@
    </NODE>
    <LINK srcnodeid="3" srcpinname="Buffer" dstnodeid="15" dstpinname="Input Node">
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.2.0">
+   </PACK>
    </PATCH>

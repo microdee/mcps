@@ -1,6 +1,12 @@
 #define PI 3.14159265359
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
-#include "mups.fxh"
+#include "../../../mp.fxh/pows.fxh"
+#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/CSThreadDefines.fxh"
+
+//define DO_ADDITIONAL
+
+RWByteAddressBuffer Outbuf : BACKBUFFER;
+
 interface iShape{
 	float3 Shape(float3 p, float2 param);
 };
@@ -49,18 +55,15 @@ iBox Box;
 iTorus Torus;
 
 iShape SelectedShape <string uiname="Primitive";string linkclass="Sphere,Cylinder,Box,Torus";> = Sphere;
-float4x4 tW : WORLD;
-float2 Param = 1;
-float RandomSeed = 17;
 
-StructuredBuffer<float> Source;
-StructuredBuffer<uint> Destination;
-bool ResetColor = false;
-float4 Color <bool color=true;> = 1;
-bool ResetSize = false;
-float Size = 1;
-int EmitterID = 0;
-float emitcount = 100;
+cbuffer cbuf
+{
+    float4x4 tW : WORLD;
+    float2 Param = 1;
+    float RandomSeed = 17;
+    uint EmitterID = 0;
+    uint emitcount = 100;
+}
 
 float _dnoise1(float3 u){
 	u=dot(u+.2,float3(1,57,21));
@@ -73,7 +76,7 @@ float3 dnoise(float2 x,float randomseed){
 	_dnoise1(float3((x+randomseed*7+293)+5,length(sin((x+127)/163+randomseed*float2(13,5))))+.5),
 	_dnoise1(float3((x+randomseed*5+113)+7,length(sin((x+191)/173+randomseed*float2(7,17))))+.5)
 	};
-	return frac(c+x.x*2+RandomSeed);
+	return sin((c+x.x*2+RandomSeed) * 0.1334)*0.5 + 0.5;
 }
 struct csin
 {
@@ -82,49 +85,20 @@ struct csin
 	uint3 GID : SV_GroupID;
 };
 
-[numthreads(64, 1, 1)]
-void CS_Emit64(csin input)
+[numthreads(XTHREADS, YTHREADS, ZTHREADS)]
+void CSMain(csin input)
 {
 	if(input.DTID.x > emitcount) return;
-	/*
-	uint PCount, VCount, Str;
-	Position.GetDimensions(PCount, Str);
-	Velocity.GetDimensions(VCount, Str);
-	*/
-	uint DstC, Str;
-	Destination.GetDimensions(DstC, Str);
-	
-	uint ii = input.DTID.x + EmitCounter + EmitCountOffs[EmitterID];
+
+	uint ii = input.DTID.x + WorldEmitOffset + EmitOffset[EmitterID];
 	uint pii = input.DTID.x;
-	uint dii = input.DTID.y;
-	uint2 ai = mups_age(ii);
-	Outbuf[ai.x] = 0;
-	Outbuf[ai.y] = 0;
-	if(dii==0)
-	{
-		float ndrive = pii * 0.13563;
-		float3 inpos = dnoise(ndrive.xx, RandomSeed);
-		float3 outpos = mul(float4(SelectedShape.Shape(inpos, Param),1),tW).xyz;
-		
-		uint3 pi = mups_position(ii);
-		for(uint i=0; i<3; i++) Outbuf[pi[i]] = outpos[i];
-		
-		if(ResetColor)
-		{
-			uint4 ci = mups_color(ii);
-			for(uint i=0; i<4; i++) Outbuf[ci[i]] = Color[i];
-		}
-		uint4 ci = mups_velocity(ii);
-		for(uint i=0; i<3; i++) Outbuf[ci[i]] = 0;
-		Outbuf[ci.w] = 1;
-		
-		if(ResetSize)
-			Outbuf[mups_size(ii)] = Size;
-	}
-	if(DstC!=0)
-	{
-		uint sii = pii*DstC+dii;
-		Outbuf[ii*pelsize + Destination[dii]] = Source[sii];
-	}
+	mupsAgeStore(Outbuf, ii, 0);
+
+	float ndrive = pii * 0.13563;
+	float3 inpos = dnoise(ndrive.xx, RandomSeed);
+	float3 outpos = mul(float4(SelectedShape.Shape(inpos, Param),1),tW).xyz;
+
+	mupsPositionStore(Outbuf, ii, outpos);
+	mupsVelocityStore(Outbuf, ii, float4(0,0,0,1));
 }
-technique11 Emit64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_Emit64() ) );} }
+technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

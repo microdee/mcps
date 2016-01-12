@@ -1,129 +1,58 @@
-#include "mups.fxh"
-#include "quaternion.fxh"
-#define GEOMVEL "SV_Position.xyz;NORMAL.xyz;TEXCOORD0.xy;COLOR0"
-// mups
+#include "../../../mp.fxh/mupsRead.fxh"
+#include "../../../mp.fxh/quaternion.fxh"
+#include "../../../mp.fxh/pows.fxh"
 
-StructuredBuffer<float> MupsData;
-StructuredBuffer<float> PrevMupsData;
-/*
-size	offset	name		note
-3		0		position	
-3		3		velocity
-3		7		force
-4		10		color		ignored :(
-1		14		size
-2		15		age
-ext:
-4		17		Rotation	Quaternion
-total:
-21
-*/
-float4 mups_Rotation(StructuredBuffer<float> mups, uint i) {return normalize(float4(mups[i*pelsize+17],mups[i*pelsize+18],mups[i*pelsize+19],mups[i*pelsize+20]));}
+//define STACK
+//define STACKTRI
+
+#if !defined(STACK)
+#define STACK 1
+#define STACKTRI 3
+#endif
+
+#if !defined(PREVPOS_OUT)
+#define PREVPOS_OUT 1
+#endif
+#if !defined(SUBSETID_OUT)
+#define SUBSETID_OUT 1
+#endif
+
+#include "../../../mp.fxh/MREInputElements.fxh"
+
+ByteAddressBuffer MupsData;
+ByteAddressBuffer PrevMupsData;
 
 float GrowTime = 1;
 bool Grow = true;
 float4x4 PreTransform;
 
-struct VsInUsual
+GSin VS(VSin input)
 {
-	float4 cpoint : POSITION;
-	float3 norm : NORMAL;
-	float TexCd : TEXCOORD0;
-};
-struct VsOutGeomvel
-{
-	float4 cpoint : POSITION;
-	float3 norm : NORMAL;
-	float TexCd : TEXCOORD0;
-	float4 ppos : COLOR0;
-};
-float PowS(float a, float b)
-{
-	return pow(abs(a),b)*sign(a);
-}
-float4x4 QRotate(float4 q)
-{
-	float4x4 mat = {
-		1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		0,0,0,1};
-	mat[0][0] = 1 - 2*q.y*q.y - 2*q.z*q.z;
-	mat[0][1] = 2*q.x*q.y + 2*q.w*q.z;
-	mat[0][2] = 2*q.x*q.z - 2*q.w*q.y;
-	mat[1][0] = 2*q.x*q.y - 2*q.w*q.z;
-	mat[1][1] = 1 - 2*q.x*q.x - 2*q.z*q.z;
-	mat[1][2] = 2*q.y*q.z + 2*q.w*q.x;
-	mat[2][0] = 2*q.x*q.z + 2*q.w*q.y;
-	mat[2][1] = 2*q.y*q.z - 2*q.w*q.x;
-	mat[2][2] = 1 - 2*q.x*q.x - 2*q.y*q.y;
-	return mat;
-}
-VsOutGeomvel VsGeom(VsInUsual input, uint ii: SV_InstanceID)
-{
-    VsOutGeomvel output;
-	
-	uint ci = ii*4;
-	
-    output.cpoint = mul(input.cpoint, PreTransform);
-	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
-	output.TexCd = input.TexCd;
-	output.ppos = float4(output.cpoint.xyz, ci);
-	
-    return output;
-}
-VsOutGeomvel VsGeomPrecise(VsInUsual input, uint ii: SV_InstanceID)
-{
-    VsOutGeomvel output;
-    output.cpoint = mul(input.cpoint, PreTransform);
-	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
-	output.TexCd = input.TexCd;
-	output.ppos = float4(output.cpoint.xyz, ii);
-	
-    return output;
-}
-VsOutGeomvel VsGeomVelIid(VsOutGeomvel input, uint ii: SV_InstanceID)
-{
-    VsOutGeomvel output;
-	
-	uint ci = ii*4;
-	
-    output.cpoint = mul(input.cpoint, PreTransform);
-	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
-	output.TexCd = input.TexCd;
-	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, ci);
-	
-    return output;
-}
-VsOutGeomvel VsGeomVelIidPrecise(VsOutGeomvel input, uint ii: SV_InstanceID)
-{
-    VsOutGeomvel output = input;
-    output.cpoint = mul(input.cpoint, PreTransform);
-	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
-	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, ii);
-	
-    return output;
-}
-VsOutGeomvel VsGeomVel(VsOutGeomvel input)
-{
-    VsOutGeomvel output;
-	
-	uint ci = input.ppos.w*4;
-	
-    output.cpoint = mul(input.cpoint, PreTransform);
-	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
-	output.TexCd = input.TexCd;
-	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, ci);
-	
-    return output;
-}
-VsOutGeomvel VsGeomVelPrecise(VsOutGeomvel input)
-{
-    VsOutGeomvel output = input;
-    output.cpoint = mul(input.cpoint, PreTransform);
-	output.norm = mul(float4(input.norm,0), PreTransform).xyz;
-	output.ppos = float4(mul(float4(input.ppos.xyz,1), PreTransform).xyz, input.ppos.w);
-	
+    GSin output;
+
+	uint ci = ii * STACK;
+
+    output.cpoint = mul(float4(input.cpoint, 1), PreTransform).xyz;
+	output.norm = mul(float4(input.norm, 0), PreTransform).xyz;
+    #if defined(PREVPOS_IN)
+        output.PrevPos = mul(float4(input.PrevPos, 1), PreTransform).xyz;
+    #else
+        output.PrevPos = output.cpoint;
+    #endif
+    output.SubsetID = ci;
+
+    #if defined(TEXCOORD_IN) && defined(TEXCOORD_OUT)
+        output.TexCd = input.TexCd;
+    #endif
+    #if defined(TANGENTS_IN) && defined(TANGENTS_OUT)
+        output.Tangent = input.Tangent;
+        output.Binormal = input.Binormal;
+    #endif
+    #if defined(BLENDWEIGHTS_IN) && defined(BLENDWEIGHTS_OUT)
+        output.BlendId = input.BlendId;
+        output.BlendWeight = input.BlendWeight;
+    #endif
+
     return output;
 }
 
@@ -135,164 +64,120 @@ struct GsOutGeomvel
 	float4 ppos : COLOR0;
 };
 
-[maxvertexcount(12)]
-void GsGeomvel(triangle VsOutGeomvel input[3], inout TriangleStream<GsOutGeomvel>GSOut)
+[maxvertexcount(STACKTRI)]
+void GS(triangle GSin input[3], inout TriangleStream<GsOutGeomvel>GSOut)
 {
 	GsOutGeomvel o = (GsOutGeomvel)0;
 	[unroll]
-	for(uint i=0; i<4; i++)
+	for(uint i=0; i<STACK; i++)
 	{
-		uint pi = input[0].ppos.w + i;
-			
-			//// current ////
-			float3 pos = gmups_position(MupsData, pi);
-			float4 rot = mups_Rotation(MupsData, pi);
-			float4x4 rotm = QRotate(rot);
-			float size = gmups_size(MupsData, pi);
-			float2 age = gmups_age(MupsData, pi);
-			
-			//// previous ////
-			float3 ppos = gmups_position(PrevMupsData, pi);
-			float4 prot = mups_Rotation(PrevMupsData, pi);
-			float4x4 protm = QRotate(prot);
-			float psize = gmups_size(PrevMupsData, pi);
-			float2 page = gmups_age(PrevMupsData, pi);
-			
-			[unroll]
-			for(uint j=0; j<3; j++)
-			{
-				//// current ////
-				float4 cpos = input[j].cpoint;
-				cpos.xyz *= size;
-				cpos = mul(cpos, rotm);
-				cpos.xyz += pos;
-				float3 cnorm = mul(float4(input[j].norm,0), rotm).xyz;
-				
-				//// previous ////
-				float4 pcpos = float4(input[j].ppos.xyz,1);
-				pcpos.xyz *= psize;
-				pcpos = mul(pcpos, protm);
-				pcpos.xyz += ppos;
-				
-				o.cpoint = cpos;
-				o.norm = cnorm;
-				o.TexCd = input[j].TexCd;
-				o.ppos = float4(pcpos.xyz, pi);
-				if(age.x < 2) o.ppos.xyz = o.cpoint.xyz;
-				GSOut.Append(o);
-			}
-			GSOut.RestartStrip();
-	}
-}
+		uint pi = input[0].SubsetID + i;
 
-[maxvertexcount(3)]
-void GsGeomvelPrecise(triangle VsOutGeomvel input[3], inout TriangleStream<GsOutGeomvel>GSOut)
-{
-	GsOutGeomvel o = (GsOutGeomvel)0;
-	uint pi = input[0].ppos.w;
 		//// current ////
-		float3 pos = gmups_position(MupsData, pi);
-		float4 rot = mups_Rotation(MupsData, pi);
-		float4x4 rotm = qrot(rot);
-		float size = gmups_size(MupsData, pi);
-		float age = gmups_age(MupsData, pi).y;
-		
-		//// previous ////
-		float3 ppos = gmups_position(PrevMupsData, pi);
-		float4 prot = mups_Rotation(PrevMupsData, pi);
-		float4x4 protm = qrot(prot);
-		float psize = gmups_size(PrevMupsData, pi);
-		float page = gmups_age(PrevMupsData, pi).y;
-		
+		float3 pos = mupsPositionLoad(MupsData, pi);
+		float2 age = mupsAgeLoad(MupsData, pi);
+		float3 ppos = mupsPositionLoad(PrevMupsData, pi);
+		float2 page = mupsAgeLoad(PrevMupsData, pi);
+
+        #if defined(KNOW_SIZE)
+    		float size = mupsSizeLoad(MupsData, pi);
+            float psize = mupsSizeLoad(PrevMupsData, pi);
+        #endif
+        #if defined(KNOW_SCALE)
+    		float3 scale = mupsScaleLoad(MupsData, pi);
+            float3 pscale = mupsScaleLoad(PrevMupsData, pi);
+        #endif
+        #if defined(KNOW_ROTATION)
+    		float4 rot = mupsRotationLoad(MupsData, pi);
+    		float4x4 rotm = qrot(rot);
+    		float4 prot = mupsRotationLoad(PrevMupsData, pi);
+    		float4x4 protm = qrot(prot);
+        #endif
+
 		[unroll]
 		for(uint j=0; j<3; j++)
 		{
 			//// current ////
-			float4 cpos = input[j].cpoint;
-			cpos.xyz *= size;
-			cpos = mul(cpos, rotm);
-			cpos.xyz += pos;
-			float3 cnorm = mul(float4(input[j].norm,0), rotm).xyz;
-			
-			//// previous ////
-			float4 pcpos = float4(input[j].ppos.xyz,1);
-			pcpos.xyz *= psize;
-			pcpos = mul(pcpos, protm);
-			pcpos.xyz += ppos;
-			
-			o.cpoint = cpos;
-			o.norm = cnorm;
-			o.TexCd = input[j].TexCd;
-			o.ppos = float4(pcpos.xyz, pi);
+			float3 cpos = input[j].cpoint;
+			float3 pcpos = input[j].PrevPos;
+			float3 cnorm = input[j].norm;
+            #if defined(TANGENTS_IN) && defined(TANGENTS_OUT)
+                float3 tangent = input[j].Tangent;
+                float3 binormal = input[j].Binormal;
+            #endif
+            #if defined(KNOW_SIZE)
+                cpos.xyz *= size;
+    			pcpos.xyz *= psize;
+            #endif
+            #if defined(KNOW_SCALE)
+                cpos.xyz *= scale;
+            #endif
+            #if defined(KNOW_ROTATION)
+                cpos = mul(cpos, rotm);
+    			pcpos = mul(pcpos, protm);
+
+                cnorm = mul(float4(cnorm, 0), rotm).xyz;
+                #if defined(TANGENTS_IN) && defined(TANGENTS_OUT)
+                    tangent = mul(float4(tangent, 0), rotm).xyz;
+                    binormal = mul(float4(binormal, 0), rotm).xyz;
+                #endif
+            #endif
+
+			cpos += pos;
+			pcpos += ppos;
+            o.cpoint = cpos;
+            o.PrevPos = pcpos;
+            o.norm = cnorm;
+
+            #if defined(TEXCOORD_IN) && defined(TEXCOORD_OUT)
+                o.TexCd = input[j].TexCd;
+            #endif
+            #if defined(TANGENTS_IN) && defined(TANGENTS_OUT)
+                o.Tangent = tangent;
+                o.Binormal = binormal;
+            #endif
+            #if defined(BLENDWEIGHTS_IN) && defined(BLENDWEIGHTS_OUT)
+                o.BlendId = input[j].BlendId;
+                o.BlendWeight = input[j].BlendWeight;
+            #endif
+
+			o.SubsetID = pi;
+			if(age.x < 2) o.PrevPos = o.cpoint;
 			GSOut.Append(o);
 		}
 		GSOut.RestartStrip();
-}
-GeometryShader StreamGeomvel = ConstructGSWithSO( CompileShader( gs_5_0, GsGeomvel() ), GEOMVEL );
-
-technique11 Usual
-{
-	pass P0
-	{
-		
-		SetVertexShader( CompileShader( vs_5_0, VsGeomPrecise() ) );
-		SetGeometryShader( CompileShader( gs_5_0, GsGeomvelPrecise() ) );
-	    SetGeometryShader( StreamGeomvel );
-
 	}
 }
-technique11 UsualOptimized
+
+GeometryShader StreamOutGS = ConstructGSWithSO( CompileShader( gs_5_0, GS() ),
+	"POSITION.xyz;"
+	"NORMAL.xyz"
+	#if defined(TEXCOORD_OUT)
+		";TEXCOORD0.xy"
+	#endif
+	#if defined(TANGENTS_OUT)
+		";TANGENT.xyz"
+		";BINORMAL.xyz"
+	#endif
+	#if defined(BLENDWEIGHTS_OUT)
+		";BLENDINDICES.xyzw"
+		";BLENDWEIGHT.xyzw"
+	#endif
+	#if defined(PREVPOS_OUT)
+		";PREVPOS.xyz"
+	#endif
+	#if defined(SUBSETID_OUT)
+		";SUBSETID.x"
+	#endif
+);
+
+technique11 geom
 {
 	pass P0
 	{
-		
-		SetVertexShader( CompileShader( vs_5_0, VsGeom() ) );
-		SetGeometryShader( CompileShader( gs_5_0, GsGeomvel() ) );
-	    SetGeometryShader( StreamGeomvel );
 
-	}
-}
-technique11 GeomVel
-{
-	pass P0
-	{
-		
-		SetVertexShader( CompileShader( vs_5_0, VsGeomVelPrecise() ) );
-		SetGeometryShader( CompileShader( gs_5_0, GsGeomvelPrecise() ) );
-	    SetGeometryShader( StreamGeomvel );
-
-	}
-}
-technique11 GeomVelOptimized
-{
-	pass P0
-	{
-		
-		SetVertexShader( CompileShader( vs_5_0, VsGeomVel() ) );
-		SetGeometryShader( CompileShader( gs_5_0, GsGeomvel() ) );
-	    SetGeometryShader( StreamGeomvel );
-
-	}
-}
-technique11 GeomVelInstanced
-{
-	pass P0
-	{
-		
-		SetVertexShader( CompileShader( vs_5_0, VsGeomVelIidPrecise() ) );
-		SetGeometryShader( CompileShader( gs_5_0, GsGeomvelPrecise() ) );
-	    SetGeometryShader( StreamGeomvel );
-
-	}
-}
-technique11 GeomVelInstancedOptimized
-{
-	pass P0
-	{
-		
-		SetVertexShader( CompileShader( vs_5_0, VsGeomVelIid() ) );
-		SetGeometryShader( CompileShader( gs_5_0, GsGeomvel() ) );
-	    SetGeometryShader( StreamGeomvel );
-
+		SetVertexShader( CompileShader( vs_5_0, VS() ) );
+		SetGeometryShader( CompileShader( gs_5_0, GS() ) );
+	    SetGeometryShader( StreamOutGS );
 	}
 }

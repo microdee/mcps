@@ -1,17 +1,20 @@
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
-#include "mups.fxh"
-StructuredBuffer<float> mupsData;
-int ParticleSize = 17;
+
+#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/CSThreadDefines.fxh"
+
+RWByteAddressBuffer Outbuf : BACKBUFFER;
+
+ByteAddressBuffer mupsData;
 StructuredBuffer<uint> Source;
 StructuredBuffer<uint> Destination;
-bool ResetColor = false;
-float4 Color <bool color=true;> = 1;
-bool ResetVelocity = false;
-float4 Velocity = {0,0,0,1};
-bool ResetSize = false;
-float Size = 1;
-int EmitterID = 0;
-float emitcount = 100;
+
+cbuffer cbuf
+{
+    copyvelocity;
+    uint ParticleSize = 17;
+    uint EmitterID = 0;
+    uint emitcount = 100;
+}
 
 struct csin
 {
@@ -20,8 +23,8 @@ struct csin
 	uint3 GID : SV_GroupID;
 };
 
-[numthreads(64, 1, 1)]
-void CS_Emit64(csin input)
+[numthreads(XTHREADS, YTHREADS, ZTHREADS)]
+void CSMain(csin input)
 {
 	if(input.DTID.x > emitcount) return;
 	/*
@@ -31,29 +34,14 @@ void CS_Emit64(csin input)
 	*/
 	uint DstC, Str;
 	Destination.GetDimensions(DstC, Str);
-	
-	uint ii = input.DTID.x + EmitCounter + EmitCountOffs[EmitterID];
+
+    uint ii = input.DTID.x + WorldEmitOffset + EmitOffset[EmitterID];
 	uint pii = input.DTID.x;
 	uint dii = input.DTID.y;
-	uint2 ai = mups_age(ii);
-	Outbuf[ai.x] = 0;
-	Outbuf[ai.y] = 0;
-	
-	if(ResetColor)
-	{
-		uint4 ci = mups_color(ii);
-		for(uint i=0; i<4; i++) Outbuf[ci[i]] = Color[i];
-	}
-	if(ResetVelocity)
-	{
-		uint4 ci = mups_velocity(ii);
-		for(uint i=0; i<4; i++) Outbuf[ci[i]] = Velocity[i];
-	}
-	
-	if(ResetSize)
-		Outbuf[mups_size(ii)] = Size;
-	
-	float fromMups = mupsData[pii*ParticleSize + Source[dii]];
-	Outbuf[ii*pelsize + Destination[dii]] = fromMups;
+
+    mupsAgeStore(Outbuf, ii, 0);
+
+	float fromMups = BABLoad(mupsData, pii*ParticleSize + Source[dii]);
+	mupsStore(Outbuf, ii, Destination[dii], fromMups);
 }
-technique11 Emit64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_Emit64() ) );} }
+technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

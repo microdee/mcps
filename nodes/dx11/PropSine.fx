@@ -1,8 +1,9 @@
-#include "mups.fxh"
 
-RWStructuredBuffer<float> Outbuf : BACKBUFFER;
-StructuredBuffer<float> SourceMin;
-StructuredBuffer<float> SourceMax;
+#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/CSThreadDefines.fxh"
+
+RWByteAddressBuffer Outbuf : BACKBUFFER;
+StructuredBuffer<float2> SourceMinMax;
 StructuredBuffer<float2> WidthPhase;
 StructuredBuffer<uint> Destination;
 
@@ -13,22 +14,23 @@ struct csin
 	uint3 GID : SV_GroupID;
 };
 
-[numthreads(64, 1, 1)]
-void CS_Clear64(csin input)
+[numthreads(XTHREADS, YTHREADS, ZTHREADS)]
+void CSMain(csin input)
 {
-	if(input.DTID.x > pcount) return;
+	if(input.DTID.x > PCOUNT) return;
 
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
-	uint2 ai = mups_age(ii);
-	
-	uint WPc, SAc, SIc, Str;
+    float age = mupsAgeLoad(Outbuf, ii);
+
+	uint WPc, Sc, Str;
 	WidthPhase.GetDimensions(WPc, Str);
-	SourceMax.GetDimensions(SAc, Str);
-	SourceMin.GetDimensions(SIc, Str);
-	
-	float sw = Outbuf[ai.y]*WidthPhase[id%WPc].x+WidthPhase[id%WPc].y;
+	SourceMax.GetDimensions(Sc, Str);
+
+	float sw = age*WidthPhase[id%WPc].x+WidthPhase[id%WPc].y;
 	float ss = sin(sw)*.5+.5;
-	Outbuf[ii*pelsize+Destination[id]] = lerp(SourceMin[id%SIc],SourceMax[id%SAc],ss);
+
+    float result = lerp(SourceMin[id%SIc],SourceMax[id%Sc],ss);
+    mupsStore(Outbuf, ii, Destination[id], result);
 }
-technique11 Clear64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_Clear64() ) );} }
+technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }
