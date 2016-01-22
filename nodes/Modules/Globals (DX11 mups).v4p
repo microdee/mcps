@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\Globals (DX11 mups).v4p" systemname="Globals (DX11 mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\Globals (DX11 mups).v4p" scrollx="8880" scrolly="11820">
-   <BOUNDS type="Window" left="-315" top="990" width="21120" height="11955">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\Globals (DX11 mups).v4p" systemname="Globals (DX11 mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\Globals (DX11 mups).v4p" scrollx="2085" scrolly="1170">
+   <BOUNDS type="Window" left="14160" top="2130" width="21120" height="11955">
    </BOUNDS>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="6">
    <BOUNDS type="Node" left="930" top="5595" width="100" height="100">
@@ -1623,7 +1623,7 @@
    <LINK srcnodeid="192" srcpinname="Output String" dstnodeid="190" dstpinname="Prefix">
    </LINK>
    <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="194">
-   <BOUNDS type="Node" left="6765" top="5175" width="100" height="100">
+   <BOUNDS type="Node" left="6750" top="5655" width="100" height="100">
    </BOUNDS>
    <PIN pinname="X" visible="1" slicecount="3" values="4,3,2">
    </PIN>
@@ -1632,20 +1632,6 @@
    <PIN pinname="XY" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Select (Value Vector)" filename="%VVVV%\addonpack\lib\nodes\plugins\VectorSized.dll" nodename="Select (Value Vector)" componentmode="Hidden" id="195">
-   <BOUNDS type="Node" left="6750" top="5700" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Vector Size" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Select" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="194" srcpinname="XY" dstnodeid="195" dstpinname="Input">
-   </LINK>
    <NODE systemname="Select (Value)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Select (Value)" componentmode="Hidden" id="196">
    <BOUNDS type="Node" left="5895" top="1785" width="100" height="100">
    </BOUNDS>
@@ -1670,14 +1656,12 @@
    </LINK>
    <LINK srcnodeid="161" srcpinname="XYZW" dstnodeid="197" dstpinname="Input 2">
    </LINK>
-   <LINK srcnodeid="197" srcpinname="Output" dstnodeid="195" dstpinname="Select">
-   </LINK>
    <NODE systemname="Unzip (2d Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Unzip (2d Bin)" componentmode="Hidden" id="199">
    <BOUNDS type="Node" left="6750" top="6180" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Bin Size" visible="1">
    </PIN>
-   <PIN pinname="InputXY" visible="1">
+   <PIN pinname="InputXY" visible="1" slicecount="6" values="3,7,10,12,16,17">
    </PIN>
    <PIN pinname="Output Count" slicecount="1" values="7">
    </PIN>
@@ -1711,8 +1695,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="197" srcpinname="Output" dstnodeid="199" dstpinname="Input Bin Size">
-   </LINK>
-   <LINK srcnodeid="195" srcpinname="Output" dstnodeid="199" dstpinname="InputXY">
    </LINK>
    <LINK srcnodeid="175" srcpinname="Output" dstnodeid="194" dstpinname="Y">
    </LINK>
@@ -2111,5 +2093,7 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="215" srcpinname="Children" dstnodeid="216" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="194" srcpinname="XY" dstnodeid="199" dstpinname="InputXY">
    </LINK>
    </PATCH>

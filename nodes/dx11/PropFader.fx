@@ -28,9 +28,9 @@ void CSMain(csin input)
 
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
-    float age = mupsAgeLoad(Outbuf, ii);
+    float age = mupsAgeLoad(Outbuf, ii).y;
 	float fader = saturate((age-AgeFromTo[id%AgeFC].x)/(AgeFromTo[id%AgeFC].y-AgeFromTo[id%AgeFC].x));
-	if((age > AgeFromTo[id%AgeFC].x) && (age < AgeFromTo[id%AgeFC].y))
+	if((age >= AgeFromTo[id%AgeFC].x) && (age <= AgeFromTo[id%AgeFC].y))
 	{
         float result = lerp(SourceFromTo[id%sftC].x, SourceFromTo[id%sftC].y, pow(fader,FaderPow));
         mupsStore(Outbuf, ii, Destination[id%dstC], result);

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\sinks\Sprites (DX11 mups.Sink).v4p" systemname="Sprites (DX11 mups.Sink)" filename="E:\vvvv\libs\mcropack\packs\mups\nodes\Modules\sinks\Sprites (DX11 mups.Sink).v4p" scrollx="75" scrolly="4065">
-   <BOUNDS type="Window" left="3885" top="3180" width="8985" height="6000">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\sinks\Sprites (DX11 mups.Sink).v4p" systemname="Sprites (DX11 mups.Sink)" filename="E:\vvvv\libs\mcropack\packs\mups\nodes\Modules\sinks\Sprites (DX11 mups.Sink).v4p" scrollx="0" scrolly="5460">
+   <BOUNDS type="Window" left="15435" top="3615" width="8985" height="6000">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
@@ -47,7 +47,7 @@
    <NODE systemname="MupsSprites (DX11.Effect)" filename="..\..\dx11\MupsSprites.fx" nodename="MupsSprites (DX11.Effect)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="1980" top="7545" width="1950" height="270">
    </BOUNDS>
-   <PIN pinname="Technique" slicecount="1" visible="1" values="ScreenVelocity">
+   <PIN pinname="Technique" slicecount="1" visible="1" values="tech">
    </PIN>
    <PIN pinname="Defines" visible="1" pintype="Input" slicecount="6" values="PCOUNT=300,PELSIZE=12,BUFSIZE=14400,OFFS_VELOCITY=3,OFFS_FORCE=7,OFFS_AGE=10">
    </PIN>
@@ -334,32 +334,6 @@
    </NODE>
    <LINK srcnodeid="21" srcpinname="Output Node" dstnodeid="5" dstpinname="sL">
    </LINK>
-   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="22">
-   <BOUNDS type="Node" left="7875" top="3720" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="7875" top="3720" width="480" height="480">
-   </BOUNDS>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Toggle">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Screen Space|">
-   </PIN>
-   </NODE>
-   <NODE systemname="Ord2Enum (Enumerations)" nodename="Ord2Enum (Enumerations)" componentmode="Hidden" id="23">
-   <BOUNDS type="Node" left="7890" top="4770" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Ord Value" visible="1">
-   </PIN>
-   <PIN pinname="Enum" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="22" srcpinname="Y Output Value" dstnodeid="23" dstpinname="Ord Value">
-   </LINK>
-   <LINK srcnodeid="23" srcpinname="Enum" dstnodeid="5" dstpinname="Technique">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="24" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9045" top="4845" width="480" height="480">
    </BOUNDS>
@@ -445,7 +419,7 @@
    <NODE id="29" nodename="IOBox (String)" componentmode="InABox" systemname="IOBox (String)">
    <PIN pinname="Output String">
    </PIN>
-   <BOUNDS type="Box" left="2850" top="8835" width="795" height="240">
+   <BOUNDS type="Box" left="2850" top="8835" width="705" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="2850" top="8835" width="0" height="0">
    </BOUNDS>
