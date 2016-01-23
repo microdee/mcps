@@ -85,10 +85,11 @@ void GS(point VSOut In[1], inout TriangleStream<VSOut> GSOut)
 
     for(uint i=0; i<4; i++)
     {
-        float2 cpos = (qpos[i].xy * radius) / lerp(1, denom, Perspective);
+    	float size = radius / lerp(1, denom, Perspective);
         #if defined(KNOW_SIZE)
-            cpos *= mupsSizeLoad(mupsData, iv);
+            size *= mupsSizeLoad(mupsData, iv);
         #endif
+        float2 cpos = qpos[i].xy * size;
         cpos.x += (length(svel) * TailLength * qpos[i].x) / max(ss.x, ss.y);
         cpos = mul(cpos, rotm);
     	cpos *= ss;
@@ -97,7 +98,10 @@ void GS(point VSOut In[1], inout TriangleStream<VSOut> GSOut)
         o.uv = quv[i];
         o.ppos = o.pos;
     	if((p.z < 1) && (p.z > 0))
-        	GSOut.Append(o);
+    	{
+    		if(size > 0.2)
+        		GSOut.Append(o);
+    	}
     }
 
 	GSOut.RestartStrip();
