@@ -16,22 +16,41 @@
 
 #include "../../../mp.fxh/MREInputElements.fxh"
 
+ByteAddressBuffer Geometry;
 ByteAddressBuffer MupsData;
 ByteAddressBuffer PrevMupsData;
 
-float4x4 PreTransform;
+cbuffer cbuf
+{
+	float4x4 PreTransform;
+	uint nofpv = 3;
+	uint TangentOffs = 0;
+	uint BimormOffs = 0;
+	uint BlendIDOffs = 0;
+	uint BlendWeightOffs = 0;
+	uint PrevPosOffs = 0;
+};
+struct null
+{
+	uint vid : SV_VertexID;
+	uint iid : SV_InstanceID;
+};
 
-GSin VS(VSin input)
+GSin VS(null input)
 {
     GSin output;
 
 	uint ci = input.iid * STACK;
+	uint vi = input.vid * nofpv;
+	float3 pos = BABLoad3(Geometry, vi);
+	float3 norm = BABLoad3(Geometry, vi + 3);
 
-    output.cpoint = mul(float4(input.cpoint, 1), PreTransform).xyz;
-	output.norm = mul(float4(input.norm, 0), PreTransform).xyz;
+    output.cpoint = mul(float4(pos, 1), PreTransform).xyz;
+	output.norm = mul(float4(norm, 0), PreTransform).xyz;
     #if defined(PREVPOS_OUT)
 	    #if defined(PREVPOS_IN)
-	        output.PrevPos = mul(float4(input.PrevPos, 1), PreTransform).xyz;
+			float3 ppos = BABLoad3(Geometry, vi + PrevPosOffs);
+	        output.PrevPos = mul(float4(ppos, 1), PreTransform).xyz;
 	    #else
 	        output.PrevPos = output.cpoint;
 	    #endif
@@ -39,15 +58,17 @@ GSin VS(VSin input)
     output.SubsetID = ci;
 
     #if defined(TEXCOORD_IN) && defined(TEXCOORD_OUT)
-        output.TexCd = input.TexCd;
+        output.TexCd = BABLoad2(Geometry, vi + 6);
     #endif
     #if defined(TANGENTS_IN) && defined(TANGENTS_OUT)
-        output.Tangent = mul(float4(input.Tangent, 0), PreTransform).xyz;
-        output.Binormal = mul(float4(input.Binormal, 0), PreTransform).xyz;
+		float3 tn = BABLoad3(Geometry, vi + TangentOffs);
+		float3 bn = BABLoad3(Geometry, vi + BimormOffs);
+        output.Tangent = mul(float4(tn, 0), PreTransform).xyz;
+        output.Binormal = mul(float4(bn, 0), PreTransform).xyz;
     #endif
     #if defined(BLENDWEIGHTS_IN) && defined(BLENDWEIGHTS_OUT)
-        output.BlendId = input.BlendId;
-        output.BlendWeight = input.BlendWeight;
+        output.BlendId = BABLoad4(Geometry, vi + BlendIDOffs);
+        output.BlendWeight = BABLoad4(Geometry, vi + BlendWeightOffs);
     #endif
 
     return output;
@@ -119,7 +140,7 @@ void GS(triangle GSin input[3], inout TriangleStream<GSin>GSOut)
             #if defined(KNOW_ROTATION)
                 cpos = mul(float4(cpos,1), rotm).xyz;
 				#if defined(PREVPOS_OUT)
-    				pcpos = mul(pcpos, protm);
+    				pcpos = mul(float4(pcpos,1), protm).xyz;
 				#endif
                 cnorm = mul(float4(cnorm, 0), rotm).xyz;
                 #if defined(TANGENTS_IN) && defined(TANGENTS_OUT)
@@ -129,12 +150,12 @@ void GS(triangle GSin input[3], inout TriangleStream<GSin>GSOut)
             #endif
 
 			cpos += pos;
+            o.cpoint = cpos;
 			#if defined(PREVPOS_OUT)
 				pcpos += ppos;
             	o.PrevPos = pcpos;
 				if(age.x < 2) o.PrevPos = o.cpoint;
 			#endif
-            o.cpoint = cpos;
             o.norm = cnorm;
 
             #if defined(TEXCOORD_IN) && defined(TEXCOORD_OUT)
