@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\mups\mups\girlpower\DistanceFields\AttractorDF.v4p" systemname="AttractorDF" filename="E:\vvvv\mups\mups\girlpower\DistanceFields\AttractorDF.v4p" locked="0">
+   <PATCH nodename="E:\vvvv\mcps\mcps\girlpower\DistanceFields\AttractorDF.v4p" systemname="AttractorDF" filename="E:\vvvv\mcps\mcps\girlpower\DistanceFields\AttractorDF.v4p" locked="0">
    <BOUNDS type="Window" left="315" top="0" width="16920" height="15600">
    </BOUNDS>
    <PACK Name="testPack" Version="0.1.0">
@@ -8,7 +8,7 @@
    </PACK>
    <PACK Name="addonpack" Version="31.9.0">
    </PACK>
-   <NODE systemname="Globals (DX11 mups)" filename="..\..\nodes\modules\Globals (DX11 mups).v4p" componentmode="Hidden" id="0" nodename="%VVVV%\packs\mups\nodes\Modules\Globals (DX11 mups).v4p" debug="0">
+   <NODE systemname="Globals (DX11 mcps)" filename="..\..\nodes\modules\Globals (DX11 mcps).v4p" componentmode="Hidden" id="0" nodename="%VVVV%\packs\mcps\nodes\Modules\Globals (DX11 mcps).v4p" debug="0">
    <BOUNDS type="Node" left="2910" top="11040" width="1350" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="2910" top="11040" width="4800" height="3600">
@@ -162,7 +162,7 @@
    </LINK>
    <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="73" dstpinname="Input 1" hiddenwhenlocked="1">
    </LINK>
-   <NODE systemname="MupsSprites (DX11.Effect)" filename="..\..\nodes\dx11\MupsSprites.fx" nodename="MupsSprites (DX11.Effect)" componentmode="Hidden" id="78">
+   <NODE systemname="McpsSprites (DX11.Effect)" filename="..\..\nodes\dx11\McpsSprites.fx" nodename="McpsSprites (DX11.Effect)" componentmode="Hidden" id="78">
    <BOUNDS type="Node" left="8670" top="32520" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry" visible="1">
@@ -171,7 +171,7 @@
    </PIN>
    <PIN pinname="Technique" slicecount="1" values="ScreenVelocity">
    </PIN>
-   <PIN pinname="mupsData" visible="1">
+   <PIN pinname="mcpsData" visible="1">
    </PIN>
    <PIN pinname="Render State" visible="1">
    </PIN>
@@ -208,7 +208,7 @@
    </NODE>
    <LINK srcnodeid="78" srcpinname="Layer" dstnodeid="80" dstpinname="Layer In">
    </LINK>
-   <LINK srcnodeid="56" srcpinname="Buffers" dstnodeid="78" dstpinname="mupsData">
+   <LINK srcnodeid="56" srcpinname="Buffers" dstnodeid="78" dstpinname="mcpsData">
    </LINK>
    <NODE systemname="Rasterizer (DX11.RenderState)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Rasterizer (DX11.RenderState)" componentmode="Hidden" id="84">
    <BOUNDS type="Node" left="6885" top="31245" width="100" height="100">
@@ -549,7 +549,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Send String" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="RenderSemantics" dstnodeid="226" dstpinname="Input Value">
@@ -561,7 +561,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_ResourceSemantics">
+   <PIN pinname="Send String" slicecount="1" values="mcps_ResourceSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="ResourceSemantics" dstnodeid="229" dstpinname="Input Value">
@@ -573,7 +573,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_BufferSize">
+   <PIN pinname="Send String" slicecount="1" values="mcps_BufferSize">
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="BufferSize" dstnodeid="231" dstpinname="Input Value">
@@ -585,10 +585,10 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Send String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
-   <NODE id="236" componentmode="Hidden" systemname="CalculateThreadCount (Value mups)" filename="..\..\nodes\modules\CalculateThreadCount (Value mups).v4p" nodename="%VVVV%\packs\mups\nodes\Modules\CalculateThreadCount (Value mups).v4p" hiddenwhenlocked="0" managers="">
+   <NODE id="236" componentmode="Hidden" systemname="CalculateThreadCount (Value mcps)" filename="..\..\nodes\modules\CalculateThreadCount (Value mcps).v4p" nodename="%VVVV%\packs\mcps\nodes\Modules\CalculateThreadCount (Value mcps).v4p" hiddenwhenlocked="0" managers="">
    <PIN pinname="Input" visible="1" pintype="Input">
    </PIN>
    <PIN pinname="Group Count" visible="1" pintype="Output">
@@ -639,7 +639,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="246">
@@ -649,7 +649,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_ResourceSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_ResourceSemantics">
    </PIN>
    </NODE>
    <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="247">
@@ -659,7 +659,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_BufferSize">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_BufferSize">
    </PIN>
    </NODE>
    <LINK srcnodeid="247" srcpinname="Input Value" dstnodeid="56" dstpinname="Element Count">
@@ -671,7 +671,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_ParticleCount">
+   <PIN pinname="Send String" slicecount="1" values="mcps_ParticleCount">
    </PIN>
    </NODE>
    <LINK srcnodeid="55" srcpinname="Y Output Value" dstnodeid="251" dstpinname="Input Value">
@@ -683,7 +683,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="262">
@@ -807,7 +807,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="286" srcpinname="Input Value" dstnodeid="80" dstpinname="Custom Semantics">
@@ -819,7 +819,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_ParticleCount">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_ParticleCount">
    </PIN>
    </NODE>
    <LINK srcnodeid="287" srcpinname="Input Value" dstnodeid="79" dstpinname="Vertex Count">
@@ -932,7 +932,7 @@
    </NODE>
    <LINK srcnodeid="323" srcpinname="Y Output Value" dstnodeid="322" dstpinname=".. To [">
    </LINK>
-   <NODE systemname="MainGroup (DX11 mups)" filename="..\..\nodes\modules\MainGroup (DX11 mups).v4p" nodename="MainGroup (DX11 mups)" componentmode="Hidden" id="326">
+   <NODE systemname="MainGroup (DX11 mcps)" filename="..\..\nodes\modules\MainGroup (DX11 mcps).v4p" nodename="MainGroup (DX11 mcps)" componentmode="Hidden" id="326">
    <BOUNDS type="Node" left="10110" top="28110" width="1950" height="270">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
@@ -1733,7 +1733,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE systemname="Vector (3d Split)" nodename="Vector (3d Split)" componentmode="Hidden" id="481">
@@ -2021,7 +2021,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE systemname="Vector (3d Split)" nodename="Vector (3d Split)" componentmode="Hidden" id="511">
@@ -2325,7 +2325,7 @@
    <NODE systemname="ForceAttractorDF (DX11.Effect Compiled)" filename="..\..\nodes\dx11\ForceAttractorDF.fxc" nodename="ForceAttractorDF (DX11.Effect Compiled)" componentmode="Hidden" id="459">
    <BOUNDS type="Node" left="11985" top="20280" width="2100" height="270">
    </BOUNDS>
-   <PIN pinname="Path" slicecount="1" values="E:\vvvv\mups\mups\nodes\dx11\ForceAttractorDF.fxb">
+   <PIN pinname="Path" slicecount="1" values="E:\vvvv\mcps\mcps\nodes\dx11\ForceAttractorDF.fxb">
    </PIN>
    <PIN pinname="Do Save" slicecount="1" values="0">
    </PIN>

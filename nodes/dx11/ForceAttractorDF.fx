@@ -1,5 +1,5 @@
 
-#include "mups.fxh"
+#include "mcps.fxh"
 #include "DistanceFieldHelper.fxh"
 #include "DistanceFieldPrimitiveSelector.fxh"
 
@@ -26,7 +26,7 @@ float IsoSurface = 0;
 float Strength = 1;
 float Power = 1;
 
-uint mups_distance(uint i) {return i*pelsize+DistanceAddress;}
+uint mcps_distance(uint i) {return i*pelsize+DistanceAddress;}
 
 float dfiter(float initd, float3 p, uint3 i)
 {
@@ -75,7 +75,7 @@ struct csin
 };
 
 [numthreads(64, 1, 1)]
-void CS_mups64(csin input)
+void CS_mcps64(csin input)
 {
 	if(input.DTID.x > pcount) return;
 
@@ -89,12 +89,12 @@ void CS_mups64(csin input)
 	uint ii=input.DTID.x;
 	
 	float3 pos = 0;
-	uint3 pi = mups_position(ii);
+	uint3 pi = mcps_position(ii);
 	[unroll]
 	for(uint i=0; i<3; i++)
 		pos[i] = Outbuf[pi[i]];
 	
-	uint di = mups_distance(ii);
+	uint di = mcps_distance(ii);
 	float initd = Outbuf[di];
 	
 	float3 dir = CalcNorm(initd, pos, uint4(maxc, tc, pc, oc), SurfaceNormalCalcWidth, DF);
@@ -109,10 +109,10 @@ void CS_mups64(csin input)
 		float attr = pows(ad/IsoSurface, p) * -s;
 		float3 force = dir*attr;
 		
-		uint3 fi = mups_force(ii);
+		uint3 fi = mcps_force(ii);
 		
 		[unroll]
 		for(uint i=0; i<3; i++) Outbuf[fi[i]] += force[i];
 	}
 }
-technique11 mups64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_mups64() ) );} }
+technique11 mcps64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_mcps64() ) );} }

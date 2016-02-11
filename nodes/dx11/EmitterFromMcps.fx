@@ -1,10 +1,10 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
 
-ByteAddressBuffer mupsData;
+ByteAddressBuffer mcpsData;
 StructuredBuffer<uint> Source;
 StructuredBuffer<uint> Destination;
 
@@ -39,9 +39,9 @@ void CSMain(csin input)
 	uint pii = input.DTID.x;
 	uint dii = input.DTID.y;
 
-    mupsAgeStore(Outbuf, ii, 0);
+    mcpsAgeStore(Outbuf, ii, 0);
 
-	float fromMups = BABLoad(mupsData, pii*ParticleSize + Source[dii]);
-	mupsStore(Outbuf, ii, Destination[dii], fromMups);
+	float fromMcps = BABLoad(mcpsData, pii*ParticleSize + Source[dii]);
+	mcpsStore(Outbuf, ii, Destination[dii], fromMcps);
 }
 technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

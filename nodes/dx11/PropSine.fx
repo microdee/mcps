@@ -1,5 +1,5 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -21,7 +21,7 @@ void CSMain(csin input)
 
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
-    float age = mupsAgeLoad(Outbuf, ii);
+    float age = mcpsAgeLoad(Outbuf, ii);
 
 	uint WPc, Sc, Str;
 	WidthPhase.GetDimensions(WPc, Str);
@@ -31,6 +31,6 @@ void CSMain(csin input)
 	float ss = sin(sw)*.5+.5;
 
     float result = lerp(SourceMin[id%SIc],SourceMax[id%Sc],ss);
-    mupsStore(Outbuf, ii, Destination[id], result);
+    mcpsStore(Outbuf, ii, Destination[id], result);
 }
 technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

@@ -1,5 +1,5 @@
 RWStructuredBuffer<float> Outbuf : BACKBUFFER;
-#include "mups.fxh"
+#include "mcps.fxh"
 
 ByteAddressBuffer IndexBuf;
 StructuredBuffer<float3> GeomPosition;
@@ -53,7 +53,7 @@ void CS_Emit64(csin input)
 	// calculate ID's
 	uint ii=input.DTID.x + EmitCounter + EmitCountOffs[EmitterID];
 	uint pii=input.DTID.x;
-	uint2 ai = mups_age(ii);
+	uint2 ai = mcps_age(ii);
 	Outbuf[ai.x] = 0;
 	Outbuf[ai.y] = 0;
 	uint trii = TriangleID[pii]*3;
@@ -87,16 +87,16 @@ void CS_Emit64(csin input)
 	if(input.DTID.y == 0)
 	{
 		float4 col = ColorTex.SampleLevel(s0, ttxcd, 0);
-		uint3 pi = mups_position(ii);
+		uint3 pi = mcps_position(ii);
 		for(uint i=0; i<3; i++) Outbuf[pi[i]] = tpos[i];
 		
-		uint4 vi = mups_velocity(ii);
+		uint4 vi = mcps_velocity(ii);
 		for(uint i=0; i<3; i++) Outbuf[vi[i]] = tnorm[i] * NormalToVelocity;
 		Outbuf[vi.w] = 1;
 		
-		uint4 ci = mups_color(ii);
+		uint4 ci = mcps_color(ii);
 		for(uint i=0; i<4; i++) Outbuf[ci[i]] = col[i];
-		Outbuf[mups_size(ii)] = 1;
+		Outbuf[mcps_size(ii)] = 1;
 	}
 	
 	// optional texture controlled

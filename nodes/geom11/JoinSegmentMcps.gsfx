@@ -1,9 +1,9 @@
 #define PI 3.1415926535897932
 #define GEOMVEL "SV_Position.xyz;NORMAL.xyz;TEXCOORD0.xy;COLOR0"
-// mups
+// mcps
 
-StructuredBuffer<float> MupsData;
-StructuredBuffer<float> PrevMupsData;
+StructuredBuffer<float> McpsData;
+StructuredBuffer<float> PrevMcpsData;
 float ElementSize = 28;
 /*
 size	offset	name		note
@@ -26,24 +26,24 @@ ext:
 Vcnt	28		dOffset
 Vcnt	28+Vcnt	zOffset
 */
-float3 mups_position(StructuredBuffer<float> mups, uint i, uint s) {return float3(mups[i*s+0],mups[i*s+1],mups[i*s+2]);}
-float3 mups_velocity(StructuredBuffer<float> mups, uint i, uint s) {return float3(mups[i*s+3],mups[i*s+4],mups[i*s+5]);}
-float3 mups_force(StructuredBuffer<float> mups, uint i, uint s) {return float3(mups[i*s+6],mups[i*s+7],mups[i*s+8]);}
-float4 mups_color(StructuredBuffer<float> mups, uint i, uint s) {return float4(mups[i*s+9],mups[i*s+10],mups[i*s+11],mups[i*s+12]);}
-float mups_size(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+13];}
-float2 mups_age(StructuredBuffer<float> mups, uint i, uint s) {return float2(mups[i*s+14],mups[i*s+15]);}
-float mups_ID(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+16];}
+float3 mcps_position(StructuredBuffer<float> mcps, uint i, uint s) {return float3(mcps[i*s+0],mcps[i*s+1],mcps[i*s+2]);}
+float3 mcps_velocity(StructuredBuffer<float> mcps, uint i, uint s) {return float3(mcps[i*s+3],mcps[i*s+4],mcps[i*s+5]);}
+float3 mcps_force(StructuredBuffer<float> mcps, uint i, uint s) {return float3(mcps[i*s+6],mcps[i*s+7],mcps[i*s+8]);}
+float4 mcps_color(StructuredBuffer<float> mcps, uint i, uint s) {return float4(mcps[i*s+9],mcps[i*s+10],mcps[i*s+11],mcps[i*s+12]);}
+float mcps_size(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+13];}
+float2 mcps_age(StructuredBuffer<float> mcps, uint i, uint s) {return float2(mcps[i*s+14],mcps[i*s+15]);}
+float mcps_ID(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+16];}
 //ext:
-float4 mups_Rotation(StructuredBuffer<float> mups, uint i, uint s) {return float4(mups[i*s+17],mups[i*s+18],mups[i*s+19],mups[i*s+20]);}
-float mups_Radius2(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+21];}
-float mups_Thickness(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+22];}
-float mups_Depth(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+23];}
-float mups_Cycles(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+24];}
-float mups_Phase(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+25];}
-float mups_Power(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+26];}
-float mups_Curvature(StructuredBuffer<float> mups, uint i, uint s) {return mups[i*s+27];}
-float mups_dOffset(StructuredBuffer<float> mups, uint i, uint s, uint vi) {return mups[i*s+28+vi];}
-float mups_zOffset(StructuredBuffer<float> mups, uint i, uint s, uint vi, uint vs) {return mups[i*s+28+vs+vi];}
+float4 mcps_Rotation(StructuredBuffer<float> mcps, uint i, uint s) {return float4(mcps[i*s+17],mcps[i*s+18],mcps[i*s+19],mcps[i*s+20]);}
+float mcps_Radius2(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+21];}
+float mcps_Thickness(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+22];}
+float mcps_Depth(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+23];}
+float mcps_Cycles(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+24];}
+float mcps_Phase(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+25];}
+float mcps_Power(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+26];}
+float mcps_Curvature(StructuredBuffer<float> mcps, uint i, uint s) {return mcps[i*s+27];}
+float mcps_dOffset(StructuredBuffer<float> mcps, uint i, uint s, uint vi) {return mcps[i*s+28+vi];}
+float mcps_zOffset(StructuredBuffer<float> mcps, uint i, uint s, uint vi, uint vs) {return mcps[i*s+28+vs+vi];}
 
 StructuredBuffer<float> Linear;
 
@@ -70,26 +70,26 @@ VsOutGeomvel VsGeomvel(uint vi: SV_VertexID, uint ii: SV_InstanceID)
 	//// current ////
 	
 	float3 circpos = 0;
-	float d = mups_size(MupsData, ii, elsize) + mups_dOffset(MupsData, ii, elsize, vi);
-	float phase = mups_Phase(MupsData, ii, elsize);
-	float cycles = mups_Cycles(MupsData, ii, elsize);
+	float d = mcps_size(McpsData, ii, elsize) + mcps_dOffset(McpsData, ii, elsize, vi);
+	float phase = mcps_Phase(McpsData, ii, elsize);
+	float cycles = mcps_Cycles(McpsData, ii, elsize);
 	float r = Linear[vi]*PI*cycles*2+phase*2*PI;
-	circpos.x = lerp(PowS(cos(r),mups_Power(MupsData, ii, elsize))*d, Linear[vi]-.5, mups_Curvature(MupsData, ii, elsize));
-	circpos.y = lerp(PowS(sin(r),mups_Power(MupsData, ii, elsize))*d, 0, mups_Curvature(MupsData, ii, elsize));
-	circpos.z = mups_zOffset(MupsData, ii, elsize, vi, LinearCount);
+	circpos.x = lerp(PowS(cos(r),mcps_Power(McpsData, ii, elsize))*d, Linear[vi]-.5, mcps_Curvature(McpsData, ii, elsize));
+	circpos.y = lerp(PowS(sin(r),mcps_Power(McpsData, ii, elsize))*d, 0, mcps_Curvature(McpsData, ii, elsize));
+	circpos.z = mcps_zOffset(McpsData, ii, elsize, vi, LinearCount);
 	float3 norm = 0;
-	norm.x = lerp(cos(r), 0, mups_Curvature(MupsData, ii, elsize));
-	norm.y = lerp(sin(r), -1, mups_Curvature(MupsData, ii, elsize));
+	norm.x = lerp(cos(r), 0, mcps_Curvature(McpsData, ii, elsize));
+	norm.y = lerp(sin(r), -1, mcps_Curvature(McpsData, ii, elsize));
 	
 	//// previous ////
 	float3 pcircpos = 0;
-	float pd = mups_size(PrevMupsData, ii, elsize) + mups_dOffset(PrevMupsData, ii, elsize, vi);
-	float pphase = mups_Phase(PrevMupsData, ii, elsize);
-	float pcycles = mups_Cycles(PrevMupsData, ii, elsize);
+	float pd = mcps_size(PrevMcpsData, ii, elsize) + mcps_dOffset(PrevMcpsData, ii, elsize, vi);
+	float pphase = mcps_Phase(PrevMcpsData, ii, elsize);
+	float pcycles = mcps_Cycles(PrevMcpsData, ii, elsize);
 	float pr = Linear[vi]*PI*pcycles*2+pphase*2*PI;
-	pcircpos.x = lerp(PowS(cos(pr),mups_Power(PrevMupsData, ii, elsize))*pd, Linear[vi]-.5, mups_Curvature(PrevMupsData, ii, elsize));
-	pcircpos.y = lerp(PowS(sin(pr),mups_Power(PrevMupsData, ii, elsize))*pd, 0, mups_Curvature(PrevMupsData, ii, elsize));
-	pcircpos.z = mups_zOffset(PrevMupsData, ii, elsize, vi, LinearCount);
+	pcircpos.x = lerp(PowS(cos(pr),mcps_Power(PrevMcpsData, ii, elsize))*pd, Linear[vi]-.5, mcps_Curvature(PrevMcpsData, ii, elsize));
+	pcircpos.y = lerp(PowS(sin(pr),mcps_Power(PrevMcpsData, ii, elsize))*pd, 0, mcps_Curvature(PrevMcpsData, ii, elsize));
+	pcircpos.z = mcps_zOffset(PrevMcpsData, ii, elsize, vi, LinearCount);
 	
 	//// out ////
 	
@@ -144,11 +144,11 @@ void GsGeomvel(line VsOutGeomvel input[2], inout TriangleStream<GsOutGeomvel>GSO
 	GStmp evenring[4];
 	// pos
 	evenring[0].pos = input[0].cpoint.xyz;
-	evenring[1].pos = input[0].cpoint.xyz + input[0].norm * mups_Thickness(MupsData, ii, s);
-	evenring[2].pos = input[0].cpoint.xyz * mups_Radius2(MupsData, ii, s) + input[0].norm * mups_Thickness(MupsData, ii, s);
-	evenring[2].pos.z += mups_Depth(MupsData, ii, s);
-	evenring[3].pos = input[0].cpoint.xyz * mups_Radius2(MupsData, ii, s);
-	evenring[3].pos.z += mups_Depth(MupsData, ii, s);
+	evenring[1].pos = input[0].cpoint.xyz + input[0].norm * mcps_Thickness(McpsData, ii, s);
+	evenring[2].pos = input[0].cpoint.xyz * mcps_Radius2(McpsData, ii, s) + input[0].norm * mcps_Thickness(McpsData, ii, s);
+	evenring[2].pos.z += mcps_Depth(McpsData, ii, s);
+	evenring[3].pos = input[0].cpoint.xyz * mcps_Radius2(McpsData, ii, s);
+	evenring[3].pos.z += mcps_Depth(McpsData, ii, s);
 	// txcd
 	evenring[0].txcd = float2(input[0].TexCd, 0);
 	evenring[1].txcd = float2(input[0].TexCd, 1);
@@ -158,11 +158,11 @@ void GsGeomvel(line VsOutGeomvel input[2], inout TriangleStream<GsOutGeomvel>GSO
 	GStmp oddring[4];
 	// pos
 	oddring[0].pos = input[1].cpoint.xyz;
-	oddring[1].pos = input[1].cpoint.xyz + input[1].norm * mups_Thickness(MupsData, ii, s);
-	oddring[2].pos = input[1].cpoint.xyz * mups_Radius2(MupsData, ii, s) + input[1].norm * mups_Thickness(MupsData, ii, s);
-	oddring[2].pos.z += mups_Depth(MupsData, ii, s);
-	oddring[3].pos = input[1].cpoint.xyz * mups_Radius2(MupsData, ii, s);
-	oddring[3].pos.z += mups_Depth(MupsData, ii, s);
+	oddring[1].pos = input[1].cpoint.xyz + input[1].norm * mcps_Thickness(McpsData, ii, s);
+	oddring[2].pos = input[1].cpoint.xyz * mcps_Radius2(McpsData, ii, s) + input[1].norm * mcps_Thickness(McpsData, ii, s);
+	oddring[2].pos.z += mcps_Depth(McpsData, ii, s);
+	oddring[3].pos = input[1].cpoint.xyz * mcps_Radius2(McpsData, ii, s);
+	oddring[3].pos.z += mcps_Depth(McpsData, ii, s);
 	// txcd
 	oddring[0].txcd = float2(input[1].TexCd, 0);
 	oddring[1].txcd = float2(input[1].TexCd, 1);
@@ -208,27 +208,27 @@ void GsGeomvel(line VsOutGeomvel input[2], inout TriangleStream<GsOutGeomvel>GSO
 
 	float3 pevenring[4];
 	pevenring[0] = input[0].ppos.xyz;
-	pevenring[1] = input[0].ppos.xyz + input[0].norm * mups_Thickness(PrevMupsData, ii, s);
-	pevenring[2] = input[0].ppos.xyz * mups_Radius2(PrevMupsData, ii, s) + input[0].norm * mups_Thickness(PrevMupsData, ii, s);
-	pevenring[2].z += mups_Depth(PrevMupsData, ii, s);
-	pevenring[3] = input[0].ppos.xyz * mups_Radius2(PrevMupsData, ii, s);
-	pevenring[3].z += mups_Depth(PrevMupsData, ii, s);
+	pevenring[1] = input[0].ppos.xyz + input[0].norm * mcps_Thickness(PrevMcpsData, ii, s);
+	pevenring[2] = input[0].ppos.xyz * mcps_Radius2(PrevMcpsData, ii, s) + input[0].norm * mcps_Thickness(PrevMcpsData, ii, s);
+	pevenring[2].z += mcps_Depth(PrevMcpsData, ii, s);
+	pevenring[3] = input[0].ppos.xyz * mcps_Radius2(PrevMcpsData, ii, s);
+	pevenring[3].z += mcps_Depth(PrevMcpsData, ii, s);
 	
 	float3 poddring[4];
 	poddring[0] = input[1].ppos.xyz;
-	poddring[1] = input[1].ppos.xyz + input[1].norm * mups_Thickness(PrevMupsData, ii, s);
-	poddring[2] = input[1].ppos.xyz * mups_Radius2(PrevMupsData, ii, s) + input[1].norm * mups_Thickness(PrevMupsData, ii, s);
-	poddring[2].z += mups_Depth(PrevMupsData, ii, s);
-	poddring[3] = input[1].ppos.xyz * mups_Radius2(PrevMupsData, ii, s);
-	poddring[3].z += mups_Depth(PrevMupsData, ii, s);
+	poddring[1] = input[1].ppos.xyz + input[1].norm * mcps_Thickness(PrevMcpsData, ii, s);
+	poddring[2] = input[1].ppos.xyz * mcps_Radius2(PrevMcpsData, ii, s) + input[1].norm * mcps_Thickness(PrevMcpsData, ii, s);
+	poddring[2].z += mcps_Depth(PrevMcpsData, ii, s);
+	poddring[3] = input[1].ppos.xyz * mcps_Radius2(PrevMcpsData, ii, s);
+	poddring[3].z += mcps_Depth(PrevMcpsData, ii, s);
 
 	//// transform ////
 	for(uint i=0; i<4; i++)
 	{
-		evenring[i].pos = mul(float4(evenring[i].pos,1),QRotate(mups_Rotation(MupsData, ii, s))).xyz;
-		evenring[i].pos += mups_position(MupsData, ii, s);
-		oddring[i].pos = mul(float4(oddring[i].pos,1),QRotate(mups_Rotation(MupsData, ii, s))).xyz;
-		oddring[i].pos += mups_position(MupsData, ii, s);
+		evenring[i].pos = mul(float4(evenring[i].pos,1),QRotate(mcps_Rotation(McpsData, ii, s))).xyz;
+		evenring[i].pos += mcps_position(McpsData, ii, s);
+		oddring[i].pos = mul(float4(oddring[i].pos,1),QRotate(mcps_Rotation(McpsData, ii, s))).xyz;
+		oddring[i].pos += mcps_position(McpsData, ii, s);
 	}
 	//// join ////
 

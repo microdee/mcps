@@ -1,9 +1,9 @@
-#include "../../../mp.fxh/mupsRead.fxh"
+#include "../../../mp.fxh/mcpsRead.fxh"
 
 //define TEXTURED
 
 Texture2D texture2d;
-ByteAddressBuffer mupsData;
+ByteAddressBuffer mcpsData;
 
 cbuffer cbPerDraw : register( b0 )
 {
@@ -47,9 +47,9 @@ struct VSOut
 VSOut VS(VSIn In)
 {
     VSOut Out = (VSOut)0;
-	float3 p = mupsPositionLoad(mupsData, In.iv);
-	float4 vel = mupsVelocityLoad(mupsData, In.iv);
-    float3 pp = p-vel.xyz * mupsTime.y;
+	float3 p = mcpsPositionLoad(mcpsData, In.iv);
+	float4 vel = mcpsVelocityLoad(mcpsData, In.iv);
+    float3 pp = p-vel.xyz * mcpsTime.y;
 
     Out.pos = mul(float4(p, 1), tVP);
     Out.ppos = mul(float4(pp, 1), ptVP);
@@ -87,7 +87,7 @@ void GS(point VSOut In[1], inout TriangleStream<VSOut> GSOut)
     {
     	float size = radius / lerp(1, denom, Perspective);
         #if defined(KNOW_SIZE)
-            size *= mupsSizeLoad(mupsData, iv);
+            size *= mcpsSizeLoad(mcpsData, iv);
         #endif
         float2 cpos = qpos[i].xy * size;
         cpos.x += (length(svel) * TailLength * qpos[i].x) / max(ss.x, ss.y);
@@ -115,7 +115,7 @@ float4 PS_Tex(VSOut In): SV_Target
     float4 col = c;
 
     #if defined(KNOW_COLOR)
-       col *= mupsColorLoad(mupsData, In.iv);
+       col *= mcpsColorLoad(mcpsData, In.iv);
     #endif
     #if defined(TEXTURED)
 	   col *= texture2d.Sample( sL, In.uv);

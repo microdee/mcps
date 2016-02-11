@@ -1,5 +1,5 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -27,14 +27,14 @@ void CSMain(csin input)
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
 
-    float age = mupsAgeLoad(Outbuf, ii);
+    float age = mcpsAgeLoad(Outbuf, ii);
 	float fmul = 1/abs(AgeFromTo[id%AgeFC].y - AgeFromTo[id%AgeFC].x);
-	float fader =lerp(0, mupsTime.y * fmul, age > AgeFromTo[id%AgeFC].x);
+	float fader =lerp(0, mcpsTime.y * fmul, age > AgeFromTo[id%AgeFC].x);
 	if((age > AgeFromTo[id%AgeFC].x) && (age < AgeFromTo[id%AgeFC].y))
 	{
-        float orig = mupsLoad(Outbuf, ii, Destination[id%dstC]);
+        float orig = mcpsLoad(Outbuf, ii, Destination[id%dstC]);
         float result = lerp(orig, Source[id%sftC], fader);
-        mupsStore(Outbuf, ii, Destination[id%dstC], result);
+        mcpsStore(Outbuf, ii, Destination[id%dstC], result);
     }
 }
 technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

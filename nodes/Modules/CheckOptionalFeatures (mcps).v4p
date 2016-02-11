@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\CheckOptionalFeatures (mups).v4p" systemname="CheckOptionalFeatures (mups)" filename="E:\vvvv\libs\mcropack\packs\mups\nodes\Modules\CheckOptionalFeatures (mups).v4p">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\CheckOptionalFeatures (mcps).v4p" systemname="CheckOptionalFeatures (mcps)" filename="E:\vvvv\libs\mcropack\packs\mcps\nodes\Modules\CheckOptionalFeatures (mcps).v4p">
    <BOUNDS type="Window" left="10890" top="8835" width="6645" height="5745">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
@@ -35,7 +35,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="1305" top="2055" width="2010" height="270">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="4" values="mups.FeatureOffsets.Color,mups.FeatureOffsets.Size,mups.FeatureOffsets.Scale,mups.FeatureOffsets.Rotation">
+   <PIN pinname="Formular" slicecount="4" values="mcps.FeatureOffsets.Color,mcps.FeatureOffsets.Size,mcps.FeatureOffsets.Scale,mcps.FeatureOffsets.Rotation">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|Vector2D Color, Vector2D Size, Vector2D Scale, Vector2D Rotation|">
    </PIN>
@@ -59,7 +59,7 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|mups World|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|mcps World|">
    </PIN>
    </NODE>
    <LINK srcnodeid="3" srcpinname="Output Node" dstnodeid="1" dstpinname="Source">

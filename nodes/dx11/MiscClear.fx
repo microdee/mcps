@@ -1,5 +1,5 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -21,6 +21,6 @@ void CS(csin input)
 	uint ii=input.DTID.x;
 	uint id=input.DTID.y;
 
-	mupsStore(Outbuf, ii, Destination[id], Source[id]);
+	mcpsStore(Outbuf, ii, Destination[id], Source[id]);
 }
 technique11 cst { pass P0{SetComputeShader( CompileShader( cs_5_0, CS() ) );} }

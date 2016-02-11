@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\emitters\Template (DX11 mups.Emitter).v4p" systemname="Template (DX11 mups.Emitter)" filename="E:\vvvv\libs\mcropack\packs\mups\nodes\Modules\emitters\Template (DX11 mups.Emitter).v4p" scrollx="0" scrolly="435">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\emitters\Template (DX11 mcps.Emitter).v4p" systemname="Template (DX11 mcps.Emitter)" filename="E:\vvvv\libs\mcropack\packs\mcps\nodes\Modules\emitters\Template (DX11 mcps.Emitter).v4p" scrollx="0" scrolly="435">
    <BOUNDS type="Window" left="8625" top="4950" width="12135" height="7110">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
@@ -33,7 +33,7 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|mups World|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|mcps World|">
    </PIN>
    <PIN pinname="Output Node" visible="1">
    </PIN>
@@ -67,7 +67,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="3">
    <BOUNDS type="Node" left="2325" top="2415" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="2" values="mups.World.WorldDefines,mups.World.FeatureDefines">
+   <PIN pinname="Formular" slicecount="2" values="mcps.World.WorldDefines,mcps.World.FeatureDefines">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|string WorldDefines, string FeatureDefines|">
    </PIN>
@@ -148,14 +148,14 @@
    </NODE>
    <LINK srcnodeid="19" srcpinname="Output" dstnodeid="20" dstpinname="Input 1">
    </LINK>
-   <NODE systemname="EmitterHelper (mups)" filename="EmitterHelper (mups).v4p" componentmode="Hidden" id="21" nodename="EmitterHelper (mups).v4p" debug="0">
+   <NODE systemname="EmitterHelper (mcps)" filename="EmitterHelper (mcps).v4p" componentmode="Hidden" id="21" nodename="EmitterHelper (mcps).v4p" debug="0">
    <BOUNDS type="Node" left="3885" top="1860" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="3885" top="1860" width="4800" height="3600">
    </BOUNDS>
    <BOUNDS type="Window" left="18795" top="3750" width="9000" height="6000">
    </BOUNDS>
-   <PIN pinname="mups World" visible="1" slicecount="1" values="||">
+   <PIN pinname="mcps World" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Emit Count" visible="1">
    </PIN>
@@ -170,7 +170,7 @@
    <PIN pinname="Threads" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="21" dstpinname="mups World">
+   <LINK srcnodeid="2" srcpinname="Output Node" dstnodeid="21" dstpinname="mcps World">
    </LINK>
    <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="21" dstpinname="Emit Count">
    </LINK>

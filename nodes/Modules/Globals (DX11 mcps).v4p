@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\Globals (DX11 mups).v4p" systemname="Globals (DX11 mups)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\nodes\Modules\Globals (DX11 mups).v4p" scrollx="2085" scrolly="1170">
-   <BOUNDS type="Window" left="14160" top="2130" width="21120" height="11955">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\Globals (DX11 mcps).v4p" systemname="Globals (DX11 mcps)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mcps\nodes\Modules\Globals (DX11 mcps).v4p" scrollx="1860" scrolly="6900">
+   <BOUNDS type="Window" left="3090" top="2145" width="21120" height="11955">
    </BOUNDS>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="6">
    <BOUNDS type="Node" left="930" top="5595" width="100" height="100">
@@ -25,7 +25,7 @@
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="1" values="12">
+   <PIN pinname="Y Input Value" slicecount="1" values="17">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Element Size|">
    </PIN>
@@ -107,7 +107,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9390" top="5925" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="2">
+   <PIN pinname="Y Input Value" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -681,7 +681,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="16680" top="16905" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="mups.World">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="mcps.World">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="Formular">
    </PIN>
@@ -825,7 +825,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="16590" top="18120" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="mups.Emitter">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="mcps.Emitter">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="Formular">
    </PIN>
@@ -865,7 +865,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="15825" top="5325" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="mups">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="mcps">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -989,7 +989,7 @@
    <NODE systemname="PrimitiveObject (VObject Set)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Set)" componentmode="Hidden" id="149">
    <BOUNDS type="Node" left="17850" top="9750" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.Emitter.EmitterID">
+   <PIN pinname="Formular" slicecount="1" values="mcps.Emitter.EmitterID">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int EmitterID|">
    </PIN>
@@ -1029,7 +1029,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="151">
    <BOUNDS type="Node" left="16500" top="7515" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.Emitter.NewCount">
+   <PIN pinname="Formular" slicecount="1" values="mcps.Emitter.NewCount">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int NewCount|">
    </PIN>
@@ -1181,7 +1181,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7350" top="1035" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1225,7 +1225,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="8550" top="1635" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1579,7 +1579,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="16080" top="19335" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="mups.FeatureOffsets">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="mcps.FeatureOffsets">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="Formular">
    </PIN>
@@ -1773,7 +1773,7 @@
    <NODE systemname="PrimitiveObject (VObject Construct)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Construct)" componentmode="Hidden" id="153">
    <BOUNDS type="Node" left="2400" top="12270" width="2850" height="270">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.World">
+   <PIN pinname="Formular" slicecount="1" values="mcps.World">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int Count, int ElementSize, int BufferSize, Vector2D Time, int WorldEmitterOffset, int ThreadsPerGroup, int ThreadGroups, string Threads, string WorldDefines, string FeatureDefines|">
    </PIN>
@@ -1929,7 +1929,7 @@
    <NODE systemname="PrimitiveObject (VObject Construct)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Construct)" componentmode="Hidden" id="193">
    <BOUNDS type="Node" left="6300" top="6600" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.FeatureOffsets">
+   <PIN pinname="Formular" slicecount="1" values="mcps.FeatureOffsets">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|Vector2D Velocity, Vector2D Force, Vector2D Age, Vector2D Color, Vector2D Size, Vector2D Scale, Vector2D Rotation, int Offsets, int Sizes|">
    </PIN>

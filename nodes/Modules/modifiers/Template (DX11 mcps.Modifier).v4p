@@ -1,12 +1,12 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\modifiers\Template (DX11 mups.Modifier).v4p" systemname="Template (DX11 mups.Modifier)" filename="E:\vvvv\libs\mcropack\packs\mups\nodes\Modules\modifiers\Template (DX11 mups.Modifier).v4p" scrollx="690" scrolly="0">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\modifiers\Template (DX11 mcps.Modifier).v4p" systemname="Template (DX11 mcps.Modifier)" filename="E:\vvvv\libs\mcropack\packs\mcps\nodes\Modules\modifiers\Template (DX11 mcps.Modifier).v4p" scrollx="690" scrolly="0">
    <BOUNDS type="Window" left="17790" top="5205" width="5175" height="6630">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
    <PACK Name="addonpack" Version="34.1.0">
    </PACK>
-   <NODE systemname="mupsTemplate (DX11.Effect)" filename="..\..\dx11\mupsTemplate.fx" nodename="mupsTemplate (DX11.Effect)" componentmode="Hidden" id="0">
+   <NODE systemname="mcpsTemplate (DX11.Effect)" filename="..\..\dx11\mcpsTemplate.fx" nodename="mcpsTemplate (DX11.Effect)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2130" top="4440" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Technique" slicecount="1" values="csmain">
@@ -79,7 +79,7 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|mups World|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|mcps World|">
    </PIN>
    </NODE>
    <LINK srcnodeid="4" srcpinname="Output Node" dstnodeid="6" dstpinname="Source">
@@ -87,7 +87,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="3">
    <BOUNDS type="Node" left="2355" top="2205" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="4" values="mups.World.ThreadGroups,mups.World.WorldDefines,mups.World.FeatureDefines,mups.World.Threads">
+   <PIN pinname="Formular" slicecount="4" values="mcps.World.ThreadGroups,mcps.World.WorldDefines,mcps.World.FeatureDefines,mcps.World.Threads">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int ThreadGroups, string WorldDefines, string FeatureDefines, string Threads|">
    </PIN>

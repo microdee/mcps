@@ -1,6 +1,6 @@
 #define PI 3.14159265359
 #include "../../../mp.fxh/pows.fxh"
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 //define DO_ADDITIONAL
@@ -92,13 +92,13 @@ void CSMain(csin input)
 
 	uint ii = input.DTID.x + WorldEmitOffset + EmitOffset[EmitterID];
 	uint pii = input.DTID.x;
-	mupsAgeStore(Outbuf, ii, 0);
+	mcpsAgeStore(Outbuf, ii, 0);
 
 	float ndrive = pii * 0.13563;
 	float3 inpos = dnoise(ndrive.xx, RandomSeed);
 	float3 outpos = mul(float4(SelectedShape.Shape(inpos, Param),1),tW).xyz;
 
-	mupsPositionStore(Outbuf, ii, outpos);
-	mupsVelocityStore(Outbuf, ii, float4(0,0,0,1));
+	mcpsPositionStore(Outbuf, ii, outpos);
+	mcpsVelocityStore(Outbuf, ii, float4(0,0,0,1));
 }
 technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

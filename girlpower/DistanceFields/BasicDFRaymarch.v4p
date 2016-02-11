@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\mups\mups\girlpower\DistanceFields\BasicDFRaymarch.v4p" systemname="BasicDFRaymarch" filename="E:\vvvv\mups\mups\girlpower\DistanceFields\BasicDFRaymarch.v4p">
+   <PATCH nodename="E:\vvvv\mcps\mcps\girlpower\DistanceFields\BasicDFRaymarch.v4p" systemname="BasicDFRaymarch" filename="E:\vvvv\mcps\mcps\girlpower\DistanceFields\BasicDFRaymarch.v4p">
    <BOUNDS type="Window" left="2775" top="735" width="15765" height="13800">
    </BOUNDS>
    <PACK Name="ImagePack" Version="0.1.0">

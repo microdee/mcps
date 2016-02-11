@@ -1,5 +1,5 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -31,9 +31,9 @@ void CSMain(csin input)
 	uint ii = input.DTID.x + WorldEmitOffset + EmitOffset[EmitterID];
 	uint pii = input.DTID.x;
 	uint dii = input.DTID.y;
-    mupsAgeStore(Outbuf, ii, 0);
+    mcpsAgeStore(Outbuf, ii, 0);
 
 	uint sii = pii*DstC+dii;
-    mupsStore(Outbuf, ii, Destination[dii], Source[sii]);
+    mcpsStore(Outbuf, ii, Destination[dii], Source[sii]);
 }
 technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }

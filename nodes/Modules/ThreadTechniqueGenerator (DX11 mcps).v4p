@@ -1,15 +1,13 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.7.dtd" >
-   <PATCH nodename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mups\nodes\Modules\2DThreadTechniqueGenerator (DX11 mups).v4p" systemname="2DThreadTechniqueGenerator (DX11 mups)" filename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mups\nodes\Modules\2DThreadTechniqueGenerator (DX11 mups).v4p" locked="0">
-   <BOUNDS type="Window" left="12975" top="2280" width="9735" height="7530">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta31.2.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv_45beta31.2_x86\packs\mcps\nodes\modules\ThreadTechniqueGenerator (DX11 mcps).v4p" systemname="ThreadTechniqueGenerator (DX11 mcps)" filename="C:\vvvv\vvvv_45beta31.2_x86\packs\mcps\nodes\Modules\ThreadTechniqueGenerator (DX11 mcps).v4p" locked="0">
+   <BOUNDS type="Window" left="15120" top="7230" width="9735" height="7530">
    </BOUNDS>
-   <PACK Name="testPack" Version="0.1.0">
-   </PACK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="5" systemname="IOBox (String)" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="945" top="300" width="6180" height="690">
    </BOUNDS>
    <BOUNDS type="Box" left="945" top="300" width="7260" height="735">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|[numthreads(#id#, #id#, 1)]&cr;&lf;void #func##id#(csin input) { #body# }&cr;&lf;technique11 #name##id# { pass P0{SetComputeShader( CompileShader( cs_5_0, #func##id#() ) );} }|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|[numthreads(#id#, 1, 1)]&cr;&lf;void #func##id#(csin input) { #body# }&cr;&lf;technique11 #name##id# { pass P0{SetComputeShader( CompileShader( cs_5_0, #func##id#() ) );} }|">
    </PIN>
    <PIN pinname="Output String" visible="1">
    </PIN>
@@ -49,7 +47,7 @@
    <NODE systemname="FormatValue (String)" nodename="FormatValue (String)" componentmode="Hidden" id="2" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="2460" top="5580" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="64" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -113,7 +111,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="From" visible="1">
+   <PIN pinname="From" visible="1" slicecount="1" values="#func#">
    </PIN>
    <PIN pinname="To" visible="1">
    </PIN>
@@ -183,7 +181,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2700" top="1275" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="|CS&cr;&lf;main(input);&cr;&lf;Make|">
+   <PIN pinname="Input String" slicecount="1" values="|CS_Emit&cr;&lf;main(input);&cr;&lf;Emit|">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>

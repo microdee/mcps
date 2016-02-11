@@ -1,12 +1,12 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\girlpower\Emitters\GeometryFromRawBuffer.v4p" systemname="GeometryFromRawBuffer" filename="E:\vvvv\libs\mcropack\packs\mups\girlpower\Emitters\GeometryFromRawBuffer.v4p" scrollx="3675" scrolly="8610">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emitters\GeometryFromRawBuffer.v4p" systemname="GeometryFromRawBuffer" filename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emitters\GeometryFromRawBuffer.v4p" scrollx="3675" scrolly="8610">
    <BOUNDS type="Window" left="18540" top="4335" width="14205" height="13440">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
    <PACK Name="addonpack" Version="34.1.0">
    </PACK>
-   <NODE systemname="Globals (DX11 mups)" filename="..\..\nodes\modules\Globals (DX11 mups).v4p" nodename="Globals (DX11 mups)" componentmode="Hidden" id="0">
+   <NODE systemname="Globals (DX11 mcps)" filename="..\..\nodes\modules\Globals (DX11 mcps).v4p" nodename="Globals (DX11 mcps)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="1905" top="9075" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Window" left="-315" top="990" width="21120" height="11955">
@@ -91,7 +91,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="6060" top="13005" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.World.BufferSize">
+   <PIN pinname="Formular" slicecount="1" values="mcps.World.BufferSize">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int BufferSize|">
    </PIN>
@@ -125,7 +125,7 @@
    <NODE systemname="S (Node)" nodename="S (Node)" componentmode="Hidden" id="25">
    <BOUNDS type="Node" left="3945" top="9525" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Send String" slicecount="1" values="mupsWorld">
+   <PIN pinname="Send String" slicecount="1" values="mcpsWorld">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -135,7 +135,7 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="26">
    <BOUNDS type="Node" left="6270" top="14145" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsWorld">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsWorld">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -143,7 +143,7 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="28">
    <BOUNDS type="Node" left="6045" top="11745" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsWorld">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsWorld">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -172,10 +172,10 @@
    </NODE>
    <LINK srcnodeid="32" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Reset">
    </LINK>
-   <NODE systemname="MainGroup (DX11 mups)" filename="..\..\nodes\modules\MainGroup (DX11 mups).v4p" nodename="MainGroup (DX11 mups)" componentmode="Hidden" id="33">
+   <NODE systemname="MainGroup (DX11 mcps)" filename="..\..\nodes\modules\MainGroup (DX11 mcps).v4p" nodename="MainGroup (DX11 mcps)" componentmode="Hidden" id="33">
    <BOUNDS type="Node" left="6435" top="11085" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="mups World" visible="1" slicecount="1" values="||">
+   <PIN pinname="mcps World" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Resource Semantics" visible="1" slicecount="1" values="||">
    </PIN>
@@ -193,7 +193,7 @@
    <NODE systemname="S (Node)" nodename="S (Node)" componentmode="Hidden" id="34">
    <BOUNDS type="Node" left="2595" top="9930" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Send String" slicecount="1" values="mupsResources">
+   <PIN pinname="Send String" slicecount="1" values="mcpsResources">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -203,7 +203,7 @@
    <NODE systemname="S (Node)" nodename="S (Node)" componentmode="Hidden" id="36">
    <BOUNDS type="Node" left="1905" top="10440" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Send String" slicecount="1" values="mupsSemantics">
+   <PIN pinname="Send String" slicecount="1" values="mcpsSemantics">
    </PIN>
    <PIN pinname="Input Value" visible="1" slicecount="1" values="||">
    </PIN>
@@ -213,7 +213,7 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="37">
    <BOUNDS type="Node" left="7215" top="10185" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsWorld">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsWorld">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -221,7 +221,7 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="38">
    <BOUNDS type="Node" left="6915" top="9885" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsResources">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsResources">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
@@ -229,12 +229,12 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="39">
    <BOUNDS type="Node" left="6615" top="9585" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsSemantics">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="37" srcpinname="Input Value" dstnodeid="33" dstpinname="mups World">
+   <LINK srcnodeid="37" srcpinname="Input Value" dstnodeid="33" dstpinname="mcps World">
    </LINK>
    <LINK srcnodeid="38" srcpinname="Input Value" dstnodeid="33" dstpinname="Resource Semantics">
    </LINK>
@@ -330,16 +330,16 @@
    </LINK>
    <LINK srcnodeid="43" srcpinname="Window Handle" dstnodeid="45" dstpinname="Target Window Handle" hiddenwhenlocked="1">
    </LINK>
-   <NODE systemname="Sprites (DX11 mups.Sink)" filename="..\..\nodes\modules\sinks\Sprites (DX11 mups.Sink).v4p" componentmode="Hidden" id="48" nodename="..\nodes\Modules\sinks\Sprites (DX11 mups.Sink).v4p">
+   <NODE systemname="Sprites (DX11 mcps.Sink)" filename="..\..\nodes\modules\sinks\Sprites (DX11 mcps.Sink).v4p" componentmode="Hidden" id="48" nodename="..\nodes\Modules\sinks\Sprites (DX11 mcps.Sink).v4p">
    <BOUNDS type="Node" left="5955" top="14895" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="5955" top="14895" width="4800" height="3600">
    </BOUNDS>
    <BOUNDS type="Window" left="3885" top="3180" width="8985" height="6000">
    </BOUNDS>
-   <PIN pinname="mupsData" visible="1">
+   <PIN pinname="mcpsData" visible="1">
    </PIN>
-   <PIN pinname="mups World" visible="1" slicecount="1" values="||">
+   <PIN pinname="mcps World" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Screen Space" slicecount="1" visible="1" values="0">
    </PIN>
@@ -388,9 +388,9 @@
    </NODE>
    <LINK srcnodeid="50" srcpinname="Layer Out" dstnodeid="49" dstpinname="Layer 2">
    </LINK>
-   <LINK srcnodeid="12" srcpinname="Buffers" dstnodeid="48" dstpinname="mupsData">
+   <LINK srcnodeid="12" srcpinname="Buffers" dstnodeid="48" dstpinname="mcpsData">
    </LINK>
-   <LINK srcnodeid="26" srcpinname="Input Value" dstnodeid="48" dstpinname="mups World">
+   <LINK srcnodeid="26" srcpinname="Input Value" dstnodeid="48" dstpinname="mcps World">
    </LINK>
    <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="51">
    <BOUNDS type="Node" left="5595" top="16230" width="100" height="100">
@@ -588,7 +588,7 @@
    </NODE>
    <LINK srcnodeid="92" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Reset Emitters">
    </LINK>
-   <NODE systemname="Geometry (DX11 mups.Emitter)" filename="..\..\nodes\modules\emitters\Geometry (DX11 mups.Emitter).v4p" componentmode="Hidden" id="98" nodename="..\..\nodes\Modules\emitters\Geometry (DX11 mups.Emitter).v4p">
+   <NODE systemname="Geometry (DX11 mcps.Emitter)" filename="..\..\nodes\modules\emitters\Geometry (DX11 mcps.Emitter).v4p" componentmode="Hidden" id="98" nodename="..\..\nodes\Modules\emitters\Geometry (DX11 mcps.Emitter).v4p">
    <BOUNDS type="Node" left="6270" top="6705" width="3300" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="6270" top="6705" width="4800" height="3600">
@@ -601,7 +601,7 @@
    </PIN>
    <PIN pinname="Geometry Rawbuffer" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="mups World" visible="1" slicecount="1" values="||">
+   <PIN pinname="mcps World" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -711,12 +711,12 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="108">
    <BOUNDS type="Node" left="5010" top="6165" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsWorld">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsWorld">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="108" srcpinname="Input Value" dstnodeid="98" dstpinname="mups World">
+   <LINK srcnodeid="108" srcpinname="Input Value" dstnodeid="98" dstpinname="mcps World">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="109" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="8145" top="4650" width="795" height="240">
@@ -772,14 +772,14 @@
    </NODE>
    <LINK srcnodeid="112" srcpinname="Texture Out" dstnodeid="98" dstpinname="ColorTex">
    </LINK>
-   <NODE systemname="ResetAdditional (DX11 mups.Emitter)" filename="..\..\nodes\modules\emitters\ResetAdditional (DX11 mups.Emitter).v4p" componentmode="Hidden" id="118" nodename="..\..\nodes\Modules\emitters\ResetAdditional (DX11 mups.Emitter).v4p">
+   <NODE systemname="ResetAdditional (DX11 mcps.Emitter)" filename="..\..\nodes\modules\emitters\ResetAdditional (DX11 mcps.Emitter).v4p" componentmode="Hidden" id="118" nodename="..\..\nodes\Modules\emitters\ResetAdditional (DX11 mcps.Emitter).v4p">
    <BOUNDS type="Node" left="6315" top="7905" width="3150" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="6315" top="7905" width="4800" height="3600">
    </BOUNDS>
    <BOUNDS type="Window" left="3375" top="2475" width="16035" height="13125">
    </BOUNDS>
-   <PIN pinname="mups World" visible="1" slicecount="1" values="||">
+   <PIN pinname="mcps World" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Emitter Name" visible="1">
    </PIN>
@@ -799,12 +799,12 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="119">
    <BOUNDS type="Node" left="6465" top="7515" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsWorld">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsWorld">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="119" srcpinname="Input Value" dstnodeid="118" dstpinname="mups World">
+   <LINK srcnodeid="119" srcpinname="Input Value" dstnodeid="118" dstpinname="mcps World">
    </LINK>
    <LINK srcnodeid="98" srcpinname="Emitter Name" dstnodeid="118" dstpinname="Emitter Name">
    </LINK>
@@ -850,14 +850,14 @@
    </NODE>
    <LINK srcnodeid="122" srcpinname="Y Output Value" dstnodeid="111" dstpinname="Enabled">
    </LINK>
-   <NODE systemname="WobblePlasma (DX11 mups.Force)" filename="..\..\nodes\modules\modifiers\WobblePlasma (DX11 mups.Force).v4p" componentmode="Hidden" id="125" nodename="..\..\nodes\Modules\modifiers\WobblePlasma (DX11 mups.Force).v4p">
+   <NODE systemname="WobblePlasma (DX11 mcps.Force)" filename="..\..\nodes\modules\modifiers\WobblePlasma (DX11 mcps.Force).v4p" componentmode="Hidden" id="125" nodename="..\..\nodes\Modules\modifiers\WobblePlasma (DX11 mcps.Force).v4p">
    <BOUNDS type="Node" left="6435" top="9180" width="1290" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="6435" top="9180" width="4800" height="3600">
    </BOUNDS>
    <BOUNDS type="Window" left="1215" top="7275" width="9000" height="6000">
    </BOUNDS>
-   <PIN pinname="mups World" visible="1" slicecount="1" values="||">
+   <PIN pinname="mcps World" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Layer In" visible="1" slicecount="1" values="||">
    </PIN>
@@ -875,12 +875,12 @@
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="126">
    <BOUNDS type="Node" left="6630" top="8370" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mupsWorld">
+   <PIN pinname="Receive String" slicecount="1" values="mcpsWorld">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="126" srcpinname="Input Value" dstnodeid="125" dstpinname="mups World">
+   <LINK srcnodeid="126" srcpinname="Input Value" dstnodeid="125" dstpinname="mcps World">
    </LINK>
    <NODE systemname="Scale (Transform Vector)" nodename="Scale (Transform Vector)" componentmode="Hidden" id="127">
    <BOUNDS type="Node" left="8640" top="8460" width="100" height="100">

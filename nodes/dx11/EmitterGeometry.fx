@@ -1,6 +1,6 @@
 
 #include "../../../mp.fxh/ByteAddressBufferUtils.fxh"
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 //define DO_COLOR
@@ -61,7 +61,7 @@ void CSMain(csin input)
 	uint pii=input.DTID.x;
 	uint trii = TriangleID[pii]*3;
 
-    mupsAgeStore(Outbuf, ii, 0);
+    mcpsAgeStore(Outbuf, ii, 0);
 	// calculate barycentric
 	float3 vweight = VertexWeight[pii];
 	float vweightSum = vweight.x + vweight.y + vweight.z;
@@ -96,7 +96,7 @@ void CSMain(csin input)
     	tnorm = mul(float4(tpos,0),tW).xyz;
     	ttxcd /= vweightSum;
 
-        mupsPositionStore(Outbuf, ii, tpos);
+        mcpsPositionStore(Outbuf, ii, tpos);
 
         float4 vel = float4(0,0,0,1);
 
@@ -105,11 +105,11 @@ void CSMain(csin input)
         if(PrevPosToVelocity > 0.0001)
             vel.xyz += (tpos-tppos) * PrevPosToVelocity;
 
-        mupsVelocityStore(Outbuf, ii, vel);
+        mcpsVelocityStore(Outbuf, ii, vel);
 
         #if defined(KNOW_COLOR) && defined(DO_COLOR)
             float4 col = ColorTex.SampleLevel(s0, ttxcd, 0);
-            mupsColorStore(Outbuf, ii, col);
+            mcpsColorStore(Outbuf, ii, col);
         #endif
 
         #if defined(DO_CTRLTEX)
@@ -118,7 +118,7 @@ void CSMain(csin input)
             {
                 if(CtrlTexDst[i] >= 0)
                 {
-                    mupsStore(Outbuf, ii, CtrlTexDst[i], ctrl[i]);
+                    mcpsStore(Outbuf, ii, CtrlTexDst[i], ctrl[i]);
                 }
             }
         #endif
@@ -136,7 +136,7 @@ void CSMain(csin input)
     				vertexprop[i] = BABLoad(GeomBuf, (trii+i)*NumOfFloats+SrcDst[oii].x);
     			vertexprop *= vweight;
     			float prop = (vertexprop.x + vertexprop.y + vertexprop.z)/vweightSum;
-                mupsStore(Outbuf, ii, SrcDst[oii].y, prop);
+                mcpsStore(Outbuf, ii, SrcDst[oii].y, prop);
     		}
     	}
     #endif

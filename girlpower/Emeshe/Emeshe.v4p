@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\girlpower\Emeshe\Emeshe.v4p" systemname="Emeshe" filename="E:\vvvv\libs\mcropack\packs\mups\girlpower\Emeshe\Emeshe.v4p" scrollx="0" scrolly="3240">
-   <BOUNDS type="Window" left="1035" top="4320" width="10665" height="9675">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emeshe\Emeshe.v4p" systemname="Emeshe" filename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emeshe\Emeshe.v4p" scrollx="0" scrolly="15465">
+   <BOUNDS type="Window" left="10695" top="3000" width="10665" height="9675">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
@@ -79,7 +79,7 @@
    <LINK srcnodeid="0" srcpinname="Base Layer" dstnodeid="2" dstpinname="Layer In">
    </LINK>
    <NODE systemname="FXAA11 (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\FXAA11.tfx" nodename="FXAA11 (DX11.TextureFX)" componentmode="Hidden" id="3">
-   <BOUNDS type="Node" left="2325" top="20565" width="100" height="100">
+   <BOUNDS type="Node" left="2295" top="22005" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
    </PIN>
@@ -87,9 +87,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="4" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="2325" top="21390" width="795" height="240">
+   <BOUNDS type="Box" left="2370" top="22905" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="2325" top="21390" width="0" height="0">
+   <BOUNDS type="Node" left="2370" top="22905" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Texture Out|">
    </PIN>
@@ -466,8 +466,6 @@
    <PIN pinname="KeyValue" slicecount="1" values="0.7">
    </PIN>
    </NODE>
-   <LINK srcnodeid="33" srcpinname="Texture Out" dstnodeid="3" dstpinname="Texture In">
-   </LINK>
    <NODE systemname="ReflectionInDiffuse (DX11 MRE)" filename="..\..\..\Emeshe\nodes\modules\Lights\GPU\ReflectionInDiffuse (DX11 MRE).v4p" nodename="ReflectionInDiffuse (DX11 MRE)" componentmode="Hidden" id="34">
    <BOUNDS type="Node" left="3765" top="10275" width="100" height="100">
    </BOUNDS>
@@ -788,10 +786,6 @@
    </NODE>
    <LINK srcnodeid="45" srcpinname="Texture Out" dstnodeid="59" dstpinname="Texture In">
    </LINK>
-   <NODE systemname="BlendBasic (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Mixer\BlendBasic.tfx" nodename="BlendBasic (DX11.TextureFX)" componentmode="Hidden" id="61">
-   <BOUNDS type="Node" left="6630" top="14790" width="100" height="100">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="Mix (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Mixer\Mix.tfx" nodename="Mix (DX11.TextureFX)" componentmode="Hidden" id="62">
    <BOUNDS type="Node" left="2505" top="14985" width="100" height="100">
    </BOUNDS>
@@ -825,7 +819,7 @@
    </PIN>
    <PIN pinname="Shape" slicecount="1" values="0.97">
    </PIN>
-   <PIN pinname="Control" visible="1">
+   <PIN pinname="Control" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="FallOff" slicecount="1" values="0.3">
    </PIN>
@@ -844,14 +838,12 @@
    <PIN pinname="Texture Out" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="64" srcpinname="Texture Out" dstnodeid="63" dstpinname="Control">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="66" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2835" top="17085" width="795" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="2835" top="17085" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.5">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.65">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -1055,5 +1047,143 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="84" srcpinname="Y Output Value" dstnodeid="32" dstpinname="Fresnel">
+   </LINK>
+   <NODE systemname="TransformTexture (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\TransformTexture.tfx" nodename="TransformTexture (DX11.TextureFX)" componentmode="Hidden" id="85">
+   <BOUNDS type="Node" left="6885" top="16425" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Texture Transform" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Sampler" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="64" srcpinname="Texture Out" dstnodeid="85" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="85" srcpinname="Texture Out" dstnodeid="63" dstpinname="Control">
+   </LINK>
+   <NODE systemname="Sampler (DX11 Advanced)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Sampler (DX11 Advanced)" componentmode="Hidden" id="87">
+   <BOUNDS type="Node" left="9345" top="13875" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Sampler" visible="1">
+   </PIN>
+   <PIN pinname="Address U" visible="1">
+   </PIN>
+   <PIN pinname="Address V" visible="1">
+   </PIN>
+   <PIN pinname="Address W" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="87" srcpinname="Sampler" dstnodeid="85" dstpinname="Sampler">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="88" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="9405" top="13425" width="1590" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9405" top="13425" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Mirror">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="88" srcpinname="Output Enum" dstnodeid="87" dstpinname="Address U">
+   </LINK>
+   <LINK srcnodeid="88" srcpinname="Output Enum" dstnodeid="87" dstpinname="Address V">
+   </LINK>
+   <LINK srcnodeid="88" srcpinname="Output Enum" dstnodeid="87" dstpinname="Address W">
+   </LINK>
+   <NODE systemname="Transform (Transform 2d)" nodename="Transform (Transform 2d)" componentmode="Hidden" id="86">
+   <BOUNDS type="Node" left="7125" top="15525" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="TranslateXY" slicecount="2" values="0,0">
+   </PIN>
+   <PIN pinname="TranslateY" slicecount="1" values="212.937856498183" visible="1">
+   </PIN>
+   <PIN pinname="TranslateX" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Rotate" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="86" srcpinname="Transform Out" dstnodeid="85" dstpinname="Texture Transform">
+   </LINK>
+   <NODE systemname="Integrate (Differential)" nodename="Integrate (Differential)" componentmode="Hidden" id="89">
+   <BOUNDS type="Node" left="7425" top="14430" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Position In" slicecount="1" values="100">
+   </PIN>
+   <PIN pinname="Position Out" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="Random (Value)" nodename="Random (Value)" componentmode="Hidden" id="90">
+   <BOUNDS type="Node" left="7035" top="14850" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="90" srcpinname="Output" dstnodeid="86" dstpinname="TranslateY">
+   </LINK>
+   <NODE systemname="Random (Value)" nodename="Random (Value)" componentmode="Hidden" id="91">
+   <BOUNDS type="Node" left="7935" top="14820" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="91" srcpinname="Output" dstnodeid="86" dstpinname="Rotate">
+   </LINK>
+   <NODE systemname="UnsharpHSV (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\UnsharpHSV.tfx" nodename="UnsharpHSV (DX11.TextureFX)" componentmode="Hidden" id="92">
+   <BOUNDS type="Node" left="2295" top="21420" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Shape" slicecount="1" values="0.5">
+   </PIN>
+   <PIN pinname="Hue" slicecount="1" values="0.83">
+   </PIN>
+   <PIN pinname="Saturation" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="92" srcpinname="Texture Out" dstnodeid="3" dstpinname="Texture In">
+   </LINK>
+   <NODE systemname="Blend (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Mixer\Blend.tfx" nodename="Blend (DX11.TextureFX)" componentmode="Hidden" id="93">
+   <BOUNDS type="Node" left="2295" top="20670" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Texture In 2" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Technique" slicecount="1" values="Subtract">
+   </PIN>
+   <PIN pinname="Opacity" slicecount="1" values="0.03">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="85" srcpinname="Texture Out" dstnodeid="93" dstpinname="Texture In 2">
+   </LINK>
+   <LINK srcnodeid="33" srcpinname="Texture Out" dstnodeid="93" dstpinname="Texture In">
+   </LINK>
+   <NODE systemname="ScalarOperationBundle (DX11.TextureFX)" filename="..\..\..\mp.dx\nodes\texture11\ScalarOperationBundle.tfx" nodename="ScalarOperationBundle (DX11.TextureFX)" componentmode="Hidden" id="95">
+   <BOUNDS type="Node" left="3630" top="20835" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="ClampZero" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="ClampOne" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="93" srcpinname="Texture Out" dstnodeid="95" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="95" srcpinname="Texture Out" dstnodeid="92" dstpinname="Texture In">
    </LINK>
    </PATCH>

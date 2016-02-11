@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\Clear (DX11 mups).v4p" systemname="Clear (DX11 mups)" filename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mups\nodes\Modules\Clear (DX11 mups).v4p" scrollx="0" scrolly="0">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\Clear (DX11 mcps).v4p" systemname="Clear (DX11 mcps)" filename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mcps\nodes\Modules\Clear (DX11 mcps).v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="975" top="2775" width="8655" height="5970">
    </BOUNDS>
    <PACK Name="testPack" Version="0.1.0">
@@ -245,7 +245,7 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|mups World|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|mcps World|">
    </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="Output Node" dstnodeid="23" dstpinname="Source">
@@ -253,7 +253,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="24">
    <BOUNDS type="Node" left="1590" top="1905" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="3" values="mups.World.ThreadGroups,mups.World.WorldDefines,mups.World.Threads">
+   <PIN pinname="Formular" slicecount="3" values="mcps.World.ThreadGroups,mcps.World.WorldDefines,mcps.World.Threads">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int ThreadGroups, string WorldDefines, string Threads|">
    </PIN>
@@ -315,7 +315,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="28">
    <BOUNDS type="Node" left="2805" top="1860" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.FeatureOffsets.Force">
+   <PIN pinname="Formular" slicecount="1" values="mcps.FeatureOffsets.Force">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|Vector2D Force|">
    </PIN>

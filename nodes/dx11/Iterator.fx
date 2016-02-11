@@ -1,5 +1,5 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -27,38 +27,38 @@ void CS_Iterate64(csin input)
 
 	uint ii=input.DTID.x;
 
-	float2 age = mupsAgeLoad(Outbuf, ii);
+	float2 age = mcpsAgeLoad(Outbuf, ii);
 	age.x++;
-	age.y += mupsTime.y;
-	mupsAgeStore(Outbuf, ii, age);
-	//bool sleep = Outbuf[mups_sleep(ii)] > SleepThreshold;
+	age.y += mcpsTime.y;
+	mcpsAgeStore(Outbuf, ii, age);
+	//bool sleep = Outbuf[mcps_sleep(ii)] > SleepThreshold;
 
 	if(AddVelocity)
 	{
-		float4 vel = mupsVelocityLoad(Outbuf, ii);
+		float4 vel = mcpsVelocityLoad(Outbuf, ii);
 		if(AddForce)
 		{
-			float3 force = mupsForceLoad(Outbuf, ii);
+			float3 force = mcpsForceLoad(Outbuf, ii);
 			force += gravity;
 			vel.xyz += force;
 			vel.xyz *= VelocityDamper;
 			vel.xyz *= vel.w;
-			mupsVelocityStore(Outbuf, ii, vel);
-			mupsForceStore(Outbuf, ii, force);
+			mcpsVelocityStore(Outbuf, ii, vel);
+			mcpsForceStore(Outbuf, ii, force);
 		}
 		else
 		{
 			vel.xyz *= VelocityDamper;
 			vel.xyz *= vel.w;
-			mupsVelocityStore(Outbuf, ii, vel);
+			mcpsVelocityStore(Outbuf, ii, vel);
 		}
-		float3 pos = mupsPositionLoad(Outbuf, ii);
-		pos += vel.xyz * mupsTime.y;
-		mupsPositionStore(Outbuf, ii, pos);
+		float3 pos = mcpsPositionLoad(Outbuf, ii);
+		pos += vel.xyz * mcpsTime.y;
+		mcpsPositionStore(Outbuf, ii, pos);
 	}
-	if(mupsTime.x < ResetAllEps)
+	if(mcpsTime.x < ResetAllEps)
 	{
-		for(uint i=0; i<PELSIZE; i++) mupsStore(Outbuf, ii, i, 0);
+		for(uint i=0; i<PELSIZE; i++) mcpsStore(Outbuf, ii, i, 0);
 	}
 }
 technique11 Iterate64 { pass P0{SetComputeShader( CompileShader( cs_5_0, CS_Iterate64() ) );} }

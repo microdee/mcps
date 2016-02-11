@@ -1,8 +1,8 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta32.1.dtd" >
-   <PATCH nodename="E:\vvvv\mups\mups\girlpower\Basics.v4p" systemname="Fountain" filename="F:\vvvv\app\vvvv_45beta31.2_x86\packs\mups\girlpower\Fountain.v4p" locked="0">
+   <PATCH nodename="E:\vvvv\mcps\mcps\girlpower\Basics.v4p" systemname="Fountain" filename="F:\vvvv\app\vvvv_45beta31.2_x86\packs\mcps\girlpower\Fountain.v4p" locked="0">
    <BOUNDS type="Window" left="315" top="0" width="16920" height="15600">
    </BOUNDS>
-   <NODE systemname="Globals (DX11 mups)" filename="..\nodes\modules\Globals (DX11 mups).v4p" componentmode="Hidden" id="0" nodename="%VVVV%\packs\mups\nodes\Modules\Globals (DX11 mups).v4p">
+   <NODE systemname="Globals (DX11 mcps)" filename="..\nodes\modules\Globals (DX11 mcps).v4p" componentmode="Hidden" id="0" nodename="%VVVV%\packs\mcps\nodes\Modules\Globals (DX11 mcps).v4p">
    <BOUNDS type="Node" left="2850" top="10740" width="1350" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="2850" top="10740" width="4800" height="3600">
@@ -156,7 +156,7 @@
    </LINK>
    <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="73" dstpinname="Input 1" hiddenwhenlocked="1">
    </LINK>
-   <NODE systemname="MupsSprites (DX11.Effect)" filename="..\nodes\dx11\MupsSprites.fx" nodename="MupsSprites (DX11.Effect)" componentmode="Hidden" id="78">
+   <NODE systemname="McpsSprites (DX11.Effect)" filename="..\nodes\dx11\McpsSprites.fx" nodename="McpsSprites (DX11.Effect)" componentmode="Hidden" id="78">
    <BOUNDS type="Node" left="8925" top="41865" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry" visible="1">
@@ -165,7 +165,7 @@
    </PIN>
    <PIN pinname="Technique" slicecount="1" values="WorldVelocity">
    </PIN>
-   <PIN pinname="mupsData" visible="1">
+   <PIN pinname="mcpsData" visible="1">
    </PIN>
    <PIN pinname="Render State" visible="1">
    </PIN>
@@ -202,7 +202,7 @@
    </NODE>
    <LINK srcnodeid="78" srcpinname="Layer" dstnodeid="80" dstpinname="Layer In">
    </LINK>
-   <LINK srcnodeid="56" srcpinname="Buffers" dstnodeid="78" dstpinname="mupsData">
+   <LINK srcnodeid="56" srcpinname="Buffers" dstnodeid="78" dstpinname="mcpsData">
    </LINK>
    <NODE systemname="Rasterizer (DX11.RenderState)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Rasterizer (DX11.RenderState)" componentmode="Hidden" id="84">
    <BOUNDS type="Node" left="7140" top="40590" width="100" height="100">
@@ -673,7 +673,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Send String" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="RenderSemantics" dstnodeid="226" dstpinname="Input Value">
@@ -685,7 +685,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_ResourceSemantics">
+   <PIN pinname="Send String" slicecount="1" values="mcps_ResourceSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="ResourceSemantics" dstnodeid="229" dstpinname="Input Value">
@@ -697,7 +697,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_BufferSize">
+   <PIN pinname="Send String" slicecount="1" values="mcps_BufferSize">
    </PIN>
    </NODE>
    <LINK srcnodeid="0" srcpinname="BufferSize" dstnodeid="231" dstpinname="Input Value">
@@ -709,7 +709,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Send String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="241">
@@ -719,7 +719,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE systemname="Count (Node)" nodename="Count (Node)" componentmode="Hidden" id="242">
@@ -739,7 +739,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <NODE systemname="R (Node)" nodename="R (Node)" componentmode="Hidden" id="246">
@@ -749,7 +749,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_ResourceSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_ResourceSemantics">
    </PIN>
    </NODE>
    <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="247">
@@ -759,7 +759,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_BufferSize">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_BufferSize">
    </PIN>
    </NODE>
    <LINK srcnodeid="247" srcpinname="Input Value" dstnodeid="56" dstpinname="Element Count">
@@ -771,7 +771,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Send String" slicecount="1" values="mups_ParticleCount">
+   <PIN pinname="Send String" slicecount="1" values="mcps_ParticleCount">
    </PIN>
    </NODE>
    <LINK srcnodeid="55" srcpinname="Y Output Value" dstnodeid="251" dstpinname="Input Value">
@@ -783,7 +783,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="274">
@@ -803,7 +803,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="275" systemname="IOBox (Value Advanced)">
@@ -881,7 +881,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="286" srcpinname="Input Value" dstnodeid="80" dstpinname="Custom Semantics">
@@ -893,7 +893,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_ParticleCount">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_ParticleCount">
    </PIN>
    </NODE>
    <LINK srcnodeid="287" srcpinname="Input Value" dstnodeid="79" dstpinname="Vertex Count">
@@ -915,7 +915,7 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_Threads">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <NODE systemname="RandomSpread (Spreads)" nodename="RandomSpread (Spreads)" componentmode="Hidden" id="297">
@@ -1055,7 +1055,7 @@
    <NODE systemname="ForceAttractor (DX11.Effect)" filename="..\nodes\dx11\ForceAttractor.fx" nodename="ForceAttractor (DX11.Effect)" componentmode="Hidden" id="289">
    <BOUNDS type="Node" left="21810" top="32025" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Technique" visible="1" slicecount="1" values="mups64">
+   <PIN pinname="Technique" visible="1" slicecount="1" values="mcps64">
    </PIN>
    <PIN pinname="Geometry" visible="1">
    </PIN>
@@ -1208,7 +1208,7 @@
    </NODE>
    <LINK srcnodeid="323" srcpinname="Y Output Value" dstnodeid="322" dstpinname=".. To [">
    </LINK>
-   <NODE systemname="MainGroup (DX11 mups)" filename="..\nodes\modules\MainGroup (DX11 mups).v4p" nodename="MainGroup (DX11 mups)" componentmode="Hidden" id="326">
+   <NODE systemname="MainGroup (DX11 mcps)" filename="..\nodes\modules\MainGroup (DX11 mcps).v4p" nodename="MainGroup (DX11 mcps)" componentmode="Hidden" id="326">
    <BOUNDS type="Node" left="10365" top="37455" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
@@ -1401,7 +1401,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="1125" top="630" width="5550" height="4215">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|mups is an advanced modular and extendable particle system.&cr;&lf;&cr;&lf;In mups the particle data size is not fixed. you have to feed the system that how many floats a particle use. By default 18 floats used for position, velocity, force, color, size, age and sleep (which is not used currently so you can utilize it as you whish)&cr;&lf;This allows to use the same particle system in various situations, like simple dots VS. complex geometry particles.&cr;&lf;&cr;&lf;Dealing with particles here is very similar to dealing with raw geometry buffers, to access or write several floats you have to tell the effect the offset of the desired parameter.&cr;&lf;&cr;&lf;Globals of mups provide effects with essential information through render/resource-semantics about the overall system, like particle count, size of a particle, size of the overall buffer, system time in seconds and frames, emitting particle starting ID and per-emitter starting ID offset.&cr;&lf;Also outputs the optimal thread count and the corresponding dispatch count used for the effects.|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|mcps is an advanced modular and extendable particle system.&cr;&lf;&cr;&lf;In mcps the particle data size is not fixed. you have to feed the system that how many floats a particle use. By default 18 floats used for position, velocity, force, color, size, age and sleep (which is not used currently so you can utilize it as you whish)&cr;&lf;This allows to use the same particle system in various situations, like simple dots VS. complex geometry particles.&cr;&lf;&cr;&lf;Dealing with particles here is very similar to dealing with raw geometry buffers, to access or write several floats you have to tell the effect the offset of the desired parameter.&cr;&lf;&cr;&lf;Globals of mcps provide effects with essential information through render/resource-semantics about the overall system, like particle count, size of a particle, size of the overall buffer, system time in seconds and frames, emitting particle starting ID and per-emitter starting ID offset.&cr;&lf;Also outputs the optimal thread count and the corresponding dispatch count used for the effects.|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>

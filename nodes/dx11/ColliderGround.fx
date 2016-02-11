@@ -1,5 +1,5 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -31,9 +31,9 @@ void CSMain(csin input)
 	uint ii = input.DTID.x;
 	uint trii = input.DTID.y;
 
-	float3 cpos = mupsPositionLoad(Outbuf, ii);
+	float3 cpos = mcpsPositionLoad(Outbuf, ii);
 
-	float4 vel = mupsVelocityLoad(Outbuf, ii);
+	float4 vel = mcpsVelocityLoad(Outbuf, ii);
 
 	float3 npos = mul(float4(cpos,1),InvGroundTr[trii]).xyz;
 	float3 nvel = mul(float4(vel.xyz,0),InvGroundTr[trii]).xyz;
@@ -44,8 +44,8 @@ void CSMain(csin input)
 		nvel.xyz += (DirTex.SampleLevel(s0, uv, 0).rgb-.5) * DirAm * saturate(nvel.y-1);
 		nvel = mul(float4(nvel,0),GroundTr[trii]).xyz;
 		npos = mul(float4(npos.x,0,npos.z,1),GroundTr[trii]).xyz;
-        mupsPositionStore(Outbuf, ii, npos);
-        mupsVelocityStore(Outbuf, ii, nvel);
+        mcpsPositionStore(Outbuf, ii, npos);
+        mcpsVelocityStore(Outbuf, ii, nvel);
 	}
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\emitters\EmitterHelper (mups).v4p" systemname="EmitterHelper (mups)" filename="E:\vvvv\libs\mcropack\packs\mups\nodes\Modules\emitters\EmitterHelper (mups).v4p" scrollx="510" scrolly="225">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\emitters\EmitterHelper (mcps).v4p" systemname="EmitterHelper (mcps)" filename="E:\vvvv\libs\mcropack\packs\mcps\nodes\Modules\emitters\EmitterHelper (mcps).v4p" scrollx="510" scrolly="225">
    <BOUNDS type="Window" left="18795" top="3750" width="9000" height="6000">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
@@ -13,7 +13,7 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|mups World|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|mcps World|">
    </PIN>
    <PIN pinname="Output Node" visible="1">
    </PIN>
@@ -99,7 +99,7 @@
    <NODE systemname="PrimitiveObject (VObject Set)" filename="..\..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Set)" componentmode="Hidden" id="3">
    <BOUNDS type="Node" left="3525" top="2730" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="2" values="mups.Emitter.NewCount,mups.Emitter.Threads">
+   <PIN pinname="Formular" slicecount="2" values="mcps.Emitter.NewCount,mcps.Emitter.Threads">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int NewCount, int Threads|">
    </PIN>
@@ -137,7 +137,7 @@
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="1440" top="5535" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.Emitter.EmitterID">
+   <PIN pinname="Formular" slicecount="1" values="mcps.Emitter.EmitterID">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int EmitterID|">
    </PIN>
@@ -221,7 +221,7 @@
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">
    </PIN>
-   <PIN pinname="Input 2" visible="1" slicecount="1" values="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\emitters\noname">
+   <PIN pinname="Input 2" visible="1" slicecount="1" values="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\emitters\noname">
    </PIN>
    <PIN pinname="Intersperse String" visible="1" slicecount="1" values="||">
    </PIN>
@@ -327,7 +327,7 @@
    <NODE systemname="PrimitiveObject (VObject Construct)" filename="..\..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Construct)" componentmode="Hidden" id="7">
    <BOUNDS type="Node" left="2400" top="2085" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="1" values="mups.Emitter">
+   <PIN pinname="Formular" slicecount="1" values="mcps.Emitter">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int EmitterID, int NewCount, int Threads|">
    </PIN>

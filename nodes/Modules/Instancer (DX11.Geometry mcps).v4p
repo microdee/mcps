@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
-   <PATCH nodename="C:\vvvv\libs\mups\nodes\modules\Instancer (DX11.Geometry mups).v4p" systemname="Instancer (DX11.Geometry mups)" filename="C:\vvvv\libs\mups\nodes\Modules\Instancer (DX11.Geometry mups).v4p" scrollx="0" scrolly="0">
+   <PATCH nodename="C:\vvvv\libs\mcps\nodes\modules\Instancer (DX11.Geometry mcps).v4p" systemname="Instancer (DX11.Geometry mcps)" filename="C:\vvvv\libs\mcps\nodes\Modules\Instancer (DX11.Geometry mcps).v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="18150" top="0" width="9000" height="15600">
    </BOUNDS>
    <PACK Name="addonpack" Version="33.3.0">
@@ -291,7 +291,7 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="MupsData">
+   <PIN pinname="Descriptive Name" slicecount="1" values="McpsData">
    </PIN>
    <PIN pinname="Output Node" visible="1">
    </PIN>
@@ -371,7 +371,7 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Mups RenderSemantics|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Mcps RenderSemantics|">
    </PIN>
    <PIN pinname="Output Node" visible="1">
    </PIN>
@@ -422,7 +422,7 @@
    </NODE>
    <LINK srcnodeid="36" srcpinname="Output" dstnodeid="41" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="MupsInstancer (DX11.GeomFX)" filename="..\geom11\MupsInstancer.gsfx" nodename="MupsInstancer (DX11.GeomFX)" componentmode="Hidden" id="42">
+   <NODE systemname="McpsInstancer (DX11.GeomFX)" filename="..\geom11\McpsInstancer.gsfx" nodename="McpsInstancer (DX11.GeomFX)" componentmode="Hidden" id="42">
    <BOUNDS type="Node" left="1860" top="9585" width="2250" height="270">
    </BOUNDS>
    <PIN pinname="Custom Semantics" visible="1" pintype="Input" slicecount="1" values="||">
@@ -444,9 +444,9 @@
    </NODE>
    <LINK srcnodeid="4" srcpinname="Geometry Out" dstnodeid="42" dstpinname="Geometry In">
    </LINK>
-   <LINK srcnodeid="27" srcpinname="Output Node" dstnodeid="42" dstpinname="MupsData">
+   <LINK srcnodeid="27" srcpinname="Output Node" dstnodeid="42" dstpinname="McpsData">
    </LINK>
-   <LINK srcnodeid="28" srcpinname="Output" dstnodeid="42" dstpinname="PrevMupsData">
+   <LINK srcnodeid="28" srcpinname="Output" dstnodeid="42" dstpinname="PrevMcpsData">
    </LINK>
    <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="42" dstpinname="PreTransform">
    </LINK>
@@ -503,7 +503,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9495" top="8535" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Input Enum" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="57" srcpinname="Output Enum" dstnodeid="58" dstpinname="Receive String">
@@ -521,7 +521,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9660" top="9345" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="mups_ResourceSemantics">
+   <PIN pinname="Input Enum" slicecount="1" values="mcps_ResourceSemantics">
    </PIN>
    </NODE>
    <LINK srcnodeid="55" srcpinname="Output Enum" dstnodeid="56" dstpinname="Receive String">
@@ -539,7 +539,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9540" top="12525" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="mups_BufferSize">
+   <PIN pinname="Input Enum" slicecount="1" values="mcps_BufferSize">
    </PIN>
    </NODE>
    <LINK srcnodeid="53" srcpinname="Output Enum" dstnodeid="54" dstpinname="Receive String">
@@ -559,7 +559,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9795" top="10125" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="mups_Threads">
+   <PIN pinname="Input Enum" slicecount="1" values="mcps_Threads">
    </PIN>
    </NODE>
    <LINK srcnodeid="51" srcpinname="Output Enum" dstnodeid="52" dstpinname="Receive String">
@@ -596,7 +596,7 @@
    </NODE>
    <LINK srcnodeid="49" srcpinname="Y Output Value" dstnodeid="60" dstpinname="Enabled">
    </LINK>
-   <NODE systemname="MainGroup (DX11 mups)" filename="%VVVV%\packs\mups\nodes\modules\MainGroup (DX11 mups).v4p" nodename="MainGroup (DX11 mups)" componentmode="Hidden" id="48">
+   <NODE systemname="MainGroup (DX11 mcps)" filename="%VVVV%\packs\mcps\nodes\modules\MainGroup (DX11 mcps).v4p" nodename="MainGroup (DX11 mcps)" componentmode="Hidden" id="48">
    <BOUNDS type="Node" left="9345" top="11640" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1" slicecount="1" values="||">
@@ -629,13 +629,13 @@
    </PIN>
    <PIN pinname="Display Channel" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Receive String" slicecount="1" values="mups_RenderSemantics">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_RenderSemantics">
    </PIN>
    </NODE>
    <NODE systemname="R (Value)" nodename="R (Value)" componentmode="Hidden" id="46">
    <BOUNDS type="Node" left="9075" top="14280" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Receive String" slicecount="1" values="mups_ParticleCount">
+   <PIN pinname="Receive String" slicecount="1" values="mcps_ParticleCount">
    </PIN>
    <PIN pinname="Input Value" visible="1">
    </PIN>

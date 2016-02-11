@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mups\nodes\modules\MainGroup (DX11 mups).v4p" systemname="MainGroup (DX11 mups)" filename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mups\nodes\Modules\MainGroup (DX11 mups).v4p" scrollx="0" scrolly="30">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\MainGroup (DX11 mcps).v4p" systemname="MainGroup (DX11 mcps)" filename="G:\vvvv\app\vvvv_45alpha31.7_x86\packs\mcps\nodes\Modules\MainGroup (DX11 mcps).v4p" scrollx="0" scrolly="30">
    <BOUNDS type="Window" left="3945" top="6180" width="9000" height="8910">
    </BOUNDS>
    <PACK Name="testPack" Version="0.1.0">
@@ -20,7 +20,7 @@
    <PIN pinname="Layer 3" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Clear (DX11 mups)" filename="Clear (DX11 mups).v4p" componentmode="Hidden" id="7" nodename="%VVVV%\packs\mups\nodes\Modules\Clear (DX11 mups).v4p">
+   <NODE systemname="Clear (DX11 mcps)" filename="Clear (DX11 mcps).v4p" componentmode="Hidden" id="7" nodename="%VVVV%\packs\mcps\nodes\Modules\Clear (DX11 mcps).v4p">
    <BOUNDS type="Node" left="3855" top="4890" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="3855" top="4890" width="4800" height="3600">
@@ -35,7 +35,7 @@
    </PIN>
    <PIN pinname="Additional Clear" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="mups World" visible="1" slicecount="1" values="||">
+   <PIN pinname="mcps World" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Layer" dstnodeid="11" dstpinname="Layer 1">
@@ -317,19 +317,19 @@
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|mups World|">
+   <PIN pinname="Descriptive Name" slicecount="1" values="|mcps World|">
    </PIN>
    <PIN pinname="Output Node" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="27" srcpinname="Output Node" dstnodeid="25" dstpinname="Source">
    </LINK>
-   <LINK srcnodeid="27" srcpinname="Output Node" dstnodeid="7" dstpinname="mups World">
+   <LINK srcnodeid="27" srcpinname="Output Node" dstnodeid="7" dstpinname="mcps World">
    </LINK>
    <NODE systemname="PrimitiveObject (VObject Split)" filename="..\..\..\VObjects\nodes\plugins\x64\VVVV.Nodes.VObjects.dll" nodename="PrimitiveObject (VObject Split)" componentmode="Hidden" id="29">
    <BOUNDS type="Node" left="5355" top="3210" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Formular" slicecount="4" values="mups.World.ThreadGroups,mups.World.WorldDefines,mups.World.FeatureDefines,mups.World.Threads">
+   <PIN pinname="Formular" slicecount="4" values="mcps.World.ThreadGroups,mcps.World.WorldDefines,mcps.World.FeatureDefines,mcps.World.Threads">
    </PIN>
    <PIN pinname="Definition" slicecount="1" values="|int ThreadGroups, string WorldDefines, string FeatureDefines, string Threads|">
    </PIN>

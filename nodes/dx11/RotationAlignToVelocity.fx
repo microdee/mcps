@@ -1,6 +1,6 @@
 
 #include "../../../mp.fxh/quaternion.fxh"
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -22,12 +22,12 @@ void CSMain(csin input)
 #if defined(KNOW_ROTATION)
 	if(input.DTID.x > PCOUNT) return;
 	uint ii = input.DTID.x;
-	float3 vel = mupsVelocityLoad(Outbuf, ii).xyz;
+	float3 vel = mcpsVelocityLoad(Outbuf, ii).xyz;
 	if(length(vel) > 0.001)
 	{
-		float4 orot = mupsRotationLoad(Outbuf, ii);
+		float4 orot = mcpsRotationLoad(Outbuf, ii);
 		float4 rot = qLookAt(vel, Forward);
-		mupsRotationStore(Outbuf, ii, slerp(orot, rot, Influence));
+		mcpsRotationStore(Outbuf, ii, slerp(orot, rot, Influence));
 	}
 #endif
 }

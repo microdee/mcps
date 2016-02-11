@@ -1,4 +1,4 @@
-#include "../../../mp.fxh/mupsRead.fxh"
+#include "../../../mp.fxh/mcpsRead.fxh"
 #include "../../../mp.fxh/pows.fxh"
 #include "../../../mp.fxh/quaternion.fxh"
 
@@ -17,8 +17,8 @@
 #include "../../../mp.fxh/MREInputElements.fxh"
 
 ByteAddressBuffer Geometry;
-ByteAddressBuffer MupsData;
-ByteAddressBuffer PrevMupsData;
+ByteAddressBuffer McpsData;
+ByteAddressBuffer PrevMcpsData;
 
 cbuffer cbuf
 {
@@ -84,30 +84,30 @@ void GS(triangle GSin input[3], inout TriangleStream<GSin>GSOut)
 		uint pi = input[0].SubsetID + i;
 
 		//// current ////
-		float3 pos = mupsPositionLoad(MupsData, pi);
-		float2 age = mupsAgeLoad(MupsData, pi);
+		float3 pos = mcpsPositionLoad(McpsData, pi);
+		float2 age = mcpsAgeLoad(McpsData, pi);
 		#if defined(PREVPOS_OUT)
-			float3 ppos = mupsPositionLoad(PrevMupsData, pi);
-			float2 page = mupsAgeLoad(PrevMupsData, pi);
+			float3 ppos = mcpsPositionLoad(PrevMcpsData, pi);
+			float2 page = mcpsAgeLoad(PrevMcpsData, pi);
 		#endif
 
         #if defined(KNOW_SIZE)
-    		float size = mupsSizeLoad(MupsData, pi);
+    		float size = mcpsSizeLoad(McpsData, pi);
 			#if defined(PREVPOS_OUT)
-            	float psize = mupsSizeLoad(PrevMupsData, pi);
+            	float psize = mcpsSizeLoad(PrevMcpsData, pi);
 			#endif
         #endif
         #if defined(KNOW_SCALE)
-    		float3 scale = mupsScaleLoad(MupsData, pi);
+    		float3 scale = mcpsScaleLoad(McpsData, pi);
 			#if defined(PREVPOS_OUT)
-            	float3 pscale = mupsScaleLoad(PrevMupsData, pi);
+            	float3 pscale = mcpsScaleLoad(PrevMcpsData, pi);
 			#endif
         #endif
         #if defined(KNOW_ROTATION)
-    		float4 rot = mupsRotationLoad(MupsData, pi);
+    		float4 rot = mcpsRotationLoad(McpsData, pi);
     		float4x4 rotm = qrot(rot);
 			#if defined(PREVPOS_OUT)
-	    		float4 prot = mupsRotationLoad(PrevMupsData, pi);
+	    		float4 prot = mcpsRotationLoad(PrevMcpsData, pi);
 	    		float4x4 protm = qrot(prot);
 			#endif
         #endif

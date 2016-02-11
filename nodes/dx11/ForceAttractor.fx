@@ -1,5 +1,5 @@
 
-#include "../../../mp.fxh/mupsWrite.fxh"
+#include "../../../mp.fxh/mcpsWrite.fxh"
 #include "../../../mp.fxh/CSThreadDefines.fxh"
 
 RWByteAddressBuffer Outbuf : BACKBUFFER;
@@ -26,7 +26,7 @@ void CSMain(csin input)
 	uint ii=input.DTID.x;
 	uint aii=input.DTID.y;
 
-	float3 pos = mupsPositionLoad(Outbuf, ii);
+	float3 pos = mcpsPositionLoad(Outbuf, ii);
 
 	float4 avel = VelAndInfl[aii%velc];
 
@@ -45,8 +45,8 @@ void CSMain(csin input)
 		float3 force = dir * attr;
 		force += cvel;
 
-        float3 absforce = mupsForceLoad(Outbuf, ii) + force;
-        mupsForceStore(Outbuf, ii, absforce);
+        float3 absforce = mcpsForceLoad(Outbuf, ii) + force;
+        mcpsForceStore(Outbuf, ii, absforce);
 	}
 }
 technique11 csmain { pass P0{SetComputeShader( CompileShader( cs_5_0, CSMain() ) );} }
