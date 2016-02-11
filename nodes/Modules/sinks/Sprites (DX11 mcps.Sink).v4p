@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\sinks\Sprites (DX11 mcps.Sink).v4p" systemname="Sprites (DX11 mcps.Sink)" filename="E:\vvvv\libs\mcropack\packs\mcps\nodes\Modules\sinks\Sprites (DX11 mcps.Sink).v4p" scrollx="0" scrolly="5460">
-   <BOUNDS type="Window" left="15435" top="3615" width="8985" height="6000">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\sinks\Sprites (DX11 mcps.Sink).v4p" systemname="Sprites (DX11 mcps.Sink)" filename="E:\vvvv\libs\mcropack\packs\mcps\nodes\Modules\sinks\Sprites (DX11 mcps.Sink).v4p" scrollx="0" scrolly="4200">
+   <BOUNDS type="Window" left="-19725" top="660" width="8985" height="6000">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
@@ -281,7 +281,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="3825" top="5310" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="20">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="15">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -441,7 +441,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4065" top="6060" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.08">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>

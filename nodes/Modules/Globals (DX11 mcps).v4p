@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\Globals (DX11 mcps).v4p" systemname="Globals (DX11 mcps)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mcps\nodes\Modules\Globals (DX11 mcps).v4p" scrollx="1860" scrolly="6900">
-   <BOUNDS type="Window" left="3090" top="2145" width="21120" height="11955">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\nodes\modules\Globals (DX11 mcps).v4p" systemname="Globals (DX11 mcps)" filename="D:\vvvv\app\vvvv_45beta31.2_x86\packs\mcps\nodes\Modules\Globals (DX11 mcps).v4p" scrollx="0" scrolly="4680">
+   <BOUNDS type="Window" left="-315" top="990" width="21120" height="11955">
    </BOUNDS>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="6">
    <BOUNDS type="Node" left="930" top="5595" width="100" height="100">
@@ -107,7 +107,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9390" top="5925" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="0.75">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -2095,5 +2095,45 @@
    <LINK srcnodeid="215" srcpinname="Children" dstnodeid="216" dstpinname="Input String">
    </LINK>
    <LINK srcnodeid="194" srcpinname="XY" dstnodeid="199" dstpinname="InputXY">
+   </LINK>
+   <NODE systemname="Add (Value Spectral)" nodename="Add (Value Spectral)" componentmode="Hidden" id="217">
+   <BOUNDS type="Node" left="8175" top="7065" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="175" srcpinname="Output" dstnodeid="217" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="218" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="1995" top="15435" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1995" top="15435" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Suggested Size|">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="9">
+   </PIN>
+   </NODE>
+   <NODE systemname="Add (Value)" nodename="Add (Value)" componentmode="Hidden" id="219">
+   <BOUNDS type="Node" left="3615" top="13635" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="217" srcpinname="Output" dstnodeid="219" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="219" srcpinname="Output" dstnodeid="218" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.1.dtd" >
-   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emitters\GeometryFromRawBuffer.v4p" systemname="GeometryFromRawBuffer" filename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emitters\GeometryFromRawBuffer.v4p" scrollx="3675" scrolly="8610">
+   <PATCH nodename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emitters\GeometryFromRawBuffer.v4p" systemname="GeometryFromRawBuffer" filename="E:\vvvv\libs\mcropack\packs\mcps\girlpower\Emitters\GeometryFromRawBuffer.v4p" scrollx="240" scrolly="2295">
    <BOUNDS type="Window" left="18540" top="4335" width="14205" height="13440">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
@@ -34,6 +34,8 @@
    <PIN pinname="Know Size" visible="1">
    </PIN>
    <PIN pinname="Speed" visible="1">
+   </PIN>
+   <PIN pinname="Know Rotation" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="4" systemname="IOBox (Value Advanced)">
@@ -245,7 +247,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="8655" top="9885" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="3" visible="1" values="0,0,0.09">
+   <PIN pinname="Y Input Value" slicecount="3" visible="1" values="0,0,0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -701,7 +703,7 @@
    </BOUNDS>
    <PIN pinname="Input 2" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -785,7 +787,7 @@
    </PIN>
    <PIN pinname="Layer In" visible="1">
    </PIN>
-   <PIN pinname="Enable Color" slicecount="1" values="0">
+   <PIN pinname="Enable Color" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -1387,6 +1389,8 @@
    </PIN>
    <PIN pinname="ID" pintype="Output" visible="-1">
    </PIN>
+   <PIN pinname="Output Strides" visible="1">
+   </PIN>
    </NODE>
    <NODE id="159" systemname="Skinning (DX11.GeomFX)" filename="..\..\..\mp.dx\nodes\geom11\Skinning.gsfx" nodename="Skinning (DX11.GeomFX)" componentmode="Hidden" hiddenwhenlocked="0" managers="">
    <BOUNDS type="Node" left="3405" top="4785" width="100" height="100">
@@ -1525,15 +1529,13 @@
    <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="165">
    <BOUNDS type="Node" left="6090" top="5055" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Input 2" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="158" srcpinname="Strides" dstnodeid="165" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="165" srcpinname="Output" dstnodeid="98" dstpinname="Num Of Floats Per-Vertex">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="166" systemname="IOBox (Value Advanced)">
@@ -1571,5 +1573,25 @@
    <LINK srcnodeid="167" srcpinname="Y Output Value" dstnodeid="50" dstpinname="Enabled">
    </LINK>
    <LINK srcnodeid="167" srcpinname="Y Output Value" dstnodeid="44" dstpinname="Enabled">
+   </LINK>
+   <LINK srcnodeid="158" srcpinname="Output Strides" dstnodeid="165" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="168" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2490" top="6135" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2490" top="6135" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="168" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Know Rotation">
    </LINK>
    </PATCH>
